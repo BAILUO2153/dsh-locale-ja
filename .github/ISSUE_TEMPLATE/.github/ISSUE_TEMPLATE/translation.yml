@@ -1,0 +1,111 @@
+name: Japanese translation issue
+description: Report missing, incorrect, awkward, or layout-breaking Japanese UI text
+title: "[Translation] "
+labels:
+  - translation
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        日本語表示に関する問題をご報告いただきありがとうございます。
+
+        Please use this form for missing translations, inaccurate wording,
+        unnatural Japanese, terminology issues, or Japanese text that causes
+        UI layout problems.
+
+        If the problem occurs even when using English or Chinese and is not
+        specific to this localization plugin, it may belong to the upstream
+        DeepSeek Harness project instead.
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DeepSeek Harness version
+      description: The exact DeepSeek Harness version where the translation issue occurs.
+      placeholder: "0.2.0-rc.2"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version / commit
+      description: Plugin version, commit SHA, or branch name.
+      placeholder: "compat/dsh-0.2.0-rc.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - DeepSeek Harness Desktop
+        - DeepSeek Harness Web
+        - Both
+        - Unknown
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Screen / UI location
+      description: Where is the text shown?
+      placeholder: "Settings → Language / sidebar / plugin manager / conversation view"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-text
+    attributes:
+      label: Current Japanese text
+      description: Copy the Japanese text currently shown in the UI.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-text
+    attributes:
+      label: Suggested Japanese text
+      description: If you have a better translation, enter it here. This field is optional.
+
+  - type: textarea
+    id: source-text
+    attributes:
+      label: Original English / Chinese text
+      description: Provide the upstream source text if known.
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Translation issue type
+      options:
+        - Missing translation
+        - Incorrect meaning
+        - Unnatural Japanese
+        - Terminology inconsistency
+        - Text overflow / wrapping / layout
+        - Placeholder or variable issue
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Screenshot / context
+      description: |
+        Drag screenshots here or explain the surrounding UI context.
+        Do not include API keys, tokens, authentication URLs, or other sensitive information.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I confirmed that the problem is specific to the Japanese localization or Japanese UI layout.
+          required: true
+        - label: I removed API keys, tokens, authentication URLs, and other sensitive information.
+          required: true
