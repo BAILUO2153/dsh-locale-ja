@@ -1,0 +1,111 @@
+name: Bug report
+description: Report a bug in the Japanese localization plugin
+title: "[Bug] "
+labels:
+  - bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        dsh-locale-ja の不具合報告ありがとうございます。
+
+        Please provide enough information to reproduce the issue.
+        If the problem is caused by DeepSeek Harness itself rather than this plugin,
+        it may need to be reported to the upstream project.
+
+        API keys, authentication URLs, tokens, or other sensitive information
+        must not be included in this issue.
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DeepSeek Harness version
+      description: The exact DeepSeek Harness version where the issue occurs.
+      placeholder: "0.2.0-rc.2"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version / commit
+      description: Plugin version, commit SHA, or branch name.
+      placeholder: "compat/dsh-0.2.0-rc.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where does the issue occur?
+      options:
+        - DeepSeek Harness Desktop
+        - DeepSeek Harness Web
+        - Both
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: Include the OS version when possible.
+      placeholder: "macOS 27 / Windows 11 / Linux"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Describe the minimum steps needed to reproduce the problem.
+      placeholder: |
+        1. Open Settings
+        2. Select Language
+        3. Choose 日本語
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      description: |
+        Paste relevant logs or drag screenshots here.
+        Remove API keys, tokens, authentication URLs, and other sensitive information.
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other information that may help diagnose the issue.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I confirmed that this issue is related to dsh-locale-ja rather than an unrelated DeepSeek Harness problem.
+          required: true
+        - label: I removed API keys, tokens, authentication URLs, and other sensitive information.
+          required: true
