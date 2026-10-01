@@ -1,0 +1,120 @@
+name: DeepSeek Harness compatibility issue
+description: Report installation, loading, API, or runtime compatibility problems with a DeepSeek Harness release
+title: "[Compatibility] "
+labels:
+  - compatibility
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when a DeepSeek Harness release changes plugin installation,
+        loading, locale APIs, translation keys, or runtime behavior.
+
+        Please provide the exact DSH version whenever possible.
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DeepSeek Harness version
+      description: Exact version that introduced or reproduces the problem.
+      placeholder: "0.2.0-rc.2"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version / commit
+      description: Plugin version, commit SHA, or branch name.
+      placeholder: "compat/dsh-0.2.0-rc.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - DeepSeek Harness Desktop
+        - DeepSeek Harness Web
+        - Both
+        - Unknown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: problem-type
+    attributes:
+      label: Problem type
+      options:
+        - Plugin installation rejected
+        - Peer dependency incompatibility
+        - Plugin fails to load
+        - 日本語 is missing from Language settings
+        - Locale API incompatibility
+        - Translation namespace drift
+        - Translation key drift
+        - Runtime crash
+        - Settings page failure
+        - Language persistence failure
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error message / logs
+      description: |
+        Paste the original error message or relevant logs.
+        Remove tokens, API keys, authentication URLs, and other sensitive information.
+      render: shell
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Install plugin through ...
+        2. Start DeepSeek Harness ...
+        3. Open Settings → Language ...
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: previous-version
+    attributes:
+      label: Last known working DSH version
+      description: If known, specify the last DeepSeek Harness version where the plugin worked.
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Links to upstream releases, issues, commits, screenshots, or other useful evidence.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked whether this problem may originate from DeepSeek Harness itself.
+          required: true
+        - label: I removed API keys, tokens, authentication URLs, and other sensitive information.
+          required: true
