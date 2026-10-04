@@ -1,9 +1,20 @@
 /**
- * Japanese dictionaries for every locale namespace DSH registers, typed
+ * Japanese dictionaries for the 42 reviewed DSH locale namespaces, typed
  * against each namespace's shipped key union — key drift is a compile
  * error. Placeholders ({name}) are preserved verbatim.
  */
-import type { LocaleDictOf } from "@deepseek-ai/dsh-client-ui-slots";
+import type {
+  LocaleDictOf as CompleteLocaleDictOf,
+  LocaleNamespaceMap,
+} from "@deepseek-ai/dsh-client-ui-slots";
+import type { ExpectedMissing } from "./expected-missing.ts";
+
+// Only reviewed gaps are optional. Any other new upstream key still fails tsc.
+type LocaleDictOf<N extends keyof LocaleNamespaceMap & keyof ExpectedMissing> = Omit<
+  CompleteLocaleDictOf<N>,
+  ExpectedMissing[N][number]
+>;
+
 // common, settings.locale
 import type {} from "@deepseek-ai/dsh-client-locale/client";
 // settings.agentPreset
@@ -73,7 +84,7 @@ import type {} from "@deepseek-ai/dsh-client-ui-trajectory/client";
 // The namespaces below ship no key union through their `exports`; each key
 // set is copied from the named package, and `pnpm drift` is the only check
 // that sees their upstream drift.
-/** Keys of @deepseek-ai/dsh-client-ui-trajectory@0.1.5-rc.2 (union lives in a declaration the package's `exports` never exposes). */
+/** Keys of @deepseek-ai/dsh-client-ui-trajectory@0.2.0-rc.2 (union lives in a declaration the package's `exports` never exposes). */
 type TrajectoryKey =
   | "view.trajectory"
   | "toolbar.aria"
@@ -184,6 +195,13 @@ type TrajectoryKey =
   | "record.payloadJson"
   | "record.outputJson"
   | "record.thinking"
+  | "record.wrapLines"
+  | "code.source"
+  | "code.output"
+  | "code.copySource"
+  | "code.copyOutput"
+  | "code.originalJson"
+  | "code.running"
   | "record.systemPromptMissing"
   | "record.toolsMissing"
   | "record.systemPrompt"
@@ -243,15 +261,25 @@ type TrajectoryKey =
   | "layout.compactionFailed"
   | "layout.compacted"
   | "layout.toolCallOnly"
-  | "layout.imageOnly"
+  | "attachment.list"
+  | "attachment.imageName"
+  | "layout.imageCount"
   | "layout.fileAttachments"
   | "layout.initialSystemPrompt"
   | "layout.systemPromptUpdated"
   | "layout.toolsUpdated"
+  | "layout.toolAdded"
+  | "layout.toolRemoved"
+  | "layout.toolUpdateNotice"
+  | "layout.toolsAdded"
+  | "layout.toolsAddedCount"
+  | "layout.toolsChanged"
+  | "layout.toolsRemoved"
+  | "layout.toolsRemovedCount"
   | "layout.systemPromptAndToolsUpdated"
   | "layout.compactionInterrupted";
 
-/** Keys of @deepseek-ai/dsh-client-ui-directory-picker-browse@0.1.5-rc.2 (registers through the untyped overload, no namespace merge). */
+/** Keys of @deepseek-ai/dsh-client-ui-directory-picker-browse@0.2.0-rc.2 (registers through the untyped overload, no namespace merge). */
 type DirectoryBrowserKey =
   | "browser.title"
   | "browser.home"
@@ -267,8 +295,10 @@ type DirectoryBrowserKey =
   | "browser.truncated"
   | "browser.showHidden";
 
-/** Keys of @deepseek-ai/dsh-client-ui-permission-presets@0.1.5-rc.2 (registers through the untyped overload). */
+/** Keys of @deepseek-ai/dsh-client-ui-permission-presets@0.2.0-rc.2 (registers through the untyped overload). */
 type PermissionAccessKey =
+  | "mode"
+  | "close"
   | "preset.readOnly"
   | "preset.workspaceWrite"
   | "preset.fullAccess"
@@ -276,17 +306,25 @@ type PermissionAccessKey =
   | "confirm.description"
   | "confirm.acknowledge"
   | "confirm.cancel"
-  | "confirm.enable";
+  | "confirm.enable"
+  | "auto.label"
+  | "auto.badge"
+  | "auto.description"
+  | "auto.confirm.title"
+  | "auto.confirm.description"
+  | "auto.confirm.acknowledge"
+  | "auto.confirm.enable";
 
-/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.1.5-rc.2 (registers through the untyped overload). */
+/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.2.0-rc.2 (registers through the untyped overload). */
 type DocumentHtmlKey = "title" | "frame" | "loading" | "failed";
 
-/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.1.5-rc.2 (registers through the untyped overload). */
+/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.2.0-rc.2 (registers through the untyped overload). */
 type DocumentMarkdownKey = "viewer.label" | "code.copy" | "code.copied" | "footnotes";
 
-/** Keys of @deepseek-ai/dsh-client-ui-reference@0.1.5-rc.2 (registers through the untyped overload). */
+/** Keys of @deepseek-ai/dsh-client-ui-reference@0.2.0-rc.2 (registers through the untyped overload). */
 type ReferenceKey =
   | "section.files"
+  | "section.subagents"
   | "section.sessions"
   | "candidate.noCwd"
   | "crumb.root"
@@ -297,14 +335,31 @@ type ReferenceKey =
   | "time.months"
   | "time.years";
 
-/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.1.5-rc.2 (registers through the untyped overload). */
+/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.2.0-rc.2 (registers through the untyped overload). */
 type SidebarCodePreviewKey = "title" | "copy" | "copied";
 
-/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.1.5-rc.2 (registers through the untyped overload). */
-type SidebarImageKey = "title" | "preview" | "loading" | "failed" | "unsupported";
+/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.2.0-rc.2 (registers through the untyped overload). */
+type SidebarImageKey =
+  | "zoomControls"
+  | "zoomMenu"
+  | "zoomOut"
+  | "zoomIn"
+  | "zoomFitWidth"
+  | "zoomValue"
+  | "title"
+  | "preview"
+  | "loading"
+  | "failed"
+  | "unsupported";
 
-/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.1.5-rc.2 (registers through the untyped overload). */
+/** Keys of @deepseek-ai/dsh-client-ui-sidebar-documentpreview@0.2.0-rc.2 (registers through the untyped overload). */
 type SidebarPdfKey =
+  | "zoomControls"
+  | "zoomMenu"
+  | "zoomOut"
+  | "zoomIn"
+  | "zoomFitWidth"
+  | "zoomValue"
   | "title"
   | "pageImage"
   | "loading"
@@ -348,7 +403,6 @@ const chat: LocaleDictOf<"chat"> = {
   "chat.turnNavigation.turn": "ターン {turn}",
   "settings.transcript.title": "会話の表示",
   "settings.transcript.description": "完了したターンの処理過程の表示方法を選択します",
-  "settings.transcript.normal": "標準",
   "settings.transcript.compact": "コンパクト",
   "fileOpen.title": "ファイルを開けませんでした",
   "fileOpen.unknown": "このファイルを開けませんでした",
@@ -401,7 +455,6 @@ const chat: LocaleDictOf<"chat"> = {
   "message.maxTokens": "出力トークン上限に達しました",
   "message.maxTokens.hint":
     "回答が途中で打ち切られました。これまでの出力は会話に保持されています。「続けて」と送信すると、モデルが続きを出力します。",
-  "message.ranFor": "所要時間 {duration}",
   "message.tokensPerSecond": "{tps} tok/s",
   "message.turnUsage.title": "このターンの使用量",
   "message.turnUsage.consumed": "使用量 {total}",
@@ -413,12 +466,6 @@ const chat: LocaleDictOf<"chat"> = {
   "message.turnUsage.output": "出力",
   "message.turnUsage.reasoning": "（うち推論 {tokens}）",
   "message.turnUsage.count": "{count} tok",
-  "message.turnTime.title": "このターンの所要時間と速度",
-  "message.turnTime.duration": "総実行時間",
-  "message.turnTime.speed": "出力速度（TPS）",
-  "message.turnTime.ttft": "最初のトークンまでの時間（TTFT）",
-  "duration.seconds": "{seconds}秒",
-  "duration.minutes": "{minutes}分{seconds}秒",
   "command.running": "実行中",
   "command.failed": "コマンド失敗",
   "command.done": "完了",
@@ -428,6 +475,98 @@ const chat: LocaleDictOf<"chat"> = {
   "json.truncated": " 以下は省略（全 {total} 文字）",
   "clock.md": "{m}月{d}日",
   "clock.ymd": "{y}年{m}月{d}日",
+  "message.stepProcess.thinking": "リクエストを分析中",
+  "message.stepProcess.read": "ファイルを読み込み中",
+  "message.stepProcess.readImage": "画像を読み込み中",
+  "message.stepProcess.write": "ファイルを書き込み中",
+  "message.stepProcess.search": "コードを検索中",
+  "message.stepProcess.edit": "ファイルを編集中",
+  "message.stepProcess.commands": "コマンドを実行中",
+  "message.stepProcess.code": "コードを実行中",
+  "message.stepProcess.webSearch": "ウェブを検索中",
+  "message.stepProcess.webFetch": "ウェブページにアクセス中",
+  "message.stepProcess.subagents": "サブエージェントを調整中",
+  "message.stepProcess.plan": "プランを更新中",
+  "message.stepProcess.questions": "操作待ち",
+  "message.stepProcess.tools": "ツールを呼び出し中",
+  "message.stepProcess.prepare.read": "ファイル読み込みを準備中",
+  "message.stepProcess.prepare.readImage": "画像読み込みを準備中",
+  "message.stepProcess.prepare.write": "ファイル書き込みを準備中",
+  "message.stepProcess.prepare.search": "コード検索を準備中",
+  "message.stepProcess.prepare.edit": "ファイル編集を準備中",
+  "message.stepProcess.prepare.commands": "コマンド実行を準備中",
+  "message.stepProcess.prepare.code": "コード実行を準備中",
+  "message.stepProcess.prepare.webSearch": "ウェブ検索を準備中",
+  "message.stepProcess.prepare.webFetch": "ウェブページへのアクセスを準備中",
+  "message.stepProcess.prepare.subagents": "サブエージェントの調整を準備中",
+  "message.stepProcess.prepare.plan": "プラン更新を準備中",
+  "message.stepProcess.prepare.questions": "質問を準備中",
+  "message.stepProcess.prepare.tools": "ツール呼び出しを準備中",
+  "message.stepProcess.done.thinking": "分析が完了",
+  "message.stepProcess.done.read": "ファイルを読み込み済み",
+  "message.stepProcess.done.readImage": "画像を読み込み済み",
+  "message.stepProcess.done.write": "ファイルを書き込み済み",
+  "message.stepProcess.done.search": "コードを検索済み",
+  "message.stepProcess.done.edit": "ファイルを編集済み",
+  "message.stepProcess.done.commands": "コマンドを実行済み",
+  "message.stepProcess.done.code": "コードを実行済み",
+  "message.stepProcess.done.webSearch": "ウェブを検索済み",
+  "message.stepProcess.done.webFetch": "ウェブページにアクセス済み",
+  "message.stepProcess.done.subagents": "サブエージェントを調整済み",
+  "message.stepProcess.done.plan": "プランを更新済み",
+  "message.stepProcess.done.questions": "質問済み",
+  "message.stepProcess.done.tools": "ツールを呼び出し済み",
+  "message.stepProcess.joinTwo": "{first}、{second}",
+  "message.stepProcess.comma": "、",
+  "message.stepProcess.sharedPrefix": "",
+  "message.stepProcess.more": "{title}など",
+  "message.trigger.request": "実行リクエストを受信",
+  "message.trigger.goal": "目標の実行を継続",
+  "message.trigger.agent": "タスクメッセージを受信",
+  "message.trigger.team": "チームメッセージを受信",
+  "message.trigger.subagent": "サブタスクの状態が更新",
+  "message.trigger.github": "GitHubイベントを受信",
+  "message.trigger.webhook": "外部イベントを受信",
+  "message.trigger.schedule": "自動化タスク",
+  "message.trigger.job": "バックグラウンドタスクが更新",
+  "message.trigger.plugin": "プラグインの状態が更新",
+  "message.trigger.explanation": "この通知をきっかけに、この応答が生成されました。",
+  "message.turnProcess.worked": "完了",
+  "message.turnProcess.took": "完了・所要時間 ",
+  "message.turnProcess.failed": "失敗",
+  "image.open": "画像を拡大表示",
+  "image.loading": "画像を読み込み中…",
+  "image.failed": "画像をプレビューできません",
+  "image.dialog": "画像プレビュー",
+  "image.close": "画像プレビューを閉じる",
+  "chat.deepDivingFor": "詳しく調査中（{duration}）···",
+  "settings.performance.title": "パフォーマンスと使用量",
+  "settings.performance.description": "表示するパフォーマンスと使用量の情報量を選択します",
+  "settings.performance.compact": "コンパクト",
+  "settings.performance.detailed": "詳細",
+  "settings.links.title": "チャット内のリンクを開く場所",
+  "settings.links.description": "ウェブリンクを開く場所を選択します",
+  "settings.links.sidebar": "アプリ内サイドバー",
+  "settings.links.newTab": "既定のブラウザー",
+  "settings.transcript.standard": "標準",
+  "settings.transcript.detailed": "詳細",
+  "settings.transcript.verbose": "すべて展開",
+  "message.toolAdded": "ツールを追加：{name}",
+  "message.toolRemoved": "ツールを削除：{name}",
+  "message.toolsAdded": "追加：{names}",
+  "message.toolsAddedCount": "{count} 件追加",
+  "message.toolsChanged": "{added} 件追加、{removed} 件削除",
+  "message.toolsRemoved": "削除：{names}",
+  "message.toolsRemovedCount": "{count} 件削除",
+  "message.toolsUpdated": "ツールを更新",
+  "message.accountStopped": "タスクを停止",
+  "message.failure.accountSignedOut": "DeepSeekからサインアウトしたため停止しました。",
+  "message.failure.accountSignInRequired":
+    "DeepSeekにサインインし、リクエストの送信先がアカウント認証に対応していることを確認してください。",
+  "message.failure.quota": "リクエスト上限に達しました。",
+  "duration.secondUnit": "秒",
+  "duration.minuteUnit": "分",
+  "duration.hourUnit": "時間",
 };
 
 const command: LocaleDictOf<"command"> = {
@@ -481,8 +620,6 @@ const common: LocaleDictOf<"common"> = {
   unknown: "不明",
   none: "なし",
   truncated: "省略されています",
-  "json.collapseNode": "JSON ノードを折りたたむ",
-  "json.expandNode": "JSON ノードを展開",
   "json.label": "JSON",
   "markdown.footnotes": "脚注",
   "markdown.truncatedCharacters": "… 以下は省略（全 {total} 文字）",
@@ -508,7 +645,6 @@ const conversation: LocaleDictOf<"conversation"> = {
   "input.send": "メッセージを送信",
   "input.send.queue": "キューに追加",
   "input.send.steer": "割り込み送信",
-  "input.accessMode": "アクセスモード、現在：{name}",
   "attachment.pending": "添付待ちのファイル",
   "attachment.scrollLeft": "添付ファイルを左へスクロール",
   "attachment.scrollRight": "添付ファイルを右へスクロール",
@@ -536,7 +672,6 @@ const conversation: LocaleDictOf<"conversation"> = {
     "現在のモデルは画像に対応していません。画像対応のモデルに切り替えてください",
   "image.sendFailed":
     "画像の送信に失敗しました（{reason}）。画像を再度追加してから送信してください",
-  "file.attach": "添付ファイルを追加",
   "file.pending": "送信待ちのファイル",
   "file.remove": "ファイル {name} を削除",
   "file.uploading": "アップロード中…",
@@ -556,15 +691,6 @@ const conversation: LocaleDictOf<"conversation"> = {
     "エージェント実行中の Enter キーと送信ボタンの動作。Cmd/Ctrl+Enter はもう一方の動作になります",
   "settings.enter.queue": "キューに追加",
   "settings.enter.steer": "割り込み送信",
-  "access.preset.readOnly": "閲覧のみ",
-  "access.preset.workspaceWrite": "ワークスペース内の書き込み",
-  "access.preset.fullAccess": "フルアクセス",
-  "access.confirm.title": "フルアクセスを有効にしますか？",
-  "access.confirm.description":
-    "フルアクセスを有効にすると、エージェントの確認ステップが減り、機密性の高い操作、ファイル変更、外部コマンドを含むより多くの操作を直接実行できるようになります。現在のタスクを信頼できる場合にのみ使用してください。",
-  "access.confirm.acknowledge": "リスクを理解した上で続行します",
-  "access.confirm.cancel": "キャンセル",
-  "access.confirm.enable": "フルアクセスを有効化",
   "hero.headline": "未知なるものへ",
   "hero.preview": "プレビュー",
   "hero.chooseWorkspace": "ワークスペースを選択",
@@ -611,8 +737,6 @@ const conversation: LocaleDictOf<"conversation"> = {
   "tool.title.glob": "Glob",
   "tool.title.webSearch": "検索",
   "tool.title.webFetch": "Web 取得",
-  "diff.files.one": "{count} 個のファイル",
-  "diff.files.other": "{count} 個のファイル",
   "diff.collapseAria": "差分を折りたたむ",
   "diff.expandAria": "残り {count} 行の差分を展開",
   "diff.expandRest": "… 残り {count} 行",
@@ -727,12 +851,6 @@ const deliverables: LocaleDictOf<"deliverables"> = {
   "presented.unavailable": "このホストにはファイルやフォルダーを開けるデスクトップがありません",
   "presented.retry": "再試行",
   "presented.hostError": "ホストのデスクトップ情報を読み取れませんでした",
-  "presented.directory": "親フォルダーを開く",
-  "presented.explorer": "エクスプローラーで表示",
-  "presented.finder": "Finder で表示",
-  "presented.defaultApp": "デフォルトのアプリで開く",
-  "presented.more": "{name} のその他のファイル操作",
-  "presented.action": "開く",
   "presented.preview": "サイドバーでプレビュー",
   "presented.previewButton": "{name} をサイドバーで開く",
   "presented.previewCard": "{name} をサイドバーでプレビュー",
@@ -750,14 +868,12 @@ const deliverables: LocaleDictOf<"deliverables"> = {
   "row.error": "提示に失敗",
   "row.stopped": "中断済み",
   "row.inspect": "呼び出しを見る",
-  "presented.open": "{name} をデフォルトのアプリで開く",
-  "produced.label": "変更ファイル",
-  "produced.moreOne": "+ 1 件のファイル",
-  "produced.more": "+ {count} 件のファイル",
-  "produced.open": "{name} を開く",
 };
 
-const directoryBrowser: Record<DirectoryBrowserKey, string> = {
+const directoryBrowser: Omit<
+  Record<DirectoryBrowserKey, string>,
+  ExpectedMissing["directory-browser"][number]
+> = {
   "browser.title": "ワークスペースディレクトリを選択",
   "browser.home": "ホーム",
   "browser.newFolder": "新規フォルダー",
@@ -773,14 +889,20 @@ const directoryBrowser: Record<DirectoryBrowserKey, string> = {
   "browser.showHidden": "隠しファイルを表示",
 };
 
-const documentHtml: Record<DocumentHtmlKey, string> = {
+const documentHtml: Omit<
+  Record<DocumentHtmlKey, string>,
+  ExpectedMissing["documentHtml"][number]
+> = {
   title: "HTML",
   frame: "HTML ドキュメントのプレビュー",
   loading: "HTML プレビューを準備中…",
   failed: "この HTML ドキュメントはプレビューできませんでした。",
 };
 
-const documentMarkdown: Record<DocumentMarkdownKey, string> = {
+const documentMarkdown: Omit<
+  Record<DocumentMarkdownKey, string>,
+  ExpectedMissing["documentMarkdown"][number]
+> = {
   "viewer.label": "Markdown",
   "code.copy": "コピー",
   "code.copied": "コピーしました",
@@ -846,10 +968,6 @@ const job: LocaleDictOf<"job"> = {
 const model: LocaleDictOf<"model"> = {
   "command.description": "この会話で使用するモデルを選択",
   "option.loadError": "カタログの読み込みに失敗しました：{message}",
-  "option.deepseekV4Flash.description":
-    "高速・高効率・低コスト。目的がはっきりした定型タスクや並列タスクに適しています。",
-  "option.deepseekV4Pro.description":
-    "自律的なコーディング、知識の活用、難しい問題の推論に優れています。複雑なタスクや品質重視のタスクに適していますが、コストは高めです。",
   "trigger.fallback": "モデルを選択",
   "trigger.loading": "モデルを読み込み中…",
   "trigger.selectAria": "モデルを選択",
@@ -864,16 +982,12 @@ const model: LocaleDictOf<"model"> = {
   "action.reload": "再読み込み",
   "warning.groupLoad": "{name} の読み込みに失敗しました：{message}",
   "empty.models": "利用可能なモデルがありません。",
-  "blocked.composer": "現在のモデルは利用できません。先にモデルを選択してください",
   "empty.efforts": "このモデルには思考レベルが設定されていません。",
 };
 
 const openInApp: LocaleDictOf<"open-in-app"> = {
   "open.title": "{app} でワークスペースを開く",
   "open.tooltip": "ローカルで開く",
-  "open.error": "開けませんでした",
-  "menu.toggle": "開くアプリを選択",
-  "menu.aria": "開き方",
   "app.cursor": "Cursor",
   "app.vscode": "VS Code",
   "app.vscodeinsiders": "VS Code Insiders",
@@ -910,7 +1024,10 @@ const openInApp: LocaleDictOf<"open-in-app"> = {
   "app.terminal": "ターミナル",
 };
 
-const permissionAccess: Record<PermissionAccessKey, string> = {
+const permissionAccess: Omit<
+  Record<PermissionAccessKey, string>,
+  ExpectedMissing["permission.access"][number]
+> = {
   "preset.readOnly": "閲覧のみ",
   "preset.workspaceWrite": "ワークスペース内の書き込み",
   "preset.fullAccess": "フルアクセス",
@@ -926,8 +1043,6 @@ const plan: LocaleDictOf<"plan"> = {
   "chip.label": "プラン",
   "chip.on.aria": "プランモードはオンです。押してオフにします",
   "chip.on.title": "プランモードはオン。クリックでオフ（/plan off）",
-  "chip.off.aria": "プランモードはオフです。押してオンにします",
-  "chip.off.title": "プランモードはオフ。クリックでオン（/plan）",
   "chip.exitFailed": "プランモードから抜けられませんでした",
 };
 
@@ -949,7 +1064,7 @@ const question: LocaleDictOf<"question"> = {
   "plan.discuss": "チャットで相談",
 };
 
-const reference: Record<ReferenceKey, string> = {
+const reference: Omit<Record<ReferenceKey, string>, ExpectedMissing["reference"][number]> = {
   "section.files": "ファイルとフォルダー",
   "section.sessions": "セッション",
   "candidate.noCwd": "（作業ディレクトリなし）",
@@ -966,8 +1081,6 @@ const scheduleCatalog: LocaleDictOf<"schedule.catalog"> = {
   "trigger.one": "{count} 件のリマインダー",
   "trigger.other": "{count} 件のリマインダー",
   "list.aria": "有効なリマインダー",
-  "status.scheduled": "待機中",
-  "status.overdue": "期限超過",
   "frequency.once": "1 回のみ",
   "frequency.every": "{value} {unit}ごと",
   "unit.day.one": "日",
@@ -1004,22 +1117,50 @@ const settings: LocaleDictOf<"settings"> = {
   "openDocument.error": "設定ファイルを開けませんでした",
   "general.nav": "一般",
   "connection.error": "接続エラー",
-  "connection.retry": "今すぐ再接続",
   "connection.connecting": "再接続中",
   "connection.connected": "接続済み",
   "connection.reconnect": "接続エラー。今すぐ再接続",
   "connection.restart": "接続が切断され、自動再試行中です。クリックで今すぐ再接続",
+  "shortcut.open": "設定を開く",
+  "desktop.update.available": "更新",
+  "desktop.update.checking": "更新を確認中…",
+  "desktop.update.progress": "{percent}%",
+  "desktop.update.verifying": "更新ファイルを検証中…",
+  "desktop.update.installing": "再起動を準備中…",
+  "desktop.update.ready": "インストールして再起動",
+  "desktop.update.retry": "更新を再試行",
+  "desktop.update.versionDetail": "{label}：{version}",
+  "desktop.update.downloadDetail":
+    "更新をダウンロード中：{percent}%\n更新先のバージョン：{version}",
+  "desktop.update.checkFailed": "更新を確認できませんでした。しばらくしてから再試行してください。",
+  "desktop.update.downloadFailed": "更新をダウンロードできませんでした。再試行してください。",
+  "desktop.update.installFailed":
+    "更新をインストールできませんでした。しばらくしてから再試行してください。",
+  "desktop.update.checkNetworkFailed":
+    "更新を確認できませんでした。接続を確認して再試行してください。",
+  "desktop.update.downloadNetworkFailed":
+    "更新をダウンロードできませんでした。接続を確認して再試行してください。",
+  "desktop.update.installNetworkFailed":
+    "更新をインストールできませんでした。接続を確認して再試行してください。",
+  "desktop.update.stopFailed":
+    "タスクを安全に停止できませんでした。更新はインストールされていません。しばらくしてから再試行してください。",
+  "desktop.update.tasksChanged":
+    "新しいタスクが開始されました。タスクを停止して更新するには、もう一度確認してください。",
+  "desktop.update.tasksUnavailable":
+    "タスクの状態を取得できません。ワークスペースの準備ができたら、更新を再試行してください。",
+  "general.currentVersion": "現在のバージョン：{version}",
+  "developerTools.title": "コーディングビューを表示",
+  "developerTools.error": "保存できませんでした。再試行してください。",
+  "developerTools.description":
+    "トレース、コードの差分、すべてのエージェントプリセットを表示します",
 };
 
 const settingsAgentPreset: LocaleDictOf<"settings.agentPreset"> = {
-  error: "エージェントプリセットを読み込めません。",
-  userTrust: "カスタム",
   seatHint: "次に開始するセッションで使用するエージェントプリセット",
   headerHint: "このセッションで実行中のエージェントプリセット（開始時に固定）",
   nav: "プリセット",
   sectionIntro:
     "プリセットとは、セッションのエージェントが実行するプラグイン構成（ツール、プロンプト、能力）です。既存のプリセットをコピーして自分用に編集するか、クリエイターモードでエージェントに作成させることができます。",
-  builtIn: "ビルトイン",
   setDefault: "デフォルトに設定",
   view: "表示",
   presetStandardName: "スタンダード",
@@ -1034,42 +1175,14 @@ const settingsAgentPreset: LocaleDictOf<"settings.agentPreset"> = {
   presetCordisName: "クリエイター",
   presetCordisDescription:
     "カスタムエージェントプリセットの作成向け。スタンダードモードの全能力に加え、実行時インスペクト、プラグイン実験、プリセット作成のガイダンスを提供します。",
-  duplicate: "複製",
-  duplicateUnavailable: "このデプロイでは書き込み可能なプリセットディレクトリが設定されていません",
-  delete: "削除",
-  presetId: "ID",
-  presetIdPlaceholder: "my-agent",
-  displayName: "名称",
-  displayNamePlaceholder: "セレクターに表示する名前（未設定の場合は ID を表示）",
   inUse: "使用中",
   builtInGroup: "ビルトイン",
   customGroup: "カスタム",
   noDescription: "説明はありません。",
   brokenBadge: "読み込み失敗",
-  brokenNoCopy: "プリセットの読み込みに失敗したためコピーできません",
   switchRefused: "{name} に切り替えられませんでした：{reason}",
-  copyOf: "複製元",
-  composition: "構成（agent.cordis.yml）",
-  cancel: "キャンセル",
   close: "閉じる",
-  retry: "再試行",
-  copyTitle: "プリセットを複製",
-  copyIntro:
-    "このマシンにプリセット全体を複製します。プリセット ID は保存先のディレクトリ名となり、後から変更できません。その他の設定は、複製したプリセットのファイルを直接編集してください。",
-  create: "作成",
-  creating: "作成中",
   creatorDraft: "クリエイターモードでカスタムプリセットを作成",
-  openLocation: "ディレクトリを開く",
-  showLocation: "パスを表示",
-  revealedPathLabel: "プリセットファイル：",
-  idRequired: "ID を入力してください。",
-  idInvalid: "使用できるのは小文字、数字、ハイフンのみで、先頭は文字または数字にしてください。",
-  idTaken: "この ID はすでに使用されています。",
-  deleteTitle: "このプリセットを削除しますか？",
-  deleteDescription:
-    "プリセットのディレクトリが削除されます。すでにこのプリセットで実行中のセッションには影響しませんが、新規セッションでは選択できなくなります。",
-  deleteConfirm: "削除",
-  deleting: "削除中",
 };
 
 const settingsLocale: LocaleDictOf<"settings.locale"> = {
@@ -1142,8 +1255,6 @@ const settingsModels: LocaleDictOf<"settings.models"> = {
     "その他のフィールドは settings.yaml にあります。該当セクションを直接編集してください。",
   modelCapacityInvalid: "容量は数値で指定してください。末尾に K または M を付けられます。",
   modelDuplicate: "モデル ID は重複できません。",
-  modelContextWindow: "コンテキストウィンドウ",
-  modelMaxTokens: "最大出力トークン数",
   fetchModels: "利用可能なモデルを取得",
   fetching: "プロバイダーに問い合わせ中",
   fetchNeedsBaseUrl: "先にエンドポイントを入力してから取得してください。",
@@ -1156,8 +1267,6 @@ const settingsModels: LocaleDictOf<"settings.models"> = {
   fetchSelectAll: "すべて選択",
   fetchDeselectAll: "すべて解除",
   fetchAdopt: "選択した項目を追加",
-  customAdd: "カスタムプロバイダーを追加",
-  customTitle: "カスタムプロバイダー",
   customTag: "カスタム",
   customRoute: "プロバイダー ID",
   customRouteHint:
@@ -1185,6 +1294,25 @@ const settingsModels: LocaleDictOf<"settings.models"> = {
   onboardingSave: "保存して続行",
   onboardingSaving: "保存中",
   keyRequired: "続行するには API キーを入力してください。",
+  deepSeekAccount: "DeepSeekアカウント",
+  addMode: "追加方法",
+  addCatalog: "サードパーティーのモデルプロバイダー",
+  addCustom: "カスタムモデルAPI",
+  addCatalogHint:
+    "組み込みカタログからOpenAI、Anthropic、Kimiなどのプロバイダーを選び、そのAPIキーを入力します。",
+  addCustomHint:
+    "ベースURL、プロトコル、モデルを指定して、中継サービスやセルフホストサーバーなど、OpenAIまたはAnthropic互換のエンドポイントに接続します。",
+  addCatalogExhausted: "カタログ内のすべてのプロバイダーは設定済みです。",
+  addCustomUnavailable: "指定できるAPIプロトコルがありません。",
+  deepSeekBaseUrl: "https://api.deepseek.com/anthropic",
+  deepSeekEndpointHint: "Anthropic Messages互換のAPIエンドポイントを使用してください。",
+  modelInputTypes: "入力形式",
+  modelInputText: "テキスト",
+  modelInputImage: "画像",
+  protocolOpenAiCompletions: "OpenAI Chat Completions",
+  protocolOpenAiResponses: "OpenAI Responses",
+  protocolAnthropicMessages: "Anthropic Messages",
+  customAnthropicBaseUrlPlaceholder: "https://gateway.example",
 };
 
 const settingsPermission: LocaleDictOf<"settings.permission"> = {
@@ -1240,6 +1368,11 @@ const settingsPluginInventory: LocaleDictOf<"settings.pluginInventory"> = {
   active: "実行中",
   failed: "起動失敗",
   unloading: "アンロード中",
+  clientSyncing: "このページのプラグインを同期中…",
+  clientSyncFailed:
+    "このページで一部のプラグインを同期できませんでした。ホスト側の有効化状態は変更されていません。",
+  clientSyncRetry: "このページで再試行",
+  metadataError: "パッケージのメタデータエラー：{error}",
 };
 
 const settingsPlugins: LocaleDictOf<"settings.plugins"> = {
@@ -1247,59 +1380,7 @@ const settingsPlugins: LocaleDictOf<"settings.plugins"> = {
   title: "プラグイン",
   intro: "このデプロイにインストール済みのプラグインを設定・確認します。",
   tabs: "プラグインビュー",
-  configurableTab: "プラグイン設定",
   empty: "このデプロイではプラグイン設定が公開されていません。",
-  overridden: "上書き済み",
-  reset: "デフォルトに戻す",
-  readOnly: "このデプロイの設定は読み取り専用です。",
-  expand: "設定を展開",
-  collapse: "設定を折りたたむ",
-  save: "保存",
-  saving: "保存中",
-  discard: "変更を破棄",
-  unsaved: "未保存",
-  saveFailed:
-    "このデプロイはこれらの値を受け付けませんでした。修正できるよう入力内容はそのまま残しています。",
-  invalidNumber: "数値を入力してください。空欄の場合はデフォルト値を使用します。",
-  bashTitle: "ターミナル",
-  bashDescription: "エージェントが実行する各コマンドの制限",
-  bashTimeoutMs: "コマンドタイムアウト（ミリ秒）",
-  bashTimeoutMsHint: "1 コマンドの最長実行時間。超過すると終了します。",
-  bashMaxOutputBytes: "ストリームごとの出力上限（バイト）",
-  bashMaxOutputBytesHint: "超過分は破棄されず、一時ファイルに保存されます。",
-  agentLoopTitle: "エージェントループ",
-  agentLoopDescription: "エージェントによるツール呼び出しの振り分け",
-  agentLoopMaxParallel: "ツール並列呼び出し上限",
-  agentLoopMaxParallelHint: "同一ステップ内で同時に実行できる並列可能な呼び出しの最大数。",
-  webSearchTitle: "ウェブ検索",
-  webSearchDescription: "DeepSeek ウェブ検索サービスプロバイダー",
-  webSearchApiKey: "API キー",
-  webSearchApiKeyHint: "設定ファイルには書き込まれません。空欄の場合は現在のキーを維持します。",
-  webSearchApiKeySet: "キーが設定済みです。",
-  webSearchApiKeyUnset: "キーが未設定です。設定するまで検索は利用できません。",
-  webSearchBaseUrl: "エンドポイント",
-  webSearchBaseUrlHint: "空欄の場合はプロバイダーのデフォルトを使用します。",
-  webSearchMaxUses: "1 リクエストあたりの最大検索回数",
-  webSearchMaxUsesHint: "回答前に 1 リクエストで実行できる検索の最大回数。",
-  subagentModelSelectionTitle: "サブエージェント",
-  subagentModelSelectionDescription: "サブエージェントに選択できるモデルを制御します。",
-  subagentModelSelectionToggle: "サブエージェントのモデル選択をエージェントに許可",
-  subagentModelSelectionChoose:
-    "オンにすると、エージェントは下の許可済みモデルから各サブエージェントの提供元・モデル・思考レベルを選択できます。新しいセッションにのみ適用されます。",
-  subagentModelSelectionAllowed: "エージェントが選択できるモデル",
-  subagentModelSelectionLoading: "モデルを読み込み中…",
-  subagentModelSelectionLoadFailed: "モデルを読み込めませんでした。",
-  subagentModelSelectionRetry: "再試行",
-  subagentModelSelectionPartial:
-    "一部のモデル提供元を読み込めませんでした。保存済みの選択は削除できます。",
-  subagentModelSelectionUnavailable: "現在利用できません",
-  subagentModelSelectionUnavailableGroup: "保存済みだが現在利用不可",
-  subagentModelSelectionEmpty: "現在、モデルを提供しているプロバイダーがありません。",
-  subagentModelSelectionRequired: "保存前に少なくとも 1 つのモデルを選択してください。",
-  subagentModelSelectionConflict:
-    "設定が他の場所で変更されました。下書きを破棄して再試行してください。",
-  subagentModelSelectionOff:
-    "オフの場合、サブエージェントは設定済みのデフォルトを使うか親エージェントのモデルを継承します。選択済みモデルは保持されます。",
 };
 
 const settingsTheme: LocaleDictOf<"settings.theme"> = {
@@ -1322,7 +1403,10 @@ const sidebar: LocaleDictOf<"sidebar"> = {
   "panels.label": "グローバルパネル",
 };
 
-const sidebarCodePreview: Record<SidebarCodePreviewKey, string> = {
+const sidebarCodePreview: Omit<
+  Record<SidebarCodePreviewKey, string>,
+  ExpectedMissing["sidebarCodePreview"][number]
+> = {
   title: "コード",
   copy: "コピー",
   copied: "コピーしました",
@@ -1347,6 +1431,10 @@ const sidebarDocumentPreview: LocaleDictOf<"sidebarDocumentPreview"> = {
   "error.notRegularFile": "通常のファイルではないため、表示できる内容がありません。",
   "error.unavailable": "読み込みに失敗しました：{message}",
   retry: "再試行",
+  autoRefresh: "自動更新",
+  "autoRefresh.enable": "自動更新を有効にする",
+  "autoRefresh.disable": "自動更新を無効にする",
+  unsupportedFile: "このファイル形式のプレビューにはまだ対応していません。",
 };
 
 const sidebarFiles: LocaleDictOf<"sidebarFiles"> = {
@@ -1364,17 +1452,30 @@ const sidebarFiles: LocaleDictOf<"sidebarFiles"> = {
     "そのディレクトリはワークスペース外のため、サイドバーでは読み取りません。",
   "error.notDirectory": "それはディレクトリではありません。",
   "error.unavailable": "読み込みに失敗しました：{message}",
+  "shortcut.noSession": "先にセッションを選択してください",
+  autoRefresh: "自動更新",
+  "autoRefresh.enable": "自動更新を有効にする",
+  "autoRefresh.disable": "自動更新を無効にする",
 };
 
-const sidebarImage: Record<SidebarImageKey, string> = {
+const sidebarImage: Omit<
+  Record<SidebarImageKey, string>,
+  ExpectedMissing["sidebarImage"][number]
+> = {
   title: "画像",
   preview: "画像プレビュー：{name}",
   loading: "画像を開いています…",
   failed: "この画像は表示できませんでした。",
   unsupported: "画像のプレビューにはファイル全体の内容が必要です。",
+  zoomControls: "ズーム操作",
+  zoomMenu: "表示倍率を選択",
+  zoomOut: "縮小",
+  zoomIn: "拡大",
+  zoomFitWidth: "幅に合わせる",
+  zoomValue: "{percent}%",
 };
 
-const sidebarPdf: Record<SidebarPdfKey, string> = {
+const sidebarPdf: Omit<Record<SidebarPdfKey, string>, ExpectedMissing["sidebarPdf"][number]> = {
   title: "PDF",
   pageImage: "PDF の {page} ページ",
   loading: "PDF を開いています…",
@@ -1385,6 +1486,12 @@ const sidebarPdf: Record<SidebarPdfKey, string> = {
   workerFailed: "PDF 描画プロセスを継続できませんでした。再試行してください。",
   unsupported: "PDF のプレビューにはファイル全体の内容が必要です。",
   retry: "再試行",
+  zoomControls: "ズーム操作",
+  zoomMenu: "表示倍率を選択",
+  zoomOut: "縮小",
+  zoomIn: "拡大",
+  zoomFitWidth: "幅に合わせる",
+  zoomValue: "{percent}%",
 };
 
 const sidebarRight: LocaleDictOf<"sidebarRight"> = {
@@ -1409,6 +1516,19 @@ const sidebarRight: LocaleDictOf<"sidebarRight"> = {
   "dock.drop.bottom": "下に分割して追加",
   "tab.guide.title": "はじめる",
   "tab.unavailable": "この種類のコンテンツを表示できるビューはまだありません。",
+  "command.close": "現在のページまたはウィンドウを閉じる",
+  "command.refresh": "現在のページを再読み込み",
+  "command.noRefresh": "このページは再読み込みできません",
+  "command.toggle": "右サイドバーの表示を切り替え",
+  "command.fullscreen": "パネルの全画面表示を切り替え",
+  "command.noSession": "先にセッションを選択してください",
+  "command.noFocus": "先に右サイドバーのペインにフォーカスしてください",
+  "command.stale": "ページが変わりました。もう一度フォーカスしてください",
+  "command.collapsed": "先に右サイドバーを展開してください",
+  "command.float": "フローティングパネルではこの操作は使えません",
+  "command.empty": "先にページを開いてください",
+  "command.budget": "ペインは2つまでです",
+  "command.width": "分割するには幅が足りません。サイドバーを広げてください",
 };
 
 const skill: LocaleDictOf<"skill"> = {
@@ -1434,9 +1554,6 @@ const slashMenu: LocaleDictOf<"slash.menu"> = {
 };
 
 const subagent: LocaleDictOf<"subagent"> = {
-  "diagnostic.corrupt": "セッションレコードが破損しています",
-  "diagnostic.unsupported": "サブエージェントレコードのバージョンに対応していません",
-  "diagnostic.unavailable": "セッションレコードは一時的に利用できません",
   "duration.seconds": "{seconds}秒",
   "duration.minutes": "{minutes}分{seconds}秒",
   "duration.hours": "{hours}時間{minutes}分{seconds}秒",
@@ -1452,7 +1569,6 @@ const subagent: LocaleDictOf<"subagent"> = {
   "tokens.million": "{value}M",
   "tokens.total": "{value} tok",
   "loading.label": "サブエージェントを読み込み中",
-  "loading.aria": "サブエージェントを読み込み中",
   "load.error": "サブエージェントを読み込めません",
   retry: "再試行",
   "mode.oneShot": "ワンショット",
@@ -1475,7 +1591,7 @@ const subagent: LocaleDictOf<"subagent"> = {
     "親セッションが現在オフラインです。親セッションを再度開くとメッセージの送信を再開できます。",
 };
 
-const trajectory: Record<TrajectoryKey, string> = {
+const trajectory: Omit<Record<TrajectoryKey, string>, ExpectedMissing["trajectory"][number]> = {
   "view.trajectory": "トレース",
   "toolbar.aria": "トレースツールバー",
   "toolbar.duration": "所要時間",
@@ -1644,7 +1760,6 @@ const trajectory: Record<TrajectoryKey, string> = {
   "layout.compactionFailed": "コンテキスト圧縮に失敗",
   "layout.compacted": "コンテキストを圧縮しました",
   "layout.toolCallOnly": "ツール呼び出しのみ",
-  "layout.imageOnly": "画像 ×{count}",
   "layout.fileAttachments": "ファイル ×{count}",
   "layout.initialSystemPrompt": "初期システムプロンプト",
   "layout.systemPromptUpdated": "システムプロンプトを更新",
@@ -1696,7 +1811,6 @@ const workspace: LocaleDictOf<"workspace"> = {
   "search.clear": "検索をクリア",
   "search.results.aria": "検索結果",
   "search.pending": "セッション履歴を検索中",
-  "search.unavailable": "コンテンツ検索は一時的に利用できません。名前の一致のみ表示しています。",
   "search.noMatches": "一致するセッションがありません",
   "search.hasMore": "最初の {n} 件のみ表示されています。検索範囲を絞り込んでください。",
   "menu.addWorkspace": "ワークスペースを追加",
@@ -1728,7 +1842,6 @@ const workspace: LocaleDictOf<"workspace"> = {
   "status.planReview": "プランレビュー待ち",
   "status.waitingAnswer": "回答待ち",
   "status.completed": "完了",
-  "schedule.active": "実行中のスケジュールタスクあり",
   "hover.created": "{time} に作成",
   "hover.copied": "コピーしました",
   "date.ymd": "{y}年{m}月{d}日",

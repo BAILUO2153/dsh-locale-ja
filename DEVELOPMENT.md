@@ -3,9 +3,18 @@
 This document describes how to develop, validate, and release
 `dsh-locale-ja`.
 
-The project is pre-release (`0.3.0`) and supports the DSH `0.1.5-rc.2` `web`
-profile and browser UI only. The `0.1.0` on npm is the older, dynamically
+The local compatibility preview is pre-release (`0.3.0-compat.2`) and supports the DSH `0.2.0-rc.2` `web`
+profile and the shared Desktop main UI. Native Desktop acceptance is pending. The `0.1.0` on npm is the older, dynamically
 loaded artifact; the standard package ships from `0.2.0`.
+
+## Compatibility preview limits
+
+Read [Desktop compatibility](docs/desktop-compatibility.md) before installing or
+starting a runtime. This preview retains 1,294 strings and explicitly tracks
+502 English fallbacks in the existing 42 namespaces. `pnpm test` includes
+`pnpm drift:compat`, an offline pinned-release check. The full `pnpm drift`
+and Docker E2E lanes are separate and have not been executed for this preview.
+Do not treat their existing startup settings as verified privacy isolation.
 
 ## Prerequisites
 
@@ -147,7 +156,7 @@ review those against the shipped source strings and their UI call sites.
 
 `mise run e2e` (`e2e/run-e2e.ts`):
 1. builds the plugin tarball from the current source (`pnpm pack`),
-2. builds a Docker image pinning `@deepseek-ai/dsh@0.1.5-rc.2`
+2. builds a Docker image pinning `@deepseek-ai/dsh@0.2.0-rc.2`
    (`e2e/Dockerfile`),
 3. starts `dsh web` in a container with a throwaway in-container `$DSH_HOME`
    (booting with `--no-open`; readiness is any HTTP response, since the

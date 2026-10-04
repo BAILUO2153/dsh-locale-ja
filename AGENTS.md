@@ -3,8 +3,8 @@
 ## Project aim
 
 `@fang2hou/dsh-locale-ja` is a **standard DSH client plugin package** for
-DeepSeek Harness (DSH) `0.1.5-rc.2`. It supports the `web` profile and browser
-UI only. Keep the standard package shape:
+DeepSeek Harness (DSH) `0.2.0-rc.2`. It targets the shared Web renderer in the `web` and Desktop profiles.
+Native Desktop shell UI is outside this plugin; see docs/desktop-compatibility.md. Keep the standard package shape:
 
 - `src/index.ts` is the Host half and exports an empty `apply()` so
   `cordis.patch.yml` can mount the package's Loader row; it owns no Host
@@ -22,7 +22,7 @@ Read [ARCHITECTURE.md](./ARCHITECTURE.md) and the relevant
 
 ## DSH references and contract sources
 
-DSH iterates fast (developer preview). This plugin pins `0.1.5-rc.2`; when
+DSH iterates fast (developer preview). This plugin pins `0.2.0-rc.2`; when
 bumping, re-verify against the real runtime first. When developing outside a
 DSH session, rebuild context from these sources instead of guessing:
 

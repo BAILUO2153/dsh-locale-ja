@@ -7,7 +7,7 @@ agents modify the codebase. Keep it short and operational.
 ## What this project is
 
 `@fang2hou/dsh-locale-ja` is a **standard DSH client plugin package** for
-DeepSeek Harness (DSH) `0.1.5-rc.2`, supported on the `web` profile. Its Host
+DeepSeek Harness (DSH) `0.2.0-rc.2`, targeting the shared Web renderer in the `web` and Desktop profiles. Its Host
 half (`src/index.ts`) exports an empty `apply()` only so the package can mount a
 Loader row; its browser half (`src/client/index.ts`) performs locale
 registration and all user-facing work. `dsh plugin --profile web add
@@ -70,14 +70,18 @@ registration and all user-facing work. `dsh plugin --profile web add
    they are exposed.** `src/client/dictionaries.ts` must keep local unions only
    for namespaces whose owning packages do not expose them through their
    `exports` maps — `directory-browser`
-   (`@deepseek-ai/dsh-client-ui-directory-picker-browse@0.1.5-rc.2`),
+   (`@deepseek-ai/dsh-client-ui-directory-picker-browse@0.2.0-rc.2`),
    `permission.access`
-   (`@deepseek-ai/dsh-client-ui-permission-presets@0.1.5-rc.2`), `trajectory`
-   (`@deepseek-ai/dsh-client-ui-trajectory@0.1.5-rc.2`), and the
+   (`@deepseek-ai/dsh-client-ui-permission-presets@0.2.0-rc.2`), `trajectory`
+   (`@deepseek-ai/dsh-client-ui-trajectory@0.2.0-rc.2`), and the
    runtime-only namespaces registered through the untyped overload — naming
    each copied source and version; `pnpm typecheck` is the drift check for the
    typed set. This makes platform key renames, additions, and removals
    compile-time failures while keeping the unavailable unions auditable.
+   The rc.2 preview explicitly omits the 502 remaining reviewed gaps in
+   `src/client/expected-missing.ts`; every other key remains required.
+   `scripts/check-compatibility.ts` checks that list against the pinned
+   42-namespace fixture and rejects unknown keys and placeholder drift.
 
 8. **Code identifiers, comments, and configuration must remain English, with
    Japanese confined to dictionary values.** This keeps implementation
@@ -100,6 +104,10 @@ registration and all user-facing work. `dsh plugin --profile web add
 - `scripts/build.ts` — emits declarations, the Host ESM entry, and the
   browser loader bundle, then enforces its envelope, purity, module-syntax, and
   export gates.
+- `scripts/runtime-locale.test.ts` — evaluates the published rc.2 locale service
+  with a mock Host, without launching Desktop.
+- `scripts/check-compatibility.ts` — checks reviewed gaps and placeholder contracts
+  against the exact-release fixture; not a complete live upstream scan.
 - `scripts/client.test.ts` — evaluates `lib/client.js` through a fake
   `window.__ModuleLoader__` and stand-in locale service, covering activation,
   switching, Host-scope persistence, fonts, and complete teardown.
