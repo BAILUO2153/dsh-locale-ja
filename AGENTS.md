@@ -2,7 +2,7 @@
 
 ## Project aim
 
-`@fang2hou/dsh-locale-ja` is a **standard DSH client plugin package** for
+`@bailuo2153/dsh-locale-ja` is a **standard DSH client plugin package** for
 DeepSeek Harness (DSH) `0.2.0-rc.2`. It targets the shared Web renderer in the `web` and Desktop profiles.
 Native Desktop shell UI is outside this plugin; see docs/desktop-compatibility.md. Keep the standard package shape:
 
@@ -13,7 +13,7 @@ Native Desktop shell UI is outside this plugin; see docs/desktop-compatibility.m
   exposes it through `exports["./client"]` and declares `dsh.client` with
   `platform: "web"`, `immediately: true`, and `inject: ["@deepseek-ai/dsh-client-locale"]`.
 - `package.json` declares `dsh.bundle.patch: "./cordis.patch.yml"` so
-  `dsh plugin --profile web add @fang2hou/dsh-locale-ja` installs a profile
+  `dsh plugin --profile web add /absolute/path/bailuo2153-dsh-locale-ja-0.3.1.tgz` installs a profile
   bundle whose patch mounts the Loader row.
 - `lib/` is generated output; never edit it by hand.
 

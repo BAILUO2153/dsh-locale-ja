@@ -8,23 +8,39 @@ import type { Context } from "@deepseek-ai/cordis";
 import type { LocaleRuntime } from "@deepseek-ai/dsh-client-locale/client";
 import { DICTS } from "../src/client/dictionaries.ts";
 
-// Exercise the actual built candidate against the actual published locale runtime.
-let apply: ((ctx: Context) => void) | undefined;
-// eslint-disable-next-line no-new-func -- evaluate the generated loader artifact
-new Function("window", readFileSync(new URL("../lib/client.js", import.meta.url), "utf8"))({
-  __ModuleLoader__: {
-    load(entry: {
-      id: string;
-      factory: (resolve: (id: string) => never) => { apply: (ctx: Context) => void };
-    }) {
-      assert.equal(entry.id, "@fang2hou/dsh-locale-ja");
-      apply = entry.factory((id) => {
-        throw new Error(`Unexpected runtime import: ${id}`);
-      }).apply;
+// Exercise the built candidate and an old-identity fixture against the published runtime.
+// An explicit artifact path lets release verification use the actual 0.3.0 bundle.
+const currentId = "@bailuo2153/dsh-locale-ja";
+const oldId = "@fang2hou/dsh-locale-ja";
+const candidateBundle = readFileSync(new URL("../lib/client.js", import.meta.url), "utf8");
+function loadPlugin(source: string, expectedId: string): (ctx: Context) => void {
+  let apply: ((ctx: Context) => void) | undefined;
+  // eslint-disable-next-line no-new-func -- evaluate the generated loader artifact
+  new Function("window", source)({
+    __ModuleLoader__: {
+      load(entry: {
+        id: string;
+        factory: (resolve: (id: string) => never) => { apply: (ctx: Context) => void };
+      }) {
+        assert.equal(entry.id, expectedId);
+        apply = entry.factory((id) => {
+          throw new Error(`Unexpected runtime import: ${id}`);
+        }).apply;
+      },
     },
-  },
-});
-assert.ok(apply);
+  });
+  assert.ok(apply);
+  return apply;
+}
+const apply = loadPlugin(candidateBundle, currentId);
+// This identity-only fixture is not a claim to test a historical binary.
+const oldArtifact = process.env.DSH_MIGRATION_OLD_BUNDLE;
+const oldApply = loadPlugin(
+  oldArtifact === undefined
+    ? candidateBundle.replaceAll(currentId, oldId)
+    : readFileSync(oldArtifact, "utf8"),
+  oldId,
+);
 
 const require = createRequire(import.meta.url);
 const manifest = JSON.parse(
@@ -120,7 +136,9 @@ for (let cycle = 0; cycle < 3; cycle += 1) {
       .map(([namespace, entry]) => locale.register(namespace, "en", entry.english));
   const hostEnglish = cycle % 2 === 0 ? registerHostEnglish() : [];
   const disposers: Array<() => void> = [];
-  apply({
+  // Cycle 0 unloads the old identity before cycles 1 and 2 mount the new one.
+  const activate = cycle === 0 ? oldApply : apply;
+  activate({
     locale,
     effect(setup: () => () => void) {
       disposers.push(setup());
@@ -128,6 +146,7 @@ for (let cycle = 0; cycle < 3; cycle += 1) {
   } as unknown as Context);
   assert.equal(locale.getLocale().active, "ja");
   assert.equal(locale.getLocale().locales.find((entry) => entry.id === "ja")?.label, "日本語");
+  assert.equal(locale.getLocale().locales.filter((entry) => entry.id === "ja").length, 1);
   assert.equal(locale.bind("contractProbe")("fallback"), "English fallback probe");
   for (const [namespace, entries] of Object.entries(DICTS)) {
     for (const [key, value] of Object.entries(entries)) {
@@ -188,3 +207,7 @@ console.log(
   `All ${Object.values(DICTS).reduce((sum, entries) => sum + Object.keys(entries).length, 0)} Japanese entries survive late English registration; 11 screenshot labels resolve through pre-bound functions.`,
 );
 console.log("Published LocaleRuntime 0.2.0-rc.2 contract PASS (mock Host, no Desktop UI)");
+
+console.log(
+  `Old identity unload → new identity reload PASS (${oldArtifact === undefined ? "identity-only fixture" : "supplied historical artifact"}; no Desktop UI)`,
+);

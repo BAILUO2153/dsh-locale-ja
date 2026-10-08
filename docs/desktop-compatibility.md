@@ -1,9 +1,10 @@
 # Desktop compatibility and release validation
 
-Version `0.3.0` derives from `0.3.0-compat.4` and targets DSH `0.2.0-rc.2`.
+Candidate `0.3.1` changes the package identity from the published `0.3.0`
+without changing its translations and targets DSH `0.2.0-rc.2`.
 Earlier installation feedback included `0.3.0-compat.2`. Local-tarball
 installation was also reported to work on two Macs, without a recorded version
-for each machine or a full UI acceptance checklist. The rebuilt `0.3.0` tarball
+for each machine or a full UI acceptance checklist. The `0.3.1` candidate tarball
 and Git installation path still need Desktop validation.
 
 Batch 3 preserves all 1,907 compat.3 entries and adds 339 entries for account,
@@ -29,12 +30,15 @@ The official source is pinned to
 
 1. Confirm Desktop reports exactly `0.2.0-rc.2`. Keep a backup of your existing
    profile and note any earlier installation of `@fang2hou/dsh-locale-ja`.
-2. Open **Plugins → Add plugin**. Enter the absolute path to
-   `fang2hou-dsh-locale-ja-0.3.0.tgz`, review the package preview,
+2. If `@fang2hou/dsh-locale-ja` is installed, uninstall it in the same profile
+   and confirm it disappears before proceeding. This package-name migration is
+   not an in-place update; do not keep both packages active.
+3. Open **Plugins → Add plugin**. Enter the absolute path to
+   `bailuo2153-dsh-locale-ja-0.3.1.tgz`, review the package preview,
    and install/enable it. This is a local tarball, not a request to install
    the existing npm release. If already installed, use the manager's documented
    uninstall/reinstall flow rather than installing two copies.
-3. Open **Settings → General → Language**, then select **日本語**.
+4. Open **Settings → General → Language**, then select **日本語**.
 
 The official
 [Plugin Manager guide](https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-plugin-manager/README.md#installing-a-bundle)
@@ -45,7 +49,9 @@ Command…**, initialize Desktop once, then fully quit it. Run:
 
 ```sh
 dsh --version
-dsh plugin --profile desktop add /absolute/path/fang2hou-dsh-locale-ja-0.3.0.tgz
+# Only if the old package is installed; confirm removal succeeds before adding.
+dsh plugin --profile desktop remove @fang2hou/dsh-locale-ja
+dsh plugin --profile desktop add /absolute/path/bailuo2153-dsh-locale-ja-0.3.1.tgz
 ```
 
 Reopen Desktop afterward. The ordinary npm-installed `dsh` cannot mutate the
@@ -55,6 +61,7 @@ Do not run a `web` install command expecting it to affect Desktop.
 
 ## Desktop acceptance checklist (rebuilt release artifact; unverified)
 
+- The installed identity is `@bailuo2153/dsh-locale-ja`; the old package is absent.
 - Japanese appears once; switching English → Japanese → English changes the
   main interface and the Japanese font override reverses.
 - Set Japanese, fully quit/reopen Desktop, and confirm Japanese is restored.
@@ -67,11 +74,16 @@ Do not run a `web` install command expecting it to affect Desktop.
 - Re-enable/reinstall once and check that Japanese restores without duplicate
   options, styles, or errors. Inspect narrow windows for clipped controls.
 
-Remove through Plugins, or fully quit Desktop and use its bundled command:
+Remove the new candidate through Plugins, or fully quit Desktop and use its bundled command:
 
 ```sh
-dsh plugin --profile desktop remove @fang2hou/dsh-locale-ja
+dsh plugin --profile desktop remove @bailuo2153/dsh-locale-ja
 ```
+
+For rollback, confirm the new package is removed before reinstalling the original
+`fang2hou-dsh-locale-ja-0.3.0.tgz`. Do not replace the published `v0.3.0` assets.
+The `0.3.1` candidate has not been released to GitHub or npm; its new scope
+is an identity for GitHub distribution and makes no claim of npm ownership.
 
 ## Automated checks and limits
 
