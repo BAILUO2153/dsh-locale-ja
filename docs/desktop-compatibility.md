@@ -1,10 +1,10 @@
 # Desktop compatibility and release validation
 
-Candidate `0.3.1` changes the package identity from the published `0.3.0`
+Version `0.3.1` changes the package identity from the published `0.3.0`
 without changing its translations and targets DSH `0.2.0-rc.2`.
 Earlier installation feedback included `0.3.0-compat.2`. Local-tarball
 installation was also reported to work on two Macs, without a recorded version
-for each machine or a full UI acceptance checklist. The `0.3.1` candidate tarball
+for each machine or a full UI acceptance checklist. The `0.3.1` release tarball
 and Git installation path still need Desktop validation.
 
 Batch 3 preserves all 1,907 compat.3 entries and adds 339 entries for account,
@@ -74,7 +74,7 @@ Do not run a `web` install command expecting it to affect Desktop.
 - Re-enable/reinstall once and check that Japanese restores without duplicate
   options, styles, or errors. Inspect narrow windows for clipped controls.
 
-Remove the new candidate through Plugins, or fully quit Desktop and use its bundled command:
+Remove the new package through Plugins, or fully quit Desktop and use its bundled command:
 
 ```sh
 dsh plugin --profile desktop remove @bailuo2153/dsh-locale-ja
@@ -82,7 +82,7 @@ dsh plugin --profile desktop remove @bailuo2153/dsh-locale-ja
 
 For rollback, confirm the new package is removed before reinstalling the original
 `fang2hou-dsh-locale-ja-0.3.0.tgz`. Do not replace the published `v0.3.0` assets.
-The `0.3.1` candidate has not been released to GitHub or npm; its new scope
+Version `0.3.1` is distributed through GitHub Releases, not npm. Its new scope
 is an identity for GitHub distribution and makes no claim of npm ownership.
 
 ## Automated checks and limits
@@ -114,7 +114,7 @@ telemetry environment variable is not proof of zero external traffic.
 
 These Node tests do not exercise the macOS GUI, native Desktop loader, or
 settings persistence across a Desktop restart. The prior version’s user-confirmed installation is independent evidence only. The acceptance
-checklist above remains required before calling the candidate Desktop-verified.
+checklist above remains required before calling this release Desktop-verified.
 
 ## Translation batch 1
 

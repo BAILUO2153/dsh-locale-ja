@@ -3,7 +3,7 @@
 This document describes how to develop, validate, and release
 `dsh-locale-ja`.
 
-The fork release candidate (`0.3.1`, not yet published) supports the DSH `0.2.0-rc.2` `web`
+The fork release `0.3.1` supports the DSH `0.2.0-rc.2` `web`
 profile and the shared Desktop main UI. Native Desktop acceptance is pending. The `0.1.0` on npm is the older, dynamically
 loaded artifact; the standard package ships from `0.2.0`.
 
@@ -310,14 +310,14 @@ that architecture invariants (see `ARCHITECTURE.md`) still hold.
 
 ## Fork releases
 
-This fork uses `@bailuo2153/dsh-locale-ja` from the `0.3.1` candidate onward.
+This fork uses `@bailuo2153/dsh-locale-ja` from `0.3.1` onward.
 The scope is a package identity for GitHub distribution, not a claim of npm
 account/scope ownership or a registry publication. It does not publish to the
 original author's npm namespace. The tag-triggered npm release
 workflow has been removed. Original release design remains documented as
 historical context in [ADR-0005](./docs/adr/0005-npm-distribution-channel.md).
 
-Before installing this candidate, remove `@fang2hou/dsh-locale-ja` from the
+Before installing this release, remove `@fang2hou/dsh-locale-ja` from the
 same profile and confirm removal. This is an identity migration, not an in-place
 upgrade: never activate both packages together. To roll back, remove the new
 package first, then install the original `v0.3.0` tarball. The existing tag and
