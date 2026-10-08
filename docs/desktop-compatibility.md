@@ -1,14 +1,10 @@
 # Desktop compatibility and release validation
 
 This unpublished `0.3.0` release candidate derives from `0.3.0-compat.4` and targets DSH `0.2.0-rc.2`.
-The user reported completing candidate testing, but no itemized acceptance record
-is available. The rebuilt `0.3.0` artifact and Git installation path still require
-release-specific verification.
-The older `0.3.0-compat.2` package was successfully installed on Desktop
-`0.2.0-rc.2` according to the user's hands-on confirmation. Translation remains
-in progress. That installation result does not establish three-language
-switching, persistence across a full restart, or full-UI acceptance, and it is
-not an installation result for this new package.
+Earlier installation feedback included `0.3.0-compat.2`. Local-tarball
+installation was also reported to work on two Macs, without a recorded version
+for each machine or a full UI acceptance checklist. The rebuilt `0.3.0` tarball
+and Git installation path still need Desktop validation.
 
 Batch 3 preserves all 1,907 compat.3 entries and adds 339 entries for account,
 shortcuts, layout commands, and plugin management, for 52 namespaces and 2,246

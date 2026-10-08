@@ -327,9 +327,8 @@ CI rebuilds and checks `git diff --exit-code -- lib`. `prepack` is retained;
 there is no `prepare` hook. Git installation on the actual Desktop package
 manager has not been verified and is not the recommended release path yet.
 
-Prepare changes in a new branch and open a Draft PR against this fork's `main`.
-Merging, creating a release tag, publishing a GitHub Release, uploading release
-assets, and any npm publication require separate explicit maintainer approval.
-The intended distribution is a reviewed `.tgz` attached to this fork's GitHub
-Release, together with its SHA-256 checksum. No `v0.3.0` tag or release asset
-is created by this preparation change.
+Release candidates are reviewed in this fork before merging. Run the automated
+checks and Desktop acceptance checklist against the final tarball, then attach
+that `.tgz` and its SHA-256 checksum to the fork's GitHub Release.
+Version `0.3.0` is still being prepared; its tag and release assets are not yet
+available.

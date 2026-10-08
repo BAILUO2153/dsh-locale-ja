@@ -8,7 +8,7 @@
 // DSH 0.1.5 the /api browser-trust fence rejects tokenless sessions, and
 // every fresh Playwright context must re-authenticate.
 import { expect, test } from "@playwright/test";
-import type { Page } from "@playwright/test";
+import type { BrowserContext, Page, TestInfo } from "@playwright/test";
 import { authUrl, installPlugin, removePlugin, restartAndWait } from "./harness.ts";
 import { checkSingleLineCopy } from "./copy-layout.ts";
 
@@ -42,7 +42,7 @@ async function dismissOnboarding(page: Page): Promise<void> {
   throw new Error("onboarding dialogs never settled");
 }
 
-async function openSettings(page: Page, triggerLabel: string): Promise<void> {
+async function openSettings(page: Page, triggerLabel: string | RegExp): Promise<void> {
   await page.getByRole("button", { name: triggerLabel, exact: true }).click();
   await page.getByRole("dialog").waitFor();
 }
@@ -50,6 +50,38 @@ async function openSettings(page: Page, triggerLabel: string): Promise<void> {
 async function openLanguageMenu(page: Page, activeLabel: string): Promise<void> {
   await page.getByRole("button", { name: activeLabel, exact: true }).click();
   await page.getByRole("menu").waitFor();
+}
+
+// Each installed test chooses its starting language through the public UI.
+// Do not depend on the previous test reaching its final language reset.
+async function englishSettings(page: Page): Promise<void> {
+  await openSettings(page, /^(Settings|設定)$/);
+  await page.getByRole("button", { name: /^(English|日本語)$/, exact: true }).click();
+  await page.getByRole("menuitem", { name: "English", exact: true }).click();
+  await expect(page.getByText("Language", { exact: true })).toBeVisible();
+}
+
+async function restoreEnglishAfterTest(
+  { page, context }: { page: Page; context: BrowserContext },
+  testInfo: TestInfo,
+): Promise<void> {
+  // Preserve the failed UI before navigating a separate page for cleanup.
+  try {
+    if (testInfo.status !== testInfo.expectedStatus && !page.isClosed()) {
+      await testInfo.attach("before-locale-cleanup", {
+        body: await page.screenshot(),
+        contentType: "image/png",
+      });
+    }
+  } finally {
+    const cleanup = await context.newPage();
+    try {
+      await openApp(cleanup);
+      await englishSettings(cleanup);
+    } finally {
+      await cleanup.close();
+    }
+  }
 }
 
 // The menu renders in a page-level portal, so query at page level.
@@ -75,6 +107,8 @@ test.describe.serial("baseline: fresh DSH web without the plugin", () => {
 });
 
 test.describe.serial("installed: load, activate, persist, deactivate", () => {
+  test.afterEach(restoreEnglishAfterTest);
+
   test.beforeAll(async () => {
     await installPlugin();
     await restartAndWait(BASE);
@@ -86,7 +120,7 @@ test.describe.serial("installed: load, activate, persist, deactivate", () => {
   test("日本語 selectable, applies, persists, and reverses", async ({ page, context }) => {
     await openApp(page);
     await dismissOnboarding(page);
-    await openSettings(page, "Settings");
+    await englishSettings(page);
 
     await openLanguageMenu(page, "English");
     expect(await menuItems(page)).toEqual(["English", "中文", "日本語"]);
@@ -128,7 +162,7 @@ test.describe.serial("installed: load, activate, persist, deactivate", () => {
   }, testInfo) => {
     await openApp(page);
     await dismissOnboarding(page);
-    await openSettings(page, "Settings");
+    await englishSettings(page);
     await openLanguageMenu(page, "English");
     await page.getByRole("menuitem", { name: "日本語" }).click();
 
@@ -163,25 +197,38 @@ test.describe.serial("installed: load, activate, persist, deactivate", () => {
     await expect(permission).toBeVisible();
 
     await page.getByRole("button", { name: "プリセット", exact: true }).click();
-    await page.getByRole("button", { name: "複製: スタンダード", exact: true }).click();
-    const copy = page.getByRole("dialog", { name: /プリセットを複製/ });
-    await expect(copy).toContainText("後から変更できません");
-    await copy.getByRole("textbox", { name: "ID", exact: true }).fill("INVALID ID");
-    await expect(copy.getByRole("alert")).toContainText("小文字、数字、ハイフン");
-    await expect(copy.getByRole("button", { name: "作成", exact: true })).toBeDisabled();
-    await checkSingleLineCopy(page, testInfo, "preset-labels", [
-      {
-        locator: copy.getByRole("heading"),
-        before: "プリセットをコピー新規 · コピー元 スタンダード",
-      },
-      {
-        locator: copy.getByRole("alert"),
-        before: "使用できるのは小文字、数字、ハイフンのみで、先頭は文字または数字にしてください。",
-      },
-    ]);
+    // rc.2 replaces the old copy/edit dialog with a read-only configuration
+    // viewer and mode guides. Exercise the shipped actions and close behavior.
+    const viewPreset = page.getByRole("button", { name: "表示: スタンダード", exact: true });
+    await viewPreset.click();
+    const viewer = page.getByRole("dialog", { name: "表示 · スタンダード", exact: true });
+    await expect(viewer.locator("pre")).not.toBeEmpty();
     await page.screenshot({ path: testInfo.outputPath("preset-ja.png") });
-    await copy.getByRole("button", { name: "キャンセル", exact: true }).click();
-    await expect(copy).toBeHidden();
+    await viewer.press("Escape");
+    await expect(viewer).toBeHidden();
+    await expect(viewPreset).toBeFocused();
+
+    const modeDetails = page.getByRole("button", {
+      name: "モードの詳細: スタンダード",
+      exact: true,
+    });
+    await modeDetails.click();
+    const guide = page.getByRole("dialog", { name: "スタンダード", exact: true });
+    await expect(guide.getByRole("tab", { name: "モードの詳細", exact: true })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await guide.getByRole("tab", { name: "使い方", exact: true }).click();
+    await expect(guide.getByRole("tab", { name: "使い方", exact: true })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(guide.getByRole("tabpanel", { name: "使い方", exact: true })).toContainText(
+      "バグを修正する",
+    );
+    await guide.getByRole("button", { name: "閉じる", exact: true }).click();
+    await expect(guide).toBeHidden();
+    await expect(modeDetails).toBeFocused();
 
     await page.getByRole("button", { name: "一般", exact: true }).click();
     await openLanguageMenu(page, "日本語");
@@ -190,15 +237,15 @@ test.describe.serial("installed: load, activate, persist, deactivate", () => {
 });
 
 test.describe.serial("conversation: a mock-LLM turn renders the japanese chrome", () => {
+  test.afterEach(restoreEnglishAfterTest);
   // The container's DEEPSEEK_BASE_URL points at the host-side mock
   // (e2e/mock-llm.ts), so a real turn completes without credentials.
   test("a turn completes with Japanese composer and reply chrome", async ({ page }, testInfo) => {
     await openApp(page);
     await dismissOnboarding(page);
 
-    // The previous phase ends back on English; switch to Japanese through the
-    // shipped menu — the same path a user takes.
-    await openSettings(page, "Settings");
+    // Choose a known baseline, then switch through the shipped menu.
+    await englishSettings(page);
     await openLanguageMenu(page, "English");
     await page.getByRole("menuitem", { name: "日本語" }).click();
     await expect(page.getByRole("button", { name: "設定", exact: true })).toBeVisible();
@@ -274,7 +321,20 @@ test.describe.serial("conversation: a mock-LLM turn renders the japanese chrome"
 });
 
 test.describe.serial("removed: uninstall reverts to shipped default", () => {
-  test.beforeAll(async () => {
+  test.beforeAll(async ({ browser }) => {
+    // Set Japanese independently before removal, so fallback remains tested
+    // even when an earlier test failed and restored English during cleanup.
+    const context = await browser.newContext({ locale: "en-US" });
+    try {
+      const page = await context.newPage();
+      await openApp(page);
+      await englishSettings(page);
+      await openLanguageMenu(page, "English");
+      await page.getByRole("menuitem", { name: "日本語", exact: true }).click();
+      await expect(page.locator(FONT_TAG)).toHaveCount(1);
+    } finally {
+      await context.close();
+    }
     await removePlugin();
     await restartAndWait(BASE);
   });
