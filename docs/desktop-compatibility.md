@@ -1,6 +1,6 @@
 # Desktop compatibility and release validation
 
-This unpublished `0.3.0` release candidate derives from `0.3.0-compat.4` and targets DSH `0.2.0-rc.2`.
+Version `0.3.0` derives from `0.3.0-compat.4` and targets DSH `0.2.0-rc.2`.
 Earlier installation feedback included `0.3.0-compat.2`. Local-tarball
 installation was also reported to work on two Macs, without a recorded version
 for each machine or a full UI acceptance checklist. The rebuilt `0.3.0` tarball
@@ -89,16 +89,19 @@ Typed dictionaries use `Omit` of the reviewed gaps, not unrestricted `Partial`.
 An unreviewed new typed key still fails TypeScript. The source fixture records
 official English copy and provenance; it is not a live upstream scan.
 
-The separate `pnpm drift` command still installs and audits the complete Web
-tree. It and Docker/Playwright E2E were **not run** for this preview. Their
-version pins are synchronized, but this is not evidence their UI selectors or
-startup configuration work on rc.2. Before running a real runtime, use a fresh
+The separate `pnpm drift` command installs and audits the complete Web tree;
+it is not part of the pinned compatibility check. CI runs Docker/Playwright
+core checks with both a freshly built tarball and an exact Git source commit.
+The separate mock conversation job is non-blocking because the old
+chat/completions mock does not support rc.2 Messages requests (404). See
+[installation checks](../DEVELOPMENT.md#installation-checks) for the commands
+and boundaries. Before running a real runtime, use a fresh
 isolated DSH home and explicitly disable session-log export, package inventory
 uploads, product analytics, OpenTelemetry, and registry probing; a single
 telemetry environment variable is not proof of zero external traffic.
 
-No macOS GUI, native Desktop loader, actual settings file persistence, restart,
-has been exercised by these Node tests. The prior version’s user-confirmed installation is independent evidence only. The acceptance
+These Node tests do not exercise the macOS GUI, native Desktop loader, or
+settings persistence across a Desktop restart. The prior version’s user-confirmed installation is independent evidence only. The acceptance
 checklist above remains required before calling the candidate Desktop-verified.
 
 ## Translation batch 1

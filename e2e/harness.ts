@@ -123,7 +123,7 @@ export function installPlugin(): void {
     "--profile",
     "web",
     "add",
-    "/tmp/dsh-locale-ja.tgz",
+    process.env.DSH_E2E_GIT_SPEC ?? "/tmp/dsh-locale-ja.tgz",
   ]);
 }
 

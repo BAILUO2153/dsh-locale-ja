@@ -2,17 +2,21 @@
 
 DeepSeek Harness（DSH）の Desktop メイン UI・Web UI に日本語を追加するプラグインです。中文・English・日本語を切り替えて利用できます。
 
-本仓库由 **BAILUO2153** 在 [fang2hou/dsh-locale-ja](https://github.com/fang2hou/dsh-locale-ja) 基础上维护，补充日语翻译并适配 DSH `0.2.0-rc.2`。保留原作者链接、版权声明及 MIT 协议；本 fork 的问题请在本仓库反馈。
+**BAILUO2153 版 · 0.3.0 · DSH 0.2.0-rc.2 対応**
+
+[リリースとダウンロード](https://github.com/BAILUO2153/dsh-locale-ja/releases) · [導入手順](#インストール) · [不具合の報告](https://github.com/BAILUO2153/dsh-locale-ja/issues)
+
+[fang2hou/dsh-locale-ja](https://github.com/fang2hou/dsh-locale-ja) をもとに、BAILUO2153 が翻訳の追加と互換性の調整を行っている fork です。原作者の著作権表示と MIT ライセンスを保持しています。
 
 ![日本語表示のプレビュー：メイン画面](docs/images/japanese-home.png)
 
 ## インストール
 
-**`0.3.0` はリリース準備中です。まだ `v0.3.0` タグ・GitHub Release・配布用アセットは公開していません。** npm の既存 `@fang2hou/dsh-locale-ja` は原作者の公開版で、この fork の配布物とは異なります。
+この fork は GitHub Releases で配布します。npm の `@fang2hou/dsh-locale-ja` は原作者の公開版です。同じパッケージ名を使いますが、配布元と内容が異なるため、以下の手順でこの fork のパッケージを指定してください。
 
-### 推奨予定：Release の `.tgz`
+### Release の `.tgz` を使う（推奨）
 
-公開後は [この fork の Releases](https://github.com/BAILUO2153/dsh-locale-ja/releases) から `fang2hou-dsh-locale-ja-0.3.0.tgz` と SHA-256 チェックサムを取得してください。GitHub の自動生成「Source code」アーカイブではなく、添付された `.tgz` を使用します。
+[この fork の Releases](https://github.com/BAILUO2153/dsh-locale-ja/releases) から `fang2hou-dsh-locale-ja-0.3.0.tgz` と SHA-256 チェックサムを取得してください。GitHub の自動生成「Source code」アーカイブではなく、添付された `.tgz` を使用します。
 
 1. DSH Desktop のバージョンが `0.2.0-rc.2` であることを確認します。
 2. **Plugins → Add plugin**（プラグイン → プラグインを追加）に `.tgz` の絶対パスを入力し、内容を確認してインストール・有効化します。
@@ -20,22 +24,34 @@ DeepSeek Harness（DSH）の Desktop メイン UI・Web UI に日本語を追加
 
 旧版を導入済みの場合は、同じパッケージを二重に追加せず、プラグイン管理画面の削除・再インストール手順を利用してください。詳細は [Desktop の導入・確認手順](docs/desktop-compatibility.md) を参照してください。
 
-Web プロファイルでの例（公開後にダウンロードしたファイルを指定）：
+Web プロファイルでは、ダウンロードしたファイルの絶対パスを指定します：
 
 ```bash
 dsh plugin --profile web add /absolute/path/fang2hou-dsh-locale-ja-0.3.0.tgz
 dsh web
 ```
 
-### Git 指定：公開・実機検証待ち
+### リポジトリを clone してビルドする
 
-将来の指定先は以下を予定しています。**タグは未作成で、実際の Desktop 同梱パッケージマネージャーによる導入も未検証のため、現時点では使用しないでください。**
+Git と [mise](https://mise.jdx.dev/) を用意し、リリースのソースからパッケージを作成します。Node.js LTS と pnpm 12 は `mise.toml` に従います。
 
-```text
-https://github.com/BAILUO2153/dsh-locale-ja.git#v0.3.0
+```bash
+git clone --branch v0.3.0 --depth 1 https://github.com/BAILUO2153/dsh-locale-ja.git
+cd dsh-locale-ja
+mise install
+mise exec -- pnpm install --frozen-lockfile
+mise exec -- pnpm build
+mise exec -- pnpm pack --pack-destination dist
 ```
 
-Git 配布に備えてビルド済み `lib/` を収録し、CI でソースとの一致を検査します。推奨経路は引き続き `.tgz` です。
+作成された `dist/fang2hou-dsh-locale-ja-0.3.0.tgz` の絶対パスを、上記の **Add plugin** に入力します。Web プロファイルなら次のコマンドで導入できます：
+
+```bash
+dsh plugin --profile web add "$(pwd)/dist/fang2hou-dsh-locale-ja-0.3.0.tgz"
+dsh web
+```
+
+リポジトリにはビルド済み `lib/` も収録し、CI でソースとの一致を検査します。Git URL からの直接インストールは CI の独立した検証対象です。Desktop 同梱パッケージマネージャーでの Git URL 直指定は未検証のため、Desktop では `.tgz` を使用してください。
 
 ## 使い方
 
@@ -54,8 +70,12 @@ Git 配布に備えてビルド済み `lib/` を収録し、CI でソースと�
 - 調査済みで未翻訳の範囲：**6 名前空間・369 項目**。入力用の 6 コマンドトークンは互換性のため英語を保持しています
 - 未対応：Electron のネイティブメニュー・更新画面、外部サイトや埋め込みアカウントページ、画像内文字、辞書を使用しない UI、追加プラグインの未収録文字列
 - 未翻訳の辞書項目は英語にフォールバックします。DSH 全体の完全日本語化は保証していません
-- 以前配布した `.tgz` は 2 台の Mac で絶対パスからの導入が確認されています。今回再ビルドした `0.3.0` の Desktop 検証と Git 指定での導入検証はまだ完了していません
-- 型チェック・lint・ビルド・辞書／言語サービスのテストは通過しています。Web E2E は rc.2 の UI 変更に合わせて更新中です
+- CI の必須チェック：型チェック・lint・ビルド・辞書／言語サービスのテスト、ビルド済み `lib/` の一致、秘密情報スキャン
+- Web E2E：隔離した DSH `0.2.0-rc.2` に、そのコミットの Git URL とソースから生成した `.tgz` を別々に導入します。初期状態、言語切り替えと保存、設定・プリセット画面、アンインストール時の復帰を必須チェックにしています
+- 既知の制限：対話モックは旧 `chat/completions` 形式のみ対応し、rc.2 の Messages リクエストに 404 を返します。このテストは独立した非必須ジョブとして実行し、失敗結果と診断を残しています。モデル応答・使用量表示の E2E が通過したことは意味しません。実 API は使用しません
+- 以前の `.tgz` は 2 台の Mac で導入が確認されています。今回の `0.3.0` 配布物を使った macOS Desktop の実機確認は別途必要です
+
+最新の実行結果は [この fork の CI](https://github.com/BAILUO2153/dsh-locale-ja/actions/workflows/ci.yml) を参照してください
 
 [翻訳範囲と残りの対象](docs/translation-batch3.md) / [互換性と確認チェックリスト](docs/desktop-compatibility.md)
 

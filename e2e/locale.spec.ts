@@ -238,8 +238,15 @@ test.describe.serial("installed: load, activate, persist, deactivate", () => {
 
 test.describe.serial("conversation: a mock-LLM turn renders the japanese chrome", () => {
   test.afterEach(restoreEnglishAfterTest);
-  // The container's DEEPSEEK_BASE_URL points at the host-side mock
-  // (e2e/mock-llm.ts), so a real turn completes without credentials.
+  test.beforeAll(async () => {
+    // The isolated mock job does not run the installed phase.
+    if (process.env.DSH_E2E_SUITE === "mock") {
+      installPlugin();
+      await restartAndWait(BASE);
+    }
+  });
+  // The host-side mock only supports chat/completions. rc.2 uses Messages,
+  // so this test currently fails with 404; preserve its real failure.
   test("a turn completes with Japanese composer and reply chrome", async ({ page }, testInfo) => {
     await openApp(page);
     await dismissOnboarding(page);

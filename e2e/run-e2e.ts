@@ -28,6 +28,14 @@ if (probe.status !== 0) {
 const dshVersion = await resolveDshVersion(process.env.DSH_E2E_DSH_VERSION ?? DEFAULT_DSH_VERSION);
 console.log(`[e2e] testing against @deepseek-ai/dsh@${dshVersion}`);
 
+const gitSpec = process.env.DSH_E2E_GIT_SPEC;
+if (
+  gitSpec !== undefined &&
+  !/^https:\/\/github\.com\/[^/]+\/[^/#]+\.git#[a-f0-9]{40}$/.test(gitSpec)
+) {
+  throw new Error("DSH_E2E_GIT_SPEC must be a public GitHub HTTPS URL pinned to a full commit SHA");
+}
+console.log(`[e2e] install source: ${gitSpec ?? "locally built tarball"}`);
 buildImage(dshVersion);
 
 // pnpm pack runs prepack, so the tarball is built from current source.
@@ -51,7 +59,7 @@ try {
   console.log(`[e2e] mock LLM on 127.0.0.1:${mockPort}`);
   startContainer(port, dshVersion, `http://host.docker.internal:${mockPort}`);
   await waitReady(baseUrl);
-  copyTarball(tarballPath);
+  if (gitSpec === undefined) copyTarball(tarballPath);
   const mockProbe = spawnSync(
     "docker",
     [
@@ -81,6 +89,16 @@ try {
   );
   exitCode = result.status ?? 1;
 } finally {
+  // Keep diagnostics before removing the isolated runtime. Redact its login token.
+  fs.mkdirSync("e2e/.artifacts", { recursive: true });
+  const logs = spawnSync("docker", ["logs", CONTAINER], { encoding: "utf8" });
+  fs.writeFileSync(
+    "e2e/.artifacts/dsh.log",
+    `${logs.stdout ?? ""}\n${logs.stderr ?? ""}`.replace(
+      /token=[A-Za-z0-9_-]+/g,
+      "token=[redacted]",
+    ),
+  );
   stopContainer();
   mockLlm?.kill();
   fs.rmSync(packDir, { recursive: true, force: true });
