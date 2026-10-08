@@ -1,3 +1,4 @@
+import { DICTS } from "../src/client/dictionaries.ts";
 // Integration test for the built browser bundle (`lib/client.js`): evaluates
 // it through `window.__ModuleLoader__.load` the way the shell does, against
 // a stand-in locale service mirroring the shipped `LocaleRuntime`.
@@ -11,7 +12,7 @@ const { name: PACKAGE_ID } = JSON.parse(readFileSync(resolve(root, "package.json
 };
 const bundle = readFileSync(resolve(root, "lib/client.js"), "utf8");
 
-const NAMESPACE_COUNT = 42;
+const NAMESPACE_COUNT = Object.keys(DICTS).length;
 
 let failures = 0;
 
@@ -137,7 +138,7 @@ interface LocaleStandIn {
   publish(active: string, localeChanged: boolean, locales?: readonly LocaleEntry[]): void;
 }
 
-// Mirrors the 0.1.5 `LocaleRuntime` contract the plugin depends on: frozen
+// Mirrors the 0.2.0-rc.2 `LocaleRuntime` contract the plugin depends on: frozen
 // snapshots, `addLanguage` re-resolving a stored `ja` preference,
 // `setLocale` writing through to the Host scope, `adopt` following it.
 function createLocale(initialHostPreference = "en"): LocaleStandIn {
@@ -378,6 +379,53 @@ disposers = [];
 plugin.apply(ctxOf(locale));
 assert(locale.getLocale().active === "ja", "boots straight into Japanese");
 for (const dispose of disposers.toReversed()) dispose();
+
+// --- failed setup and reload ---------------------------------------------
+
+console.log("failed setup and reload");
+locale = createLocale();
+disposers = [];
+const originalRegister = locale.register;
+locale.register = (ns, id, dict) => {
+  if (locale.registrations.length === 3) throw new Error("registration failed");
+  return originalRegister(ns, id, dict);
+};
+let registrationFailed = false;
+try {
+  plugin.apply(ctxOf(locale));
+} catch {
+  registrationFailed = true;
+}
+assert(registrationFailed, "surfaces a dictionary registration failure");
+assert(locale.registrations.length === 0, "rolls back a partially registered dictionary batch");
+assert(disposers.length === 0, "a failed dictionary effect leaves no pending disposer");
+
+locale = createLocale("ja");
+disposers = [];
+locale.subscribe = () => {
+  throw new Error("subscription failed");
+};
+let subscriptionFailed = false;
+try {
+  plugin.apply(ctxOf(locale));
+} catch {
+  subscriptionFailed = true;
+}
+assert(subscriptionFailed, "surfaces a font subscription failure");
+assert(dom.tags.length === 0, "removes the stylesheet when the font effect cannot finish");
+for (const dispose of disposers.toReversed()) dispose();
+assert(locale.registrations.length === 0, "completed effects can still be torn down after failure");
+
+locale = createLocale("ja");
+for (let cycle = 0; cycle < 3; cycle += 1) {
+  disposers = [];
+  plugin.apply(ctxOf(locale));
+  assert(locale.getLocale().active === "ja", `reload ${cycle + 1} restores the Host preference`);
+  assert(dom.tags.length === 1, `reload ${cycle + 1} owns exactly one stylesheet`);
+  for (const dispose of disposers.toReversed()) dispose();
+  assert(locale.registrations.length === 0, `reload ${cycle + 1} leaves no dictionaries`);
+  assert(dom.tags.length === 0, `reload ${cycle + 1} leaves no stylesheet`);
+}
 
 if (failures > 0) {
   console.error(`\nclient bundle test FAILED (${failures})`);

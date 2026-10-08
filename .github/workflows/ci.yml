@@ -26,10 +26,13 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Install dependencies
-        run: mise run install
+        run: pnpm install --frozen-lockfile
 
       - name: Check (typecheck, lint, format-check, build, test)
         run: mise run check
+
+      - name: Verify committed build output
+        run: git diff --exit-code -- lib
 
   secret-scan:
     name: secret scanning (gitleaks)
@@ -59,7 +62,7 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Install dependencies
-        run: mise run install
+        run: pnpm install --frozen-lockfile
 
       - name: Cache Playwright browsers
         uses: actions/cache@v6
@@ -72,3 +75,5 @@ jobs:
 
       - name: Run E2E (build, pack, docker dsh web, playwright)
         run: mise run e2e
+        env:
+          DSH_E2E_DSH_VERSION: "0.2.0-rc.2"
