@@ -13,7 +13,7 @@ import { authUrl, installPlugin, removePlugin, restartAndWait } from "./harness.
 import { checkSingleLineCopy } from "./copy-layout.ts";
 
 const BASE = process.env.DSH_BASE_URL ?? "http://127.0.0.1:3080";
-const FONT_TAG = 'style[data-plugin-css="@fang2hou/dsh-locale-ja/japanese-font.css"]';
+const FONT_TAG = 'style[data-plugin-css="@bailuo2153/dsh-locale-ja/japanese-font.css"]';
 
 async function openApp(page: Page): Promise<void> {
   await page.goto(await authUrl(BASE), { waitUntil: "load" });

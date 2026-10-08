@@ -126,14 +126,8 @@ function ensureContainer(version: string): boolean {
   return true;
 }
 
-function pluginLinked(): boolean {
-  return ok("docker", [
-    "exec",
-    CONTAINER,
-    "test",
-    "-e",
-    `${PROFILE_MODULES}/@fang2hou/dsh-locale-ja`,
-  ]);
+function pluginLinked(packageId = "@bailuo2153/dsh-locale-ja"): boolean {
+  return ok("docker", ["exec", CONTAINER, "test", "-e", `${PROFILE_MODULES}/${packageId}`]);
 }
 
 function linkPlugin(): void {
@@ -216,6 +210,13 @@ async function start(): Promise<void> {
 
   const fresh = ensureContainer(version);
   await waitReady();
+  if (pluginLinked("@fang2hou/dsh-locale-ja")) {
+    throw new Error(
+      "The dev container still links @fang2hou/dsh-locale-ja. " +
+        "Run mise run dev-stop to discard its throwaway profile, then mise run dev. " +
+        "Do not link both package identities into the same profile.",
+    );
+  }
   if (fresh || !pluginLinked()) {
     console.log("[dev] link-installing the mounted repository as the plugin");
     linkPlugin();

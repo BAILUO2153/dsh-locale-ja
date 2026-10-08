@@ -2,7 +2,7 @@
 
 DeepSeek Harness（DSH）の Desktop メイン UI・Web UI に日本語を追加するプラグインです。中文・English・日本語を切り替えて利用できます。
 
-**BAILUO2153 版 · 0.3.0 · DSH 0.2.0-rc.2 対応**
+**BAILUO2153 版 · 0.3.1 · DSH 0.2.0-rc.2 対応**
 
 [リリースとダウンロード](https://github.com/BAILUO2153/dsh-locale-ja/releases) · [導入手順](#インストール) · [不具合の報告](https://github.com/BAILUO2153/dsh-locale-ja/issues)
 
@@ -12,31 +12,31 @@ DeepSeek Harness（DSH）の Desktop メイン UI・Web UI に日本語を追加
 
 ## インストール
 
-この fork は GitHub Releases で配布します。npm の `@fang2hou/dsh-locale-ja` は原作者の公開版です。同じパッケージ名を使いますが、配布元と内容が異なるため、以下の手順でこの fork のパッケージを指定してください。
+この fork は GitHub Releases で配布します。npm の `@fang2hou/dsh-locale-ja` は原作者の公開版です。この fork の識別名は `@bailuo2153/dsh-locale-ja` です。この scope は GitHub 配布用のパッケージ識別名で、npm のアカウント・scope の所有や公開を示すものではありません。npm のパッケージ名ではなく、以下の `.tgz` を指定してください。
 
 ### Release の `.tgz` を使う（推奨）
 
-[この fork の Releases](https://github.com/BAILUO2153/dsh-locale-ja/releases) から `fang2hou-dsh-locale-ja-0.3.0.tgz` と SHA-256 チェックサムを取得してください。GitHub の自動生成「Source code」アーカイブではなく、添付された `.tgz` を使用します。
+[この fork の v0.3.1 Release](https://github.com/BAILUO2153/dsh-locale-ja/releases/tag/v0.3.1) から `bailuo2153-dsh-locale-ja-0.3.1.tgz` と SHA-256 チェックサムを取得してください。公開済み `v0.3.0` のタグ・添付物は変更しません。GitHub の自動生成「Source code」アーカイブではなく、添付された `.tgz` を使用します。
 
 1. DSH Desktop のバージョンが `0.2.0-rc.2` であることを確認します。
-2. **Plugins → Add plugin**（プラグイン → プラグインを追加）に `.tgz` の絶対パスを入力し、内容を確認してインストール・有効化します。
+2. 旧版がある場合は先にアンインストールします（下記参照）。**Plugins → Add plugin**（プラグイン → プラグインを追加）に `.tgz` の絶対パスを入力し、内容を確認してインストール・有効化します。
 3. **Settings → General → Language**（設定 → 一般 → 言語）で **日本語** を選びます。
 
-旧版を導入済みの場合は、同じパッケージを二重に追加せず、プラグイン管理画面の削除・再インストール手順を利用してください。詳細は [Desktop の導入・確認手順](docs/desktop-compatibility.md) を参照してください。
+旧版 `@fang2hou/dsh-locale-ja` を導入済みの場合は、先に同じプロファイルのプラグイン管理画面で旧版をアンインストールし、一覧から消えたことを確認してから新版を追加してください。名前が変わるため通常の上書き更新にはなりません。両方を同時に有効化すると日本語の登録が重複するため、併存させないでください。詳細は [Desktop の導入・確認手順](docs/desktop-compatibility.md) を参照してください。
 
-Web プロファイルでは、ダウンロードしたファイルの絶対パスを指定します：
+Web プロファイルで旧版がある場合は、まず `dsh plugin --profile web remove @fang2hou/dsh-locale-ja` を実行し、旧版が削除されたことを確認します。その後、ファイルの絶対パスを指定します：
 
 ```bash
-dsh plugin --profile web add /absolute/path/fang2hou-dsh-locale-ja-0.3.0.tgz
+dsh plugin --profile web add /absolute/path/bailuo2153-dsh-locale-ja-0.3.1.tgz
 dsh web
 ```
 
 ### リポジトリを clone してビルドする
 
-Git と [mise](https://mise.jdx.dev/) を用意し、リリースのソースからパッケージを作成します。Node.js LTS と pnpm 12 は `mise.toml` に従います。
+Git と [mise](https://mise.jdx.dev/) を用意し、`v0.3.1` タグのソースからパッケージを作成します。Node.js LTS と pnpm 12 は `mise.toml` に従います。
 
 ```bash
-git clone --branch v0.3.0 --depth 1 https://github.com/BAILUO2153/dsh-locale-ja.git
+git clone --branch v0.3.1 --depth 1 https://github.com/BAILUO2153/dsh-locale-ja.git
 cd dsh-locale-ja
 mise install
 mise exec -- pnpm install --frozen-lockfile
@@ -44,10 +44,10 @@ mise exec -- pnpm build
 mise exec -- pnpm pack --pack-destination dist
 ```
 
-作成された `dist/fang2hou-dsh-locale-ja-0.3.0.tgz` の絶対パスを、上記の **Add plugin** に入力します。Web プロファイルなら次のコマンドで導入できます：
+作成された `dist/bailuo2153-dsh-locale-ja-0.3.1.tgz` の絶対パスを、上記の **Add plugin** に入力します。Web プロファイルなら次のコマンドで導入できます：
 
 ```bash
-dsh plugin --profile web add "$(pwd)/dist/fang2hou-dsh-locale-ja-0.3.0.tgz"
+dsh plugin --profile web add "$(pwd)/dist/bailuo2153-dsh-locale-ja-0.3.1.tgz"
 dsh web
 ```
 
@@ -73,7 +73,7 @@ dsh web
 - CI の必須チェック：型チェック・lint・ビルド・辞書／言語サービスのテスト、ビルド済み `lib/` の一致、秘密情報スキャン
 - Web E2E：隔離した DSH `0.2.0-rc.2` に、そのコミットの Git URL とソースから生成した `.tgz` を別々に導入します。初期状態、言語切り替えと保存、設定・プリセット画面、アンインストール時の復帰を必須チェックにしています
 - 既知の制限：対話モックは旧 `chat/completions` 形式のみ対応し、rc.2 の Messages リクエストに 404 を返します。このテストは独立した非必須ジョブとして実行し、失敗結果と診断を残しています。モデル応答・使用量表示の E2E が通過したことは意味しません。実 API は使用しません
-- 以前の `.tgz` は 2 台の Mac で導入が確認されています。今回の `0.3.0` 配布物を使った macOS Desktop の実機確認は別途必要です
+- 以前の `.tgz` は 2 台の Mac で導入が確認されています。今回の `0.3.1` 配布物を使った macOS Desktop の実機確認は別途必要です
 
 最新の実行結果は [この fork の CI](https://github.com/BAILUO2153/dsh-locale-ja/actions/workflows/ci.yml) を参照してください
 

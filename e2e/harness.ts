@@ -136,7 +136,7 @@ export function removePlugin(): void {
     "--profile",
     "web",
     "remove",
-    "@fang2hou/dsh-locale-ja",
+    "@bailuo2153/dsh-locale-ja",
   ]);
 }
 

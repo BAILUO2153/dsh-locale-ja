@@ -3,7 +3,7 @@
 This document describes how to develop, validate, and release
 `dsh-locale-ja`.
 
-The fork release candidate (`0.3.0`, not yet published) and supports the DSH `0.2.0-rc.2` `web`
+The fork release `0.3.1` supports the DSH `0.2.0-rc.2` `web`
 profile and the shared Desktop main UI. Native Desktop acceptance is pending. The `0.1.0` on npm is the older, dynamically
 loaded artifact; the standard package ships from `0.2.0`.
 
@@ -239,6 +239,12 @@ is throwaway by design), `mise run dev-restart` (manual DSH restart),
 `mise run dev-logs`. Test against another DSH with `DSH_DEV_DSH_VERSION`
 (exact version, `next`, or `latest`), same override the E2E suite uses.
 
+When moving a previously linked dev container to the new package identity,
+run `mise run dev-stop`, then `mise run dev`. This discards that throwaway
+container profile. The dev launcher refuses to add the new identity while the
+old link remains, rather than installing both. Back up any dev state you need
+before removing the container.
+
 ## Watching upstream DSH releases
 
 DSH is a developer preview that ships faster than this plugin pins it. The
@@ -276,7 +282,7 @@ to the tarball must be absolute because `pnpm` runs with its working directory
 set to the profile directory. Remove the local package with:
 
 ```bash
-dsh plugin --profile web remove @fang2hou/dsh-locale-ja
+dsh plugin --profile web remove @bailuo2153/dsh-locale-ja
 ```
 
 ## Coding standards
@@ -304,10 +310,19 @@ that architecture invariants (see `ARCHITECTURE.md`) still hold.
 
 ## Fork releases
 
-This fork retains the original package name for compatibility. It does not
-publish to the original author's npm namespace. The tag-triggered npm release
+This fork uses `@bailuo2153/dsh-locale-ja` from `0.3.1` onward.
+The scope is a package identity for GitHub distribution, not a claim of npm
+account/scope ownership or a registry publication. It does not publish to the
+original author's npm namespace. The tag-triggered npm release
 workflow has been removed. Original release design remains documented as
 historical context in [ADR-0005](./docs/adr/0005-npm-distribution-channel.md).
+
+Before installing this release, remove `@fang2hou/dsh-locale-ja` from the
+same profile and confirm removal. This is an identity migration, not an in-place
+upgrade: never activate both packages together. To roll back, remove the new
+package first, then install the original `v0.3.0` tarball. The existing tag and
+release assets remain unchanged. New tags, releases, and npm publication require
+separate approval. Original-author credits and MIT text must remain intact.
 
 Build and review the release tarball locally:
 

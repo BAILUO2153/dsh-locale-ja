@@ -1,6 +1,6 @@
 {
-  "name": "@fang2hou/dsh-locale-ja",
-  "version": "0.3.0",
+  "name": "@bailuo2153/dsh-locale-ja",
+  "version": "0.3.1",
   "description": "Japanese (日本語) interface for DeepSeek Harness — a standard DSH client plugin that adds 日本語 as a selectable UI language alongside 中文 and English, with Japanese system fonts.",
   "keywords": [
     "cordis",
@@ -51,7 +51,7 @@
   "scripts": {
     "build": "node scripts/build.ts",
     "prepack": "node scripts/build.ts",
-    "test": "node scripts/client.test.ts && node scripts/runtime-locale.test.ts && node scripts/check-compatibility.ts && node scripts/translation-batch1.test.ts && node scripts/translation-batch2.test.ts && node scripts/translation-batch2-composition.test.ts && node scripts/translation-batch3.test.ts",
+    "test": "node scripts/package-identity.test.ts && node scripts/client.test.ts && node scripts/runtime-locale.test.ts && node scripts/check-compatibility.ts && node scripts/translation-batch1.test.ts && node scripts/translation-batch2.test.ts && node scripts/translation-batch2-composition.test.ts && node scripts/translation-batch3.test.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tools.json",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",

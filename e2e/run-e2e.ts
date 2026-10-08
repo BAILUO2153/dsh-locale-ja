@@ -43,7 +43,7 @@ const packDir = fs.mkdtempSync(path.join(tmpdir(), "dsh-locale-ja-e2e-"));
 execFileSync("pnpm", ["pack", "--pack-destination", packDir], { stdio: "inherit" });
 const tarball = fs
   .readdirSync(packDir)
-  .find((name) => /^fang2hou-dsh-locale-ja-.*\.tgz$/.test(name));
+  .find((name) => /^bailuo2153-dsh-locale-ja-.*\.tgz$/.test(name));
 if (tarball === undefined) throw new Error(`no tarball found in ${packDir}`);
 const tarballPath = path.join(packDir, tarball);
 

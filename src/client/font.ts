@@ -1,4 +1,4 @@
-const PLUGIN_ID = "@fang2hou/dsh-locale-ja";
+const PLUGIN_ID = "@bailuo2153/dsh-locale-ja";
 const TAG_ID = `${PLUGIN_ID}/japanese-font.css`;
 
 // Latin faces first, then Japanese faces, so kana and kanji render with

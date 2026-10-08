@@ -6,12 +6,12 @@ agents modify the codebase. Keep it short and operational.
 
 ## What this project is
 
-`@fang2hou/dsh-locale-ja` is a **standard DSH client plugin package** for
+`@bailuo2153/dsh-locale-ja` is a **standard DSH client plugin package** for
 DeepSeek Harness (DSH) `0.2.0-rc.2`, targeting the shared Web renderer in the `web` and Desktop profiles. Its Host
 half (`src/index.ts`) exports an empty `apply()` only so the package can mount a
 Loader row; its browser half (`src/client/index.ts`) performs locale
 registration and all user-facing work. `dsh plugin --profile web add
-@fang2hou/dsh-locale-ja` installs it as a **profile bundle** through
+/absolute/path/bailuo2153-dsh-locale-ja-0.3.1.tgz` installs it as a **profile bundle** through
 `dsh.bundle.patch` and `cordis.patch.yml`.
 
 ## Invariants
