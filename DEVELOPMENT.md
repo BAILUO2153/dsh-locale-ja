@@ -3,9 +3,19 @@
 This document describes how to develop, validate, and release
 `dsh-locale-ja`.
 
-The project is pre-release (`0.3.0`) and supports the DSH `0.1.5-rc.2` `web`
-profile and browser UI only. The `0.1.0` on npm is the older, dynamically
+The fork release candidate (`0.3.0`, not yet published) and supports the DSH `0.2.0-rc.2` `web`
+profile and the shared Desktop main UI. Native Desktop acceptance is pending. The `0.1.0` on npm is the older, dynamically
 loaded artifact; the standard package ships from `0.2.0`.
+
+## Compatibility preview limits
+
+Read [Desktop compatibility](docs/desktop-compatibility.md) before installing or
+starting a runtime. This preview preserves the previous 1,907 entries and extends coverage as listed
+in [the batch 3 report](docs/translation-batch3.md). Reviewed English fallback
+gaps are tracked explicitly. `pnpm test` includes
+`pnpm drift:compat`, an offline pinned-release check. The full `pnpm drift`
+and Docker E2E lanes are separate and have not been executed for this preview.
+Do not treat their existing startup settings as verified privacy isolation.
 
 ## Prerequisites
 
@@ -122,7 +132,7 @@ key is a compile-time error. Preserve placeholders such as `{name}` verbatim.
 Follow the [Japanese translation guide](./docs/translation-guide.md) for
 terminology, button wording, and checks against the actual UI.
 
-Thirty-three of the 42 namespaces use unions from the owning package's shipped
+Thirty-three of the original 42 namespaces use unions from the owning package's shipped
 declarations. The other nine — `directory-browser`, `permission.access`,
 `trajectory`, and the runtime-only namespaces (`documentHtml`,
 `documentMarkdown`, `reference`, `sidebarCodePreview`, `sidebarImage`,
@@ -131,6 +141,12 @@ not expose those unions through their `exports` maps; `pnpm typecheck` cannot
 see drift in those nine, but the upstream drift check below can — it reads
 the key contracts straight out of any DSH release (typed declarations plus
 the shipped bundles' `locale.register` call sites).
+
+The batch 2 extra dictionaries use pinned local key unions because their packages
+are not installed in this bounded preview. The extra-namespace fixture records
+source registration and package exports, including public type exports that can
+replace local unions in a future authorized dependency update. This offline gate
+is not a check of new npm declaration files or actual profile activation.
 
 After editing a dictionary, run:
 
@@ -147,7 +163,7 @@ review those against the shipped source strings and their UI call sites.
 
 `mise run e2e` (`e2e/run-e2e.ts`):
 1. builds the plugin tarball from the current source (`pnpm pack`),
-2. builds a Docker image pinning `@deepseek-ai/dsh@0.1.5-rc.2`
+2. builds a Docker image pinning `@deepseek-ai/dsh@0.2.0-rc.2`
    (`e2e/Dockerfile`),
 3. starts `dsh web` in a container with a throwaway in-container `$DSH_HOME`
    (booting with `--no-open`; readiness is any HTTP response, since the
@@ -286,40 +302,56 @@ prek run --all-files  # run all pre-commit hooks
 Review the diff, confirm no unintended files or dependencies were added, and
 that architecture invariants (see `ARCHITECTURE.md`) still hold.
 
-## Releasing
+## Fork releases
 
-Releases are published to the public npm registry by the `Release` workflow
-(`.github/workflows/release.yml`) on version tags, using **npm trusted
-publishing (OIDC)** — no npm token is stored as a secret. The published package
-includes the plugin files `lib/index.js`, `lib/client.js`,
-`lib/types/**/*.d.ts`, and `cordis.patch.yml`. Install it into DSH with
-`dsh plugin --profile web add @fang2hou/dsh-locale-ja`; this installs the
-package and reconciles `dsh.profile.bundles` through DSH's standard
-client-module loader. See
-[ADR-0005](./docs/adr/0005-npm-distribution-channel.md).
+This fork retains the original package name for compatibility. It does not
+publish to the original author's npm namespace. The tag-triggered npm release
+workflow has been removed. Original release design remains documented as
+historical context in [ADR-0005](./docs/adr/0005-npm-distribution-channel.md).
 
-Trusted publishing requires npm CLI ≥ 11.5.1 and Node ≥ 22.14 (both met by the
-`node = "24"` tool in `mise.toml`), and a GitHub-hosted runner (the workflow
-uses `ubuntu-latest`). A trusted publisher is already registered on npmjs.com
-for this repository and the `release.yml` workflow, so routine releases need
-no local npm credentials: pushing the tag is the whole release.
-
-### Routine releases
-
-The pushed `v*` tag is the single source of truth for the version — the
-workflow stamps `package.json` from it before publishing, so no manual bump is
-required and a tag can never ship a stale version.
+Build and review the release tarball locally:
 
 ```bash
-# 1. commit any pending changes (Conventional Commits — validated by the cog
-#    commit-msg hook)
-
-# 2. tag and push
-git tag vX.Y.Z
-git push origin main --tags
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm lint
+pnpm format:check
+pnpm build
+pnpm test
+pnpm pack --pack-destination dist
 ```
 
-Pushing the `v*` tag triggers the workflow: it installs, runs `mise run check`
-and the E2E suite, sets the package version from the tag, and publishes via
-OIDC (provenance is attached automatically). Confirm at
-<https://www.npmjs.com/package/@fang2hou/dsh-locale-ja>.
+`lib/index.js`, `lib/client.js`, and `lib/types/` are generated by the build and
+committed for Git installation. Never edit them by hand.
+CI rebuilds and checks `git diff --exit-code -- lib`. `prepack` is retained;
+there is no `prepare` hook. Git installation on the actual Desktop package
+manager has not been verified and is not the recommended release path yet.
+
+Release candidates are reviewed in this fork before merging. Run the automated
+checks and Desktop acceptance checklist against the final tarball, then attach
+that `.tgz` and its SHA-256 checksum to the fork's GitHub Release.
+The release includes the tarball and a SHA-256 checksum. The README documents
+both downloading that package and cloning the release tag to build it locally.
+
+### Installation checks
+
+The required CI matrix runs four core checks for each installation source:
+baseline, install/activate/persist/revert, settings/preset actions, and uninstall.
+The `tgz` lane builds and packs the checked-out source; the `git` lane installs
+that exact source commit from the fork. Pull requests use the reachable head
+commit, not GitHub's synthetic merge commit. Both lanes must pass.
+
+```bash
+DSH_E2E_SUITE=core pnpm e2e
+DSH_E2E_SUITE=core DSH_E2E_GIT_SPEC=https://github.com/BAILUO2153/dsh-locale-ja.git#<full-commit-sha> pnpm e2e
+DSH_E2E_SUITE=mock pnpm e2e
+```
+
+Without `DSH_E2E_GIT_SPEC`, the runner installs its locally built tarball.
+Without `DSH_E2E_SUITE`, it runs all tests, including the known failing mock.
+The independent, non-blocking mock job retains its assertions and failing exit
+status: rc.2 sends Messages requests, but `e2e/mock-llm.ts` only implements
+chat/completions and returns 404. No real model API is called. CI artifacts
+include screenshots and container logs with process-login tokens redacted.
+A green core matrix does not establish successful conversation/usage rendering
+or native macOS Desktop behavior.

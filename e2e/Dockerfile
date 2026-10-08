@@ -8,10 +8,10 @@ FROM ${NODE_IMAGE}
 # refuses to bind anything but 127.0.0.1). npm >= 11.5 blocks install
 # scripts unless allowlisted; DSH's native deps need them.
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends python3 make g++ socat \
+  && apt-get install -y --no-install-recommends python3 make g++ socat git ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-ARG DSH_VERSION=0.1.5-rc.2
+ARG DSH_VERSION=0.2.0-rc.2
 ARG PNPM_VERSION=12
 RUN npm install -g --no-fund --no-audit \
   --allow-scripts=@deepseek-ai/dsh-subprocess-local,koffi,node-pty,@google/genai,protobufjs \

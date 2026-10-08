@@ -1,0 +1,198 @@
+{
+  "version": "0.3.0-compat.3",
+  "count": 1907,
+  "namespaces": {
+    "sidebarTerminal": {
+      "count": 28,
+      "sha256": "2834b95f8569ad25c46e96971acd6ea825e32d6bc5b974c64053f88ddefe9bc3"
+    },
+    "settings.shell": {
+      "count": 14,
+      "sha256": "cd356665876d470254124d7e6486205d1dc39a9157266df7398b02c12efe2bd4"
+    },
+    "settings.agentLoop": {
+      "count": 12,
+      "sha256": "2d8ee35ea7e7413ac4ebd59b6fe48445810f9a82456b0fc891887f33ebd2867c"
+    },
+    "settings.subagent": {
+      "count": 35,
+      "sha256": "314b8bb5dc8824416da3bfd5f9abbd37d73c4add9dc665de2a0df34c853eda61"
+    },
+    "settings.webSearch": {
+      "count": 18,
+      "sha256": "84f2f55112c5f962b5ff4065676974eca319f9e727635ed1ecc72c72c6b5cc9e"
+    },
+    "settings.sessionLog": {
+      "count": 4,
+      "sha256": "7b822a043a67b79575b2f5b697155ad02fa50ecdee83dfb9c3051e24dfbf0ec2"
+    },
+    "approval": {
+      "count": 5,
+      "sha256": "53af6bb86deafa8fd5a7a8939ae00bea48bb581d5f89b3772fd56d47b8a853ec"
+    },
+    "chat": {
+      "count": 186,
+      "sha256": "b6e12206961acb3eb713c7f306455c4f6c0fa21f2c8171772aded4ed4f5950e3"
+    },
+    "command": {
+      "count": 28,
+      "sha256": "6917de47e1594f4d117cda0c3a67dd42e6cbc56048235bc2741fa718b613a3ae"
+    },
+    "common": {
+      "count": 41,
+      "sha256": "748a51fc0617ff3fc232b8559111bb9b92fe2e3de2eb310e882a6ebc5bfca867"
+    },
+    "conversation": {
+      "count": 369,
+      "sha256": "1b309c3223350efbef6c27aa284b768c0e8fb3cbd232392cb5245d483995d3cc"
+    },
+    "cordis": {
+      "count": 51,
+      "sha256": "fe57f9ab5e918928fc85badd9c4a0adf15c2a19b744da72e7c012cac18e972f5"
+    },
+    "deliverables": {
+      "count": 60,
+      "sha256": "b16f4de382af0773c635bf43507368f023f811c316c226dba8e6f3702cc44a0c"
+    },
+    "directory-browser": {
+      "count": 13,
+      "sha256": "c196dc5972d9ff7aad0cf2aea093536f627b5ae73d9d1109ee2e1a6a9aad69ed"
+    },
+    "documentHtml": {
+      "count": 4,
+      "sha256": "9662d2976a5d6e6879e38e18f0a8823871282d23e28dbac7ee8c56ffa189149c"
+    },
+    "documentMarkdown": {
+      "count": 4,
+      "sha256": "9ba643d3cb931f4e17db4b917f01eaf37b2a43788bff9915091099ecc61175bb"
+    },
+    "feedback": {
+      "count": 20,
+      "sha256": "0b472d082583b88529337cf5e55620afe0411d3799612c5f86d1f89acbe1c24a"
+    },
+    "goal": {
+      "count": 12,
+      "sha256": "42cbe4b919d608a2c860c3a3dd0f3f3444c3c7f2a1ee0b58b93a32ab1ccfdb5d"
+    },
+    "job": {
+      "count": 39,
+      "sha256": "7d9be7bc5a6e63ab6495f439b9c40b1fb39d30ab806f04d1aa6f3a668bb70002"
+    },
+    "model": {
+      "count": 23,
+      "sha256": "4a62c6042c24b0655d8d8975c06cddfea38d7fe224165711e9d81f0fd7e46168"
+    },
+    "open-in-app": {
+      "count": 45,
+      "sha256": "8f1d3ba36795faf73341538cf8b0ab5317e7e0285537040e1130ff1aa2812d11"
+    },
+    "permission.access": {
+      "count": 17,
+      "sha256": "2653b62116048561f38ced42e451f4d12df6d832c0367934f27a07373faaccf8"
+    },
+    "plan": {
+      "count": 17,
+      "sha256": "bc6107d13177beae13460ccf7525e9c87eafec4a1232eb846509e215805d23e4"
+    },
+    "question": {
+      "count": 31,
+      "sha256": "c898eecfb1c6497be27ccc428901f80e4a2da7805564fc29f4dcea27b1ef1822"
+    },
+    "reference": {
+      "count": 11,
+      "sha256": "263ed69be9c655dc2bd7637fe55d45932a60e56494fb69683a590d06beddfbec"
+    },
+    "schedule.catalog": {
+      "count": 70,
+      "sha256": "aa979ae68dbbded77848ea4826c16bf478d5f8baf842ea733c558df609966020"
+    },
+    "session-log-download": {
+      "count": 10,
+      "sha256": "9246721b28832aa2c178ca0865fcca38cd3977e3d47e0cfa938d3335607689a1"
+    },
+    "settings": {
+      "count": 34,
+      "sha256": "81976f5ebea73d517b64a248e09a93b34d42d8786046d87e8b76a80a153f1212"
+    },
+    "settings.agentPreset": {
+      "count": 41,
+      "sha256": "dea31c7dc9d6ebe888c17a0a7c8e79a8658bcd7607b727b922afa0444446618f"
+    },
+    "settings.locale": {
+      "count": 1,
+      "sha256": "1d627bd51bec10e246a43287deb099fc72eeacdd32889d1a29bd110d8b5e907f"
+    },
+    "settings.models": {
+      "count": 113,
+      "sha256": "297757e90941091d483844d9da67b8b3b84a56d674a912a5d83f77d58b7f2425"
+    },
+    "settings.permission": {
+      "count": 12,
+      "sha256": "055433d38509c403db1f3d48be7a304bbd9f415e5b834ddaf33deb3f3b1e5705"
+    },
+    "settings.pluginInventory": {
+      "count": 40,
+      "sha256": "0e875c4a553586382788ec2b7c553345011a62bcd39f28774af6c2c0760fb9fd"
+    },
+    "settings.plugins": {
+      "count": 5,
+      "sha256": "295466e870b93615aed4da1ff587d486ad1d335324dc34bf26ad9b7a9e5526c6"
+    },
+    "settings.theme": {
+      "count": 9,
+      "sha256": "518dc5912e0127049aa72bd03c617b29f032b9b9dde51f11ff78925099be5764"
+    },
+    "sidebar": {
+      "count": 5,
+      "sha256": "b9d012c1e2073d3362a5014dbd243f466b740d39b22ebb5cc5eb2b628cfcf2cc"
+    },
+    "sidebarCodePreview": {
+      "count": 3,
+      "sha256": "b05fa82e4a86056d96317f3a26eb591d19b2d976c8463946891745d7b0b4ef49"
+    },
+    "sidebarDocumentPreview": {
+      "count": 22,
+      "sha256": "cba2ff67fa47cb79d7e4c975d06c99d579bf85a5aeff00a565b7730ac8d40771"
+    },
+    "sidebarFiles": {
+      "count": 17,
+      "sha256": "87197ad3f27b33c72891ec1190bfe37a1393420a0d2c918bed6f755e880ddec9"
+    },
+    "sidebarImage": {
+      "count": 11,
+      "sha256": "e4e3648ebab5d9b20951040d4850590c63d5724a4e84ba71e56e3dd06d422c99"
+    },
+    "sidebarPdf": {
+      "count": 15,
+      "sha256": "480e8e3881c7687dab29d7262cd4b6732ffd55a4f85dfa9a856b3f5b5c295ceb"
+    },
+    "sidebarRight": {
+      "count": 34,
+      "sha256": "845cc365fad9b86ff048d54a49614b82b8b8b1f4befde5e6190f54b063e556b9"
+    },
+    "skill": {
+      "count": 8,
+      "sha256": "52be35fb5c8d532359bb3f21bd2145a7d332a720b2a05983245177672ec2a20a"
+    },
+    "slash.menu": {
+      "count": 9,
+      "sha256": "b400ab1d8e11a9e6583fd686c622e7f84d43236548dd7cf3f73cfb0e806c8094"
+    },
+    "subagent": {
+      "count": 39,
+      "sha256": "8892180076c1b6cf4b92bedadd1cc3d8ba53da0342fdfcfb81c9484782a2ccb2"
+    },
+    "trajectory": {
+      "count": 192,
+      "sha256": "fea5ff0c52be54c35d0fa8a2fe137d242a6b119e5d2d2277076d6448488f90e9"
+    },
+    "workflowRun": {
+      "count": 18,
+      "sha256": "dec7c59c97791114ecc4e1fe62cb34c0ba54615a2e46b5dbfd5aadb22dac5d7b"
+    },
+    "workspace": {
+      "count": 112,
+      "sha256": "c7f34c17dd74f1af664838fe7220da09295724bf6e19f2d0446c09c8cfda61fa"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "workspace": {
+    "groupBy.workspaceTree": "ワークスペースのツリー表示",
+    "filterBy.label": "セッションを絞り込む",
+    "viewOptions.hideArchived": "アーカイブ済みを非表示",
+    "viewOptions.showArchived": "すべての会話（アーカイブ済みも表示）",
+    "viewOptions.onlyArchived": "アーカイブ済みのみ",
+    "actions.newSession": "新規セッション"
+  },
+  "settings.agentPreset": {
+    "modeExplanation": "モードの詳細",
+    "howToUse": "使い方"
+  },
+  "settings.sessionLog": {
+    "title": "公式モデル API の使用時にセッションログをアップロードする",
+    "description": "DeepSeek のモデルと製品の改善にご協力ください。"
+  },
+  "common": {
+    "workspace.defaultName": "デフォルトのワークスペース"
+  }
+}

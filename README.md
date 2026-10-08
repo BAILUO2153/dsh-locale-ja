@@ -1,94 +1,97 @@
-<div align="center">
+# DeepSeek Harness 日本語ローカライズ
 
-<img width="647" height="385" alt="DSH の日本語インターフェースの表示例" src="https://github.com/user-attachments/assets/ee9a6b90-52a5-4c23-b6a9-4aefb7e8247f" />
+DeepSeek Harness（DSH）の Desktop メイン UI・Web UI に日本語を追加するプラグインです。中文・English・日本語を切り替えて利用できます。
 
-# dsh-locale-ja
+**BAILUO2153 版 · 0.3.0 · DSH 0.2.0-rc.2 対応**
 
-DeepSeek Harness（DSH）の Web UI に **日本語** を追加するプラグイン
+[リリースとダウンロード](https://github.com/BAILUO2153/dsh-locale-ja/releases) · [導入手順](#インストール) · [不具合の報告](https://github.com/BAILUO2153/dsh-locale-ja/issues)
 
-</div>
+[fang2hou/dsh-locale-ja](https://github.com/fang2hou/dsh-locale-ja) をもとに、BAILUO2153 が翻訳の追加と互換性の調整を行っている fork です。原作者の著作権表示と MIT ライセンスを保持しています。
 
-## この fork の現在の開発状況
-
-このリポジトリは [fang2hou/dsh-locale-ja](https://github.com/fang2hou/dsh-locale-ja) を元にした MIT ライセンスの fork です。原作者の著作権表示とライセンスを維持しています。
-
-Desktop / Web `0.2.0-rc.2` 向けの開発は [`compat/dsh-0.2.0-rc.2` ブランチ](https://github.com/BAILUO2153/dsh-locale-ja/tree/compat/dsh-0.2.0-rc.2) で進めています。現在のパッケージは `0.3.0-compat.2` です。main の実装はまだ旧 Web 版のままです。
-
-- Desktop `0.2.0-rc.2` へのインストール成功が利用者から報告されています
-- 42 名前空間に 1,294 件の日本語文字列を収録し、その範囲で残る 502 件は英語にフォールバックします。新しい名前空間やネイティブメニューなどを含む完全な日本語対応ではありません
-- 型・lint・format・ビルド・言語サービスのテストは実施済みですが、実機での言語切り替え・再起動後の保持・削除と再追加・画面全体の確認は引き続き必要です
-- この互換性版は npm 未公開です。以下の旧 Web 版の npm コマンドでは互換性版をインストールできません
-
-### Desktop 互換性版の入手とインストール
-
-Node.js 24 と pnpm 12 を用意して、互換性ブランチからパッケージを作成します。
-
-```bash
-git clone --branch compat/dsh-0.2.0-rc.2 --single-branch https://github.com/BAILUO2153/dsh-locale-ja.git
-cd dsh-locale-ja
-pnpm install --frozen-lockfile
-pnpm typecheck && pnpm lint && pnpm format:check && pnpm build && pnpm test
-pnpm pack
-```
-
-生成された `fang2hou-dsh-locale-ja-0.3.0-compat.2.tgz`（またはすでに受け取った同バージョンのテスト用パッケージ）を使用します。
-
-1. パッケージを Desktop と同じコンピューターに保存します
-2. DSH の **Plugins → Add plugin** を開き、パッケージ名／アドレス欄にファイルの絶対パスを入力します。引用符で囲まず、`~/` で省略しないでください
-3. プレビューを確認してインストールし、プラグインを有効にします
-4. **Settings → General → Language → 日本語** を選択します
-
-`review.zip` やソースアーカイブはインストール用パッケージではありません。[詳しいインストール方法と確認項目](https://github.com/BAILUO2153/dsh-locale-ja/blob/compat/dsh-0.2.0-rc.2/docs/desktop-compatibility.md) を参照してください。
-
----
-
-## 旧 Web 版の説明（main の実装）
-
-以下は DSH `0.1.5-rc.2` 向けの従来の説明です。Desktop `0.2.0-rc.2` の導入には上記の互換性ブランチを使用してください。
-
-## 機能
-
-DSH に標準で用意されている **中文**・**English** に加えて、**日本語** を選べるようにします。
-
-- **日本語表示**：42 の名前空間に 1,257 件の UI 文字列を収録しています。未翻訳の項目は英語で表示されます。
-- **日本語フォント**：日本語の表示中は、OS 標準の日本語システムフォントを適用します。
-- **選択の保持**：選んだ言語は DSH の設定として保存され、ページを再読み込みしても維持されます。
-- **削除時の動作**：プラグインを削除すると、追加した辞書・フォント・言語の選択肢を取り除きます。DSH に保存された言語設定は残ります。
-
-## 対応バージョン
-
-- DSH `0.1.5-rc.2` の `web` プロファイル（ブラウザー UI）
+![日本語表示のプレビュー：メイン画面](docs/images/japanese-home.png)
 
 ## インストール
 
+この fork は GitHub Releases で配布します。npm の `@fang2hou/dsh-locale-ja` は原作者の公開版です。同じパッケージ名を使いますが、配布元と内容が異なるため、以下の手順でこの fork のパッケージを指定してください。
+
+### Release の `.tgz` を使う（推奨）
+
+[この fork の Releases](https://github.com/BAILUO2153/dsh-locale-ja/releases) から `fang2hou-dsh-locale-ja-0.3.0.tgz` と SHA-256 チェックサムを取得してください。GitHub の自動生成「Source code」アーカイブではなく、添付された `.tgz` を使用します。
+
+1. DSH Desktop のバージョンが `0.2.0-rc.2` であることを確認します。
+2. **Plugins → Add plugin**（プラグイン → プラグインを追加）に `.tgz` の絶対パスを入力し、内容を確認してインストール・有効化します。
+3. **Settings → General → Language**（設定 → 一般 → 言語）で **日本語** を選びます。
+
+旧版を導入済みの場合は、同じパッケージを二重に追加せず、プラグイン管理画面の削除・再インストール手順を利用してください。詳細は [Desktop の導入・確認手順](docs/desktop-compatibility.md) を参照してください。
+
+Web プロファイルでは、ダウンロードしたファイルの絶対パスを指定します：
+
 ```bash
-dsh plugin --profile web add @fang2hou/dsh-locale-ja
+dsh plugin --profile web add /absolute/path/fang2hou-dsh-locale-ja-0.3.0.tgz
 dsh web
 ```
 
-削除する場合は次を実行します。
+### リポジトリを clone してビルドする
+
+Git と [mise](https://mise.jdx.dev/) を用意し、リリースのソースからパッケージを作成します。Node.js LTS と pnpm 12 は `mise.toml` に従います。
 
 ```bash
-dsh plugin --profile web remove @fang2hou/dsh-locale-ja
+git clone --branch v0.3.0 --depth 1 https://github.com/BAILUO2153/dsh-locale-ja.git
+cd dsh-locale-ja
+mise install
+mise exec -- pnpm install --frozen-lockfile
+mise exec -- pnpm build
+mise exec -- pnpm pack --pack-destination dist
 ```
+
+作成された `dist/fang2hou-dsh-locale-ja-0.3.0.tgz` の絶対パスを、上記の **Add plugin** に入力します。Web プロファイルなら次のコマンドで導入できます：
+
+```bash
+dsh plugin --profile web add "$(pwd)/dist/fang2hou-dsh-locale-ja-0.3.0.tgz"
+dsh web
+```
+
+リポジトリにはビルド済み `lib/` も収録し、CI でソースとの一致を検査します。Git URL からの直接インストールは CI の独立した検証対象です。Desktop 同梱パッケージマネージャーでの Git URL 直指定は未検証のため、Desktop では `.tgz` を使用してください。
 
 ## 使い方
 
-1. DSH の **Settings → General → Language**（**設定 → 一般 → 言語**）を開きます。
-2. **日本語** を選択すると、UI の表示言語とフォントが切り替わります。
+設定画面で **日本語** を選択すると、対応する UI と日本語システムフォントに切り替わります。言語は DSH の設定として保存され、同じホストに接続するブラウザーにも適用されます。中文・English にはいつでも戻せます。
 
-選択内容は DSH に保存され、ページを再読み込みしても維持されます。同じ DSH ホストに接続する別のブラウザーにも適用されます。中文や English にはいつでも切り替えられます。
+![日本語表示のプレビュー：一般設定と言語選択](docs/images/japanese-settings.png)
 
-日本語を選択したままプラグインを削除すると、表示は英語に戻ります。保存済みの日本語設定は残るため、そのまま再インストールすると日本語表示に戻ります。
+画像は日本語表示のプレビューです。
 
-## 開発
+日本語を選んだままプラグインを削除すると、追加した辞書・フォント・言語の選択肢が解除されます。保存済みの `ja` 設定は残り、表示は DSH が解決する対応言語に戻ります。再インストール後は保存された日本語設定が再適用されます。
 
-ビルドと検証の手順は [DEVELOPMENT.md](./DEVELOPMENT.md) を、設計と互換性に関する判断は [ARCHITECTURE.md](./ARCHITECTURE.md) および [ADR](./docs/adr/) を参照してください。
+## 対応範囲・検証状況
+
+- 対象：DSH `0.2.0-rc.2` の共有 Web レンダラー（Desktop メイン UI と Web UI）
+- 収録：**52 名前空間・2,246 辞書項目**。互換性候補版 `0.3.0-compat.4` の翻訳を引き継ぎ、従来の 1,907 項目を保持しています
+- 調査済みで未翻訳の範囲：**6 名前空間・369 項目**。入力用の 6 コマンドトークンは互換性のため英語を保持しています
+- 未対応：Electron のネイティブメニュー・更新画面、外部サイトや埋め込みアカウントページ、画像内文字、辞書を使用しない UI、追加プラグインの未収録文字列
+- 未翻訳の辞書項目は英語にフォールバックします。DSH 全体の完全日本語化は保証していません
+- CI の必須チェック：型チェック・lint・ビルド・辞書／言語サービスのテスト、ビルド済み `lib/` の一致、秘密情報スキャン
+- Web E2E：隔離した DSH `0.2.0-rc.2` に、そのコミットの Git URL とソースから生成した `.tgz` を別々に導入します。初期状態、言語切り替えと保存、設定・プリセット画面、アンインストール時の復帰を必須チェックにしています
+- 既知の制限：対話モックは旧 `chat/completions` 形式のみ対応し、rc.2 の Messages リクエストに 404 を返します。このテストは独立した非必須ジョブとして実行し、失敗結果と診断を残しています。モデル応答・使用量表示の E2E が通過したことは意味しません。実 API は使用しません
+- 以前の `.tgz` は 2 台の Mac で導入が確認されています。今回の `0.3.0` 配布物を使った macOS Desktop の実機確認は別途必要です
+
+最新の実行結果は [この fork の CI](https://github.com/BAILUO2153/dsh-locale-ja/actions/workflows/ci.yml) を参照してください
+
+[翻訳範囲と残りの対象](docs/translation-batch3.md) / [互換性と確認チェックリスト](docs/desktop-compatibility.md)
+
+## フィードバック・開発
+
+誤訳・表示崩れ・この fork の導入問題は [この fork の Issues](https://github.com/BAILUO2153/dsh-locale-ja/issues) に、DSH とプラグインのバージョン、再現手順を添えて報告してください。スクリーンショットの個人情報や認証情報は除いてください。
+
+開発・検証は [DEVELOPMENT.md](DEVELOPMENT.md)、設計は [ARCHITECTURE.md](ARCHITECTURE.md) と [ADR](docs/adr/) を参照してください。
 
 ```bash
-mise run check   # 型チェック + lint + format-check + build + test
+pnpm install --frozen-lockfile
+mise run check
 ```
 
-## ライセンス
+## 原作者・ライセンス
 
-[MIT](./LICENSE)
+原作者：**fang2hou** — [オリジナルの dsh-locale-ja](https://github.com/fang2hou/dsh-locale-ja)。元の実装と日本語翻訳に感謝します。
+
+[MIT License](LICENSE) — `Copyright (c) 2026 fang2hou` を含む原文を変更せず保持しています。

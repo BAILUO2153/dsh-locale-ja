@@ -1,0 +1,130 @@
+[
+  {
+    "package": "ui-settings-account",
+    "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-account/src/client/index.ts",
+    "blobSha": "cfcc57b44ba2887ebb6530579db250a8ade6b319",
+    "lines": [
+      {
+        "line": 45,
+        "text": "  ctx.effect(() => ctx.locale.register('settings.account', { en, zh }), 'account: dictionaries')"
+      },
+      {
+        "line": 46,
+        "text": "  const t = ctx.locale.bind('settings.account')"
+      },
+      {
+        "line": 170,
+        "text": "        locale: ctx.locale.getSnapshot().active === 'zh' ? 'zh-CN' : 'en',"
+      },
+      {
+        "line": 254,
+        "text": "      name: 'shell.overlay', id: 'desktop-onboarding', locale: 'settings.account',"
+      },
+      {
+        "line": 267,
+        "text": "    name: 'settings.models.sign-in', locale: 'settings.account', inject: () => operations,"
+      },
+      {
+        "line": 270,
+        "text": "    name: 'shell.quota-notice', locale: 'settings.account',"
+      },
+      {
+        "line": 279,
+        "text": "      name: 'shell.overlay', id: 'account.platform-page', locale: 'settings.account',"
+      },
+      {
+        "line": 287,
+        "text": "    name: 'settings.launcher', locale: 'settings.account', inject: () => operations,"
+      },
+      {
+        "line": 294,
+        "text": "          name: 'settings.section', id: 'account', order: -10, label: () => t('nav'),"
+      },
+      {
+        "line": 295,
+        "text": "          locale: 'settings.account', inject: () => operations,"
+      }
+    ]
+  },
+  {
+    "package": "ui-shortcuts",
+    "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-shortcuts/src/client/index.ts",
+    "blobSha": "9aa3547ae239f5aca85caa8880c592a41e19795a",
+    "lines": [
+      {
+        "line": 29,
+        "text": "  ctx.effect(() => ctx.locale.register('shortcuts', { zh, en }), 'shortcuts: dictionaries')"
+      },
+      {
+        "line": 30,
+        "text": "  const t = ctx.locale.bind('shortcuts')"
+      },
+      {
+        "line": 43,
+        "text": "    name: 'settings.general.item', id: 'shortcuts', order: 16, locale: 'shortcuts', store,"
+      },
+      {
+        "line": 48,
+        "text": "      id: 'shortcuts.open' as ShortcutCommandId, label: () => t('open'), aliases: ['shortcuts', 'keyboard shortcuts'],"
+      },
+      {
+        "line": 67,
+        "text": "      name: 'shell.overlay', id: 'shortcuts', locale: 'shortcuts', store,"
+      }
+    ]
+  },
+  {
+    "package": "ui-plugin-manager",
+    "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-plugin-manager/src/client/index.ts",
+    "blobSha": "a568db4666780798a8ab22563619cb62da46b491",
+    "lines": [
+      {
+        "line": 76,
+        "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'ui-plugin-manager: dictionaries')"
+      },
+      {
+        "line": 77,
+        "text": "  const t = ctx.locale.bind(NS)"
+      },
+      {
+        "line": 103,
+        "text": "    name: 'shell.overlay', id: 'plugin-manager.refresh-toast', locale: NS,"
+      },
+      {
+        "line": 115,
+        "text": "      locale: NS,"
+      },
+      {
+        "line": 143,
+        "text": "    label: () => t('panel'),"
+      },
+      {
+        "line": 144,
+        "text": "    locale: NS,"
+      }
+    ]
+  },
+  {
+    "package": "ui-layout",
+    "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-layout/src/client/index.ts",
+    "blobSha": "410c8b09772a8ba77d51c8cb037345b741b33f1b",
+    "lines": [
+      {
+        "line": 152,
+        "text": "  ctx.effect(() => ctx.locale.register('shortcuts.layout', { zh, en }), 'layout: command labels')"
+      },
+      {
+        "line": 153,
+        "text": "  const t = ctx.locale.bind('shortcuts.layout')"
+      },
+      {
+        "line": 173,
+        "text": "      locale: 'common',"
+      },
+      {
+        "line": 184,
+        "text": "      id: 'sidebar.left.toggle' as ShortcutCommandId, label: () => t('toggle'), aliases: ['sidebar', 'toggle left sidebar'],"
+      }
+    ]
+  }
+]

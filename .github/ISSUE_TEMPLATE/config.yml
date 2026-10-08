@@ -1,10 +1,10 @@
 blank_issues_enabled: true
 
 contact_links:
-  - name: Original dsh-locale-ja project
-    url: https://github.com/fang2hou/dsh-locale-ja/issues
-    about: Report issues that also affect the original Japanese localization plugin.
+  - name: Fork support and feedback
+    url: https://github.com/BAILUO2153/dsh-locale-ja/issues
+    about: Report localization or compatibility problems with this fork here.
 
-  - name: DeepSeek Harness upstream
-    url: https://github.com/deepseek-ai/deepseek-harness/issues
-    about: Report issues caused by DeepSeek Harness itself rather than this localization plugin.
+  - name: Original dsh-locale-ja project
+    url: https://github.com/fang2hou/dsh-locale-ja
+    about: Original project and author attribution. Please report fork-specific issues in this fork.

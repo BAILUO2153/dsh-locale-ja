@@ -9,10 +9,20 @@ export function apply(ctx: ClientContext): void {
   const { locale } = ctx;
 
   ctx.effect(() => {
-    const disposers = Object.entries(DICTS).map(([ns, dict]) => locale.register(ns, JA, dict));
-    return () => {
-      for (const dispose of disposers) dispose();
+    const disposers: Array<() => void> = [];
+    const dispose = (): void => {
+      for (let index = disposers.length - 1; index >= 0; index -= 1) disposers[index]?.();
     };
+    try {
+      for (const [ns, dict] of Object.entries(DICTS)) {
+        disposers.push(locale.register(ns, JA, dict));
+      }
+    } catch (error) {
+      // A failed effect has no returned disposer for Cordis to run.
+      dispose();
+      throw error;
+    }
+    return dispose;
   }, "locale-ja: japanese dictionaries");
 
   // Dictionaries must land before the language exists: a stored `ja`
@@ -25,8 +35,14 @@ export function apply(ctx: ClientContext): void {
     const sync = (): void => {
       font.sync(isJapaneseActive(locale));
     };
-    sync();
-    const unsubscribe = locale.subscribe(sync);
+    let unsubscribe: () => void;
+    try {
+      sync();
+      unsubscribe = locale.subscribe(sync);
+    } catch (error) {
+      font.dispose();
+      throw error;
+    }
     return () => {
       unsubscribe();
       font.dispose();

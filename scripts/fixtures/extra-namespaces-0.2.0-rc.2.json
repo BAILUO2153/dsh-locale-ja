@@ -1,0 +1,1778 @@
+{
+  "version": "0.2.0-rc.2",
+  "upstreamCommit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+  "source": "https://github.com/deepseek-ai/deepseek-harness/tree/639ed015397290b3745d163aafe02ffee4aa3f84",
+  "license": "MIT; English dictionaries from deepseek-ai/deepseek-harness",
+  "scope": "Additional dictionary-backed client namespaces absent from the original 42-namespace compatibility fixture. Includes stable and experimental package source declarations; registration evidence does not imply a package is loaded in every profile. Excludes native Desktop shell, shared fragments, and inline or runtime-generated copy outside this dictionary-file inventory.",
+  "sourceAudit": {
+    "catalog": "Pinned upstream recursive tree and every client locale/locale(s)/shortcut-locales/task-manager-locales dictionary module found there",
+    "exclusions": [
+      {
+        "source": "apps/desktop/src/locale.ts",
+        "reason": "Native Desktop shell is outside this client plugin"
+      },
+      {
+        "source": "packages/client/ui-tool/src/client/locale.ts",
+        "reason": "Only names the existing conversation namespace; contains no dictionary"
+      },
+      {
+        "source": "packages/client/ui-agent-preset/src/client/guide-locales.ts",
+        "reason": "Merged into existing settings.agentPreset"
+      },
+      {
+        "source": "packages/client/ui-schedule/src/client/frequency-locales.ts",
+        "reason": "Shared fragment merged into schedule.catalog and schedule.manager"
+      },
+      {
+        "source": "packages/client/ui-sidebar-documentpreview/src/client/zoom/locales.ts",
+        "reason": "Shared fragment merged into existing renderer dictionaries"
+      },
+      {
+        "source": "packages/client/ui-settings-account/src/client/locales/onboarding.ts",
+        "reason": "Shared fragment merged into settings.account"
+      }
+    ],
+    "registrationEvidenceVerified": true,
+    "packageExportsVerified": true,
+    "publishedDeclarationFilesVerified": false,
+    "limitation": "Package source exports are verified at the fixed commit. New packages were not installed; emitted npm declaration reachability and actual profile activation are not asserted.",
+    "publishedDeclarationNamespacesVerified": ["schedule.manager"]
+  },
+  "namespaces": {
+    "sidebarTerminal": {
+      "english": {
+        "shortcut.noSession": "Select a session first",
+        "recoveryFailed": "Terminal recovery failed: {message}",
+        "retryRecovery": "Retry terminal recovery",
+        "shell": "Choose shell",
+        "shellLoading": "Loading shells…",
+        "shellEmpty": "No shells available",
+        "description": "Run commands in the Session workspace",
+        "title": "Terminal",
+        "new": "New terminal",
+        "loading": "Reading terminal environment…",
+        "creating": "Starting…",
+        "connecting": "Connecting…",
+        "disconnected": "Disconnected.",
+        "reconnect": "Reconnect",
+        "readonly": "This view is read-only.",
+        "control": "Take control",
+        "closed": "Terminal closed.",
+        "exited": "Process exited ({code})",
+        "failed": "Terminal error: {message}",
+        "rename": "Terminal name",
+        "unavailable": "Unavailable",
+        "retry": "Retry",
+        "cleanupFailed": "Terminal “{title}” could not be ended: {message}",
+        "missingTerminal": "This terminal no longer exists. Open a new terminal.",
+        "inputFull": "The input buffer is full. Reconnect and try again.",
+        "attachmentEnded": "The terminal connection ended. Reconnect to continue.",
+        "invalidOutput": "The terminal screen could not be received. Reconnect to recover it.",
+        "terminalLimit": "The terminal limit has been reached. Close unused terminals and try again. Exited terminals also count toward the limit."
+      },
+      "keyCount": 28,
+      "source": "packages/client/ui-sidebar-terminal/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-terminal/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-sidebar-terminal/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-terminal/src/client/index.ts",
+        "lines": [
+          {
+            "line": 20,
+            "text": "import { en, zh } from './locales.ts'"
+          },
+          {
+            "line": 51,
+            "text": "  const namespace = 'sidebarTerminal'"
+          },
+          {
+            "line": 70,
+            "text": "  ctx.effect(() => ctx.locale.register(namespace, { zh, en }), 'ui-sidebar-terminal.copy')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-sidebar-terminal/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-terminal/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": null,
+        "notes": "Local declaration uses keyof typeof zh; client entry does not re-export a key union",
+        "source": "packages/client/ui-sidebar-terminal/src/client/locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": false,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "no-direct-client-export",
+        "installedLocally": false,
+        "integrationNote": "No named key-union re-export was found. Namespace-map and transitive declaration reachability must be checked against installed declarations before adopting a type-only import."
+      },
+      "translated": true,
+      "translationSource": "scripts/fixtures/translation-batch2-extra.json"
+    },
+    "settings.shell": {
+      "english": {
+        "title": "Shell",
+        "description": "Limit how long each command may run and how much it may output.",
+        "timeoutMs": "Command timeout (ms)",
+        "timeoutMsHint": "How long one command may run before it is terminated.",
+        "maxOutputBytes": "Output cap per stream (bytes)",
+        "maxOutputBytesHint": "Output beyond this spills to a temporary file rather than being lost.",
+        "overridden": "Overridden",
+        "reset": "Reset to default",
+        "readOnly": "This deployment stores settings read-only.",
+        "unavailable": "This plugin is not loaded, so it cannot be configured right now.",
+        "save": "Save",
+        "saving": "Saving…",
+        "saveFailed": "The deployment did not accept these values; they were left for you to correct.",
+        "invalidNumber": "Enter a number, or leave blank to use the default."
+      },
+      "keyCount": 14,
+      "source": "packages/client/ui-settings-shell/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-shell/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-settings-shell/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-shell/src/client/index.ts",
+        "lines": [
+          {
+            "line": 20,
+            "text": "import { en, zh, type ShellSettingsLocaleKey } from './locales.ts'"
+          },
+          {
+            "line": 34,
+            "text": "export const NS = 'settings.shell'"
+          },
+          {
+            "line": 45,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'ui-settings-shell: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-settings-shell",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-settings-shell/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-shell/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "ShellSettingsLocaleKey",
+        "notes": "Named key union exported from ./client",
+        "source": "packages/client/ui-settings-shell/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": true,
+      "translationSource": "scripts/fixtures/translation-batch2-extra.json"
+    },
+    "settings.agentLoop": {
+      "english": {
+        "title": "Agent loop",
+        "description": "Control how the Agent dispatches tool calls.",
+        "maxParallel": "Parallel tool calls",
+        "maxParallelHint": "Upper bound on parallel-safe calls running at once within one step.",
+        "overridden": "Overridden",
+        "reset": "Reset to default",
+        "readOnly": "This deployment stores settings read-only.",
+        "unavailable": "This plugin is not loaded, so it cannot be configured right now.",
+        "save": "Save",
+        "saving": "Saving…",
+        "saveFailed": "The deployment did not accept these values; they were left for you to correct.",
+        "invalidNumber": "Enter a number, or leave blank to use the default."
+      },
+      "keyCount": 12,
+      "source": "packages/client/ui-settings-agent-loop/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-agent-loop/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-settings-agent-loop/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-agent-loop/src/client/index.ts",
+        "lines": [
+          {
+            "line": 19,
+            "text": "import { en, zh, type AgentLoopSettingsLocaleKey } from './locales.ts'"
+          },
+          {
+            "line": 33,
+            "text": "export const NS = 'settings.agentLoop'"
+          },
+          {
+            "line": 44,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'ui-settings-agent-loop: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-settings-agent-loop/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-agent-loop/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "AgentLoopSettingsLocaleKey",
+        "notes": "Named key union exported from ./client",
+        "source": "packages/client/ui-settings-agent-loop/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": true,
+      "translationSource": "scripts/fixtures/translation-batch2-extra.json"
+    },
+    "settings.subagent": {
+      "english": {
+        "overridden": "Overridden",
+        "reset": "Reset to default",
+        "readOnly": "This deployment stores settings read-only.",
+        "unavailable": "This plugin is not loaded, so it cannot be configured right now.",
+        "save": "Save",
+        "saving": "Saving…",
+        "saveFailed": "The deployment did not accept these values; they were left for you to correct.",
+        "subagentTitle": "Subagent",
+        "subagentDescription": "Set Subagent recursion depth, count, and models.",
+        "subagentLimitsTitle": "Limits",
+        "subagentMaxDepth": "Maximum recursion depth",
+        "subagentDepthHelpLabel": "About maximum recursion depth",
+        "subagentDepthHelp": "Limits how many levels of Subagents an Agent can create.",
+        "subagentDepthZero": "Disable Subagents",
+        "subagentDepthOne": "Only the main Agent can create Subagents",
+        "subagentDepthOverride": "If a tool defines its own maximum recursion depth, that setting takes precedence.",
+        "subagentMaxActive": "Subagent parallelism limit",
+        "subagentCapacityHelpLabel": "About the Subagent parallelism limit",
+        "subagentCapacityHelp": "Total live Subagents under the same main Agent, across all recursion levels. The main Agent is excluded. New start requests are rejected when the limit is reached.",
+        "subagentDepthInvalid": "Enter a whole number of 0 or more.",
+        "subagentCapacityInvalid": "Enter a whole number of 1 or more.",
+        "subagentModelSelectionTitle": "Model selection",
+        "subagentModelSelectionToggle": "Allow agents to choose models for Subagents",
+        "subagentModelSelectionChoose": "When enabled, agents can choose a provider, model, and reasoning effort for each Subagent from the authorized models below. Applies only to new sessions.",
+        "subagentModelSelectionAllowed": "Models agents may choose",
+        "subagentModelSelectionLoading": "Loading models…",
+        "subagentModelSelectionLoadFailed": "Models could not be loaded.",
+        "subagentModelSelectionRetry": "Retry",
+        "subagentModelSelectionPartial": "Some model providers could not be loaded; saved choices remain removable.",
+        "subagentModelSelectionUnavailable": "Currently unavailable",
+        "subagentModelSelectionUnavailableGroup": "Saved but currently unavailable",
+        "subagentModelSelectionEmpty": "No model provider currently advertises a model.",
+        "subagentModelSelectionRequired": "Select at least one model before saving.",
+        "subagentModelSelectionConflict": "Settings changed elsewhere. Discard your draft and try again.",
+        "subagentModelSelectionOff": "Subagents use configured defaults or inherit the parent agent's model. Saved model choices are retained."
+      },
+      "keyCount": 35,
+      "source": "packages/client/ui-settings-subagent/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-subagent/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-settings-subagent/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-subagent/src/client/index.ts",
+        "lines": [
+          {
+            "line": 26,
+            "text": "import { en, zh, type SubagentSettingsLocaleKey } from './locales.ts'"
+          },
+          {
+            "line": 44,
+            "text": "export const NS = 'settings.subagent'"
+          },
+          {
+            "line": 61,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'ui-settings-subagent: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-settings-subagent",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-settings-subagent/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-subagent/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "SubagentSettingsLocaleKey",
+        "notes": "Named key union exported from ./client",
+        "source": "packages/client/ui-settings-subagent/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": true,
+      "translationSource": "scripts/fixtures/translation-batch2-extra.json"
+    },
+    "settings.webSearch": {
+      "english": {
+        "title": "Web search",
+        "description": "Set up the DeepSeek search provider.",
+        "apiKey": "API key",
+        "apiKeyHint": "Stored outside the settings file. Leave blank to keep the current key.",
+        "apiKeySet": "A key is configured.",
+        "apiKeyUnset": "No key is configured; only conversations using a DeepSeek Account model can search, through the default endpoint.",
+        "baseUrl": "Endpoint",
+        "baseUrlHint": "Leave blank to use the provider default.",
+        "maxUses": "Max searches per request",
+        "maxUsesHint": "How many times one request may search before it must answer.",
+        "overridden": "Overridden",
+        "reset": "Reset to default",
+        "readOnly": "This deployment stores settings read-only.",
+        "unavailable": "This plugin is not loaded, so it cannot be configured right now.",
+        "save": "Save",
+        "saving": "Saving…",
+        "saveFailed": "The deployment did not accept these values; they were left for you to correct.",
+        "invalidNumber": "Enter a number, or leave blank to use the default."
+      },
+      "keyCount": 18,
+      "source": "packages/client/ui-settings-web-search/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-web-search/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-settings-web-search/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-web-search/src/client/index.ts",
+        "lines": [
+          {
+            "line": 22,
+            "text": "import { en, zh, type WebSearchSettingsLocaleKey } from './locales.ts'"
+          },
+          {
+            "line": 36,
+            "text": "export const NS = 'settings.webSearch'"
+          },
+          {
+            "line": 47,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'ui-settings-web-search: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-settings-web-search",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-settings-web-search/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-web-search/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "WebSearchSettingsLocaleKey",
+        "notes": "Named key union exported from ./client",
+        "source": "packages/client/ui-settings-web-search/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": true,
+      "translationSource": "scripts/fixtures/translation-batch2-extra.json"
+    },
+    "settings.sessionLog": {
+      "english": {
+        "title": "Upload Session Log when using the official model API",
+        "description": "Help improve DeepSeek models and products.",
+        "saved": "Preference saved",
+        "failed": "Could not save preference"
+      },
+      "keyCount": 4,
+      "source": "packages/client/ui-settings-session-log/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-session-log/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-settings-session-log/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-session-log/src/client/index.ts",
+        "lines": [
+          {
+            "line": 9,
+            "text": "import { en, zh } from './locales.ts'"
+          },
+          {
+            "line": 26,
+            "text": "  const locale = 'settings.sessionLog'"
+          },
+          {
+            "line": 27,
+            "text": "  const namespace = 'session-log-deepseek'"
+          },
+          {
+            "line": 28,
+            "text": "  ctx.effect(() => ctx.locale.register(locale, { en, zh }))"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-settings-session-log",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-settings-session-log/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-session-log/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": null,
+        "notes": "LocaleNamespaceMap uses keyof typeof en; no named key type re-export",
+        "source": "packages/client/ui-settings-session-log/src/client/locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "namespace-map-in-registration-source",
+        "installedLocally": false,
+        "integrationNote": "No named key-union re-export was found. Namespace-map and transitive declaration reachability must be checked against installed declarations before adopting a type-only import."
+      },
+      "translated": true,
+      "translationSource": "scripts/fixtures/translation-batch2-extra.json"
+    },
+    "settings.account": {
+      "english": {
+        "modelSignInRequired": "Model unavailable. Please sign in and try again.",
+        "sessionExpired": "You have signed out of your account, please log in again.",
+        "onboardingArtworkLocale": "en",
+        "onboardingWelcome": "Welcome to",
+        "onboardingBrand": "DeepSeek Harness",
+        "onboardingIntroduction": "DeepSeek Harness works in a local folder and uses tools to read and write files on your computer. It can help you research and organize information, create documents and spreadsheets, write code, troubleshoot issues, and more.",
+        "onboardingStart": "Get started",
+        "onboardingCredit": "Add credits",
+        "onboardingCreditDescription": "DeepSeek Harness charges credits based on the tokens used by models and tools. Add credits in advance to keep your tasks running without interruption. Your balance is only used while the agent is working on a task.",
+        "onboardingTopUp": "Add credits",
+        "onboardingLater": "Next",
+        "onboardingFundedTopUp": "Add credits",
+        "onboardingPurposePrefix": "What would you like",
+        "onboardingPurposeSuffix": "to help with?",
+        "onboardingPurposeDescription": "We’ll tailor the interface and tools to fit the way you work.",
+        "onboardingOffice": "Office & creative work",
+        "onboardingOfficeDescription": "Edit documents, organize data, create presentations, and more",
+        "onboardingDevelopment": "Coding & development",
+        "onboardingDevelopmentDescription": "Edit code, debug issues, run commands, manage project files, and more",
+        "onboardingContinue": "Continue",
+        "onboardingProcess": "How much detail would you like to see?",
+        "onboardingProcessDescription": "This only changes how progress is shown, not what DeepSeek Harness can do.",
+        "onboardingCompact": "Results only",
+        "onboardingCompactDescription": "See just the results in a clean, simple interface",
+        "onboardingStandard": "Key details",
+        "onboardingStandardDescription": "Focus on results, with only the most important steps and actions shown",
+        "onboardingDetailed": "Full details",
+        "onboardingDetailedDescription": "See the full process for easier debugging and troubleshooting",
+        "onboardingEnter": "Open app",
+        "onboardingBack": "Back",
+        "onboardingSkip": "Skip",
+        "onboardingSkipTitle": "Skip setup?",
+        "onboardingSkipDescription": "You can change how progress, performance, and usage are displayed, or enable Coding Tools, anytime in Settings → General.",
+        "onboardingKeepSetting": "Continue setup",
+        "onboardingNoCreditTitle": "Skip adding credits?",
+        "onboardingNoCreditDescription": "DeepSeek Harness can’t start new tasks without credits. You can add them later in Settings → Account.",
+        "onboardingUnderstood": "Got it",
+        "onboardingGoTopUp": "Add credits",
+        "onboardingSaveFailed": "Could not save settings. Try again.",
+        "onboardingRetry": "Retry",
+        "onboardingLoading": "Loading settings…",
+        "close": "Close",
+        "addApiKey": "Add API Key",
+        "retry": "Sign in again",
+        "loginTitle": "Get started",
+        "loginDescription": "Sign in to your DeepSeek account or add an API Key to get started. Your projects and files are stored locally.",
+        "browserTitle": "Waiting for sign in",
+        "browserPrompt": "Page did not open automatically? ",
+        "copyLink": "Copy sign-in link",
+        "copiedLink": "Link copied",
+        "copyFailed": "Copy failed",
+        "browserDescription": ", then open it in your browser to finish signing in.",
+        "timeoutTitle": "Sign in timed out",
+        "timeoutDescription": "Sign in again to continue.",
+        "failureTitle": "Could not sign in",
+        "platformFailed": "Could not complete the operation. Try again.",
+        "platformRetry": "Retry",
+        "loading": "Loading…",
+        "backToHarness": "Back to DeepSeek Harness",
+        "settings": "Settings",
+        "contactUs": "Feedback",
+        "menu": "Account menu",
+        "nav": "Account",
+        "signedIn": "Signed in to DeepSeek",
+        "signedOut": "Not signed in",
+        "signIn": "Sign in",
+        "signOut": "Sign out",
+        "signOutUnknownDescription": "Could not check running tasks. Signing out may interrupt tasks using this account. Sign out now?",
+        "signOutDescription": "Signing out will not delete any data. You can sign in to this account again.",
+        "signOutRunningDescription": "Tasks are currently running. Signing out will interrupt them. Sign out now?",
+        "cancel": "Cancel",
+        "open": "Open browser",
+        "initializing": "Starting sign in…",
+        "waiting": "Continue in your browser",
+        "completing": "Completing sign in…",
+        "expired": "Sign in expired. Try again.",
+        "failed": "Could not complete the operation. Try again.",
+        "settingsSignedOutTitle": "You are not signed in to DeepSeek Harness",
+        "settingsSignedOutDescription": "Sign in to DeepSeek Harness to get your dedicated API Key",
+        "signInDescription": "Use your DeepSeek account to get started.",
+        "profileUnavailable": "Account details are not available yet.",
+        "balance": "Topped-up balance",
+        "bonusBalance": "Granted balance",
+        "balanceUnavailable": "View on Platform",
+        "balanceSignedOut": "Sign in to view",
+        "accountInfo": "More account information",
+        "more": "More",
+        "usage": "View usage",
+        "topUp": "Top up",
+        "quotaTitle": "No balance available",
+        "quotaDescription": "DeepSeek Harness cannot start a new task with this account when no balance is available. Would you like to top up? You can also top up later in Settings → Account.",
+        "quotaTopUp": "Top up",
+        "bonusNoticeTitle": "Bonus credited"
+      },
+      "keyCount": 93,
+      "source": "packages/client/ui-settings-account/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-account/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-settings-account/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-account/src/client/index.ts",
+        "lines": [
+          {
+            "line": 24,
+            "text": "import { en, zh, type AccountKey } from './locales.ts'"
+          },
+          {
+            "line": 45,
+            "text": "  ctx.effect(() => ctx.locale.register('settings.account', { en, zh }), 'account: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-settings-account",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-settings-account/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-settings-account/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "AccountKey",
+        "notes": "Named key union exported from ./client; includes onboardingEnglishCopy",
+        "source": "packages/client/ui-settings-account/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": true
+    },
+    "shortcuts": {
+      "english": {
+        "edit-label": "Edit shortcut for {command}",
+        "record": "Press a shortcut",
+        "record-help": "Release the keys to save. Tab moves between actions; Esc cancels.",
+        "web-help": "Browser combinations: Mod+/, Mod+Shift+,, Mod+Shift+.. Mod is Command on Mac and Ctrl elsewhere.",
+        "unsupported-key": "This key is not supported.",
+        "reserved": "This combination is reserved for system or text editing actions.",
+        "modifier-required": "Include Command, Ctrl, or Alt in the combination.",
+        "too-many-keys": "Hold at most two non-modifier keys. Release the keys to try again.",
+        "macos-web-help": "Use Command+/, Command+,, Command+Backslash, Control+Backquote, Command+Option+key, or Command+Shift+key. Combinations with three or four distinct modifiers are also supported. Browser or system shortcuts may not reach the page.",
+        "windows-web-help": "Use Ctrl+/, Ctrl+,, Ctrl+Alt+key, or Ctrl+Shift+key. Combinations with three or four distinct modifiers are also supported. Browser or system shortcuts may not reach the page.",
+        "unsupported-browser": "This browser does not support this combination yet.",
+        "conflict": "Already used by “{commands}”",
+        "saved": "Modified",
+        "clear": "Remove",
+        "retry-save": "Retry save",
+        "reset": "Restore default",
+        "reset-all": "Restore all defaults",
+        "modified-count": "{count} customized",
+        "reset-title": "Restore all default shortcuts?",
+        "reset-description": "Restore the default shortcuts for this platform. All modified or removed shortcuts will be restored. Other platforms are unaffected.",
+        "cancel": "Cancel",
+        "reset-saved": "Default shortcuts restored",
+        "close-confirmation": "Close confirmation",
+        "reset-failed": "Could not restore defaults. Your shortcuts are unchanged. Please retry.",
+        "review": "I have reviewed the latest configuration",
+        "stale": "Shortcut configuration or available commands changed. Review the latest bindings before saving.",
+        "write-failed": "Could not save. Your previous shortcuts and current draft are preserved. Please retry.",
+        "not-ready": "Shortcuts are not ready. Please try again.",
+        "read": "Could not read {location}. Check access permissions, then {reload}.",
+        "invalid": "Shortcut configuration in {location} is damaged. Back up and repair this configuration, then {reload}.",
+        "future": "Shortcut configuration in {location} was created by a newer version. Upgrade Harness and try again.",
+        "web-document": "this site’s localStorage entry dsh.keybindings.v1",
+        "desktop-document": "userData/keybindings.json",
+        "web-reload": "reload the page",
+        "desktop-reload": "restart Harness",
+        "using-defaults": "Default bindings are active.",
+        "using-accepted": "The last successfully read bindings remain active.",
+        "native-failed": "Could not protect desktop key recording. Exit recording and try again.",
+        "global-hint": "Open from anywhere",
+        "clear-search": "Clear search",
+        "title": "Keyboard shortcuts",
+        "open": "Open keyboard shortcuts",
+        "settings": "Keyboard shortcuts",
+        "view": "Edit shortcuts",
+        "description": "View and edit available shortcuts and input actions",
+        "search": "Search shortcuts",
+        "close": "Close keyboard shortcuts",
+        "application": "Application",
+        "input": "Message input",
+        "menus": "Menus and dialogs",
+        "approval": "Approval area",
+        "unbound": "No shortcut",
+        "empty": "No matching shortcuts",
+        "move": "Move menu selection",
+        "select": "Select menu item",
+        "dismiss": "Close menu or top dialog"
+      },
+      "keyCount": 56,
+      "source": "packages/client/ui-shortcuts/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-shortcuts/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-shortcuts/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-shortcuts/src/client/index.ts",
+        "lines": [
+          {
+            "line": 11,
+            "text": "import { en, zh } from './locales.ts'"
+          },
+          {
+            "line": 29,
+            "text": "  ctx.effect(() => ctx.locale.register('shortcuts', { zh, en }), 'shortcuts: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-shortcuts",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-shortcuts/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-shortcuts/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": null,
+        "notes": "LocaleNamespaceMap uses keyof typeof zh; no named key type re-export",
+        "source": "packages/client/ui-shortcuts/src/client/locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "namespace-map-in-registration-source",
+        "installedLocally": false,
+        "integrationNote": "No named key-union re-export was found. Namespace-map and transitive declaration reachability must be checked against installed declarations before adopting a type-only import."
+      },
+      "translated": true
+    },
+    "pluginManager": {
+      "english": {
+        "panel": "Plugins",
+        "title": "Plugins",
+        "intro": "Install, enable, and configure plugins",
+        "infoLabel": "About plugins",
+        "infoDescription": "Configure official plugins and install or manage other plugins here. View the built-in plugin list and runtime status in Settings → Built-in plugins.",
+        "loading": "Reading plugins…",
+        "error": "Could not read all plugins, possibly due to a network problem",
+        "unavailable": "This deployment runs without a manageable profile, so plugins cannot be installed or switched here.",
+        "retry": "Retry",
+        "refresh": "Refresh",
+        "refreshError": "Refresh failed. Please try again.",
+        "empty": "No plugins are installed yet.",
+        "addPlugin": "Add plugin",
+        "restartNotice": "The change takes effect at the next start",
+        "overriddenNotice": "{name} was saved, but a higher-priority configuration overrides it, so it is not in effect",
+        "bundlesTitle": "Installed",
+        "officialTitle": "Official",
+        "statusProblem": "Problem",
+        "statusBeta": "Experimental",
+        "reasonLabel": "Reason",
+        "metadataError": "Package metadata error: {error}",
+        "versionTag": "v{version}",
+        "partsLabel": "Components",
+        "partsEmpty": "This plugin pack contains no components.",
+        "partsCountTotal": "{count} total",
+        "partsCountRunning": "{count} running",
+        "partsCountOff": "{count} off",
+        "partOff": "Off",
+        "partsCountFailed": "{count} failed",
+        "partsFilter": "Filter components",
+        "partsFilterEmpty": "No component matches.",
+        "partToggle": "Enable component {name}",
+        "rowPhasePending": "Waiting for dependencies",
+        "rowPhaseLoading": "Loading",
+        "rowPhaseActive": "Running",
+        "rowPhaseFailed": "Problem",
+        "rowPhaseUnloading": "Unloading",
+        "enableToggle": "Enable {name}",
+        "openDetail": "View {name}",
+        "backToList": "Back to plugins",
+        "crumbRoot": "Plugins",
+        "backToPackage": "Back to {name}",
+        "configureRow": "Configure {name}",
+        "rowStateIdle": "Not running",
+        "uninstall": "Uninstall",
+        "uninstallLabel": "Uninstall {name}",
+        "installTitle": "Add plugin",
+        "installDescription": "Enter the plugin's package name, GitHub repository address, or local directory path.",
+        "installSpecLabel": "Package name or address",
+        "installSpecPlaceholder": "for example dsh-plugin-whale-pet",
+        "installGuideToggle": "Install guide and examples",
+        "installGuideHide": "Hide the guide",
+        "installGuideIdTitle": "Enter the plugin's npm package name",
+        "installGuideIdExample": "dsh-plugin-whale-pet",
+        "installGuideIdHint": "The plugin package name is the npm package name (like dsh-xxx or @author/plugin): the part after dsh plugin add or pnpm add in a community plugin's README install command.",
+        "installGuideExampleLabel": "Example: ",
+        "installGitTemplateHint": "Replace this with the actual Git repository address.",
+        "installPathTemplateHint": "Replace this with the actual path to your local plugin directory.",
+        "installGuideFill": "Use example",
+        "installGuideFillAria": "Use the example {example}",
+        "installGuideSafety": "Install only plugins you trust: they run with your permissions and can damage DeepSeek Harness or leak your data.",
+        "installUpgradeNotice": "Installed plugins do not update automatically yet. To upgrade a plugin, uninstall it and install the new version. Later releases will keep improving the upgrade experience.",
+        "registryToggle": "Registry",
+        "registryLegend": "The npm registry the plugin is downloaded from",
+        "registryDefault": "Default registry",
+        "registryOfficial": "Official npm registry",
+        "registryNpmmirror": "Mainland China mirror",
+        "registryCustom": "Custom address",
+        "registryCustomPlaceholder": "https://npm.example.com/",
+        "registryCustomHint": "Enter an internal or private npm registry address starting with http:// or https://. If it requires a login, store the credentials in ~/.npmrc on this machine.",
+        "registryCustomInvalid": "Enter an address starting with http:// or https://",
+        "registryListSeparator": ", ",
+        "sentenceSeparator": " ",
+        "installRun": "Install",
+        "installChecking": "Checking…",
+        "installProblemInvalid": "This is not a package name or address that can be installed: {reason}",
+        "installProblemInstalled": "This plugin is already installed. To upgrade it, uninstall it and install it again",
+        "installProblemShipped": "This plugin ships with DSH; upgrading DSH updates it",
+        "installProblemNotFound": "No such plugin was found",
+        "installProblemNotPackage": "The path does not exist or is not a valid plugin package",
+        "installProblemNotBundle": "This package declares no bundle, so it cannot be installed as a plugin: {reason}",
+        "installProblemNetwork": "The plugin registry could not be reached; check the network and try again",
+        "installProblemNetworkAll": "No registry could be reached (tried: {registries}); check the network or proxy settings, or change the registry",
+        "installProblemUnknown": "The plugin could not be looked up: {reason}",
+        "installingTitle": "Installing the plugin…",
+        "installedTitle": "Installed",
+        "installFailedTitle": "The plugin could not be installed",
+        "installGithubFailedTitle": "Cannot access GitHub",
+        "installGithubTimeoutTitle": "GitHub connection timed out",
+        "installGithubFailedDescription": "Try another installation source.",
+        "installUseGithubMirror": "Use mainland China mirror",
+        "installTryAnotherWay": "Try another way",
+        "installPackageLabel": "Plugin package name",
+        "installEdit": "Edit",
+        "installEditAria": "Back to editing",
+        "installCancelAndEdit": "Cancel installation and return to editing",
+        "installApplyingCancellationError": "Cancellation was not confirmed. Installation is being applied; wait for its result. {reason}",
+        "installReconcile": "Check installation status",
+        "installUnknownTitle": "Installation result unavailable",
+        "installUnknownDescription": "The Host has no active installation with this request id. Check the plugin list before trying again.",
+        "installResultUnconfirmed": "The installation result was not received. Check installation status. {reason}",
+        "installAwaitingAcceptance": "Waiting for the Host to accept installation. Cancellation will retry automatically after confirmation.",
+        "installBackgroundUnknown": "Installation result unavailable. Check the plugin list.",
+        "installCancel": "Cancel install",
+        "installCloseCancels": "Cancel install and close",
+        "installViewTask": "View installation",
+        "installUnconfirmedTitle": "Installation status unconfirmed",
+        "installBackgroundDone": "Installation finished. View installation details.",
+        "installBackgroundFailed": "Installation failed. View installation details.",
+        "installBackgroundUnconfirmed": "Installation status is unconfirmed. View the installation for details.",
+        "installBackgroundApplying": "Installation is being applied and cannot be cancelled. View installation progress.",
+        "installStarting": "Preparing installation…",
+        "installCancelling": "Stopping installation…",
+        "installApplying": "Applying configuration, please wait…",
+        "installCancelledShort": "Cancelled",
+        "installCancelled": "Installation cancelled; the plugin is not enabled, and downloaded files may remain",
+        "installCancelUnconfirmed": "Installation has not been confirmed stopped. Retry cancellation or wait for the installation result. {reason}",
+        "installEnableNow": "Enable now",
+        "installDetailsShow": "Show install details",
+        "installDetailsHide": "Hide install details",
+        "installVersion": "Version {version}",
+        "installSubjectPath": "Local directory",
+        "installSubjectGit": "Git repository",
+        "installSubjectTarball": "Tarball",
+        "installLocation": "Installs into {dir}",
+        "installRetry": "Retry",
+        "installChangeRegistry": "Change registry",
+        "installAttempt": "{previous} could not serve the package; retrying through {registry} (registry {index} of {total})",
+        "installAttemptBadge": "Attempt {index} · {registry}",
+        "installFailureNetwork": "The network connection failed",
+        "installFailureNetworkAll": "No registry could be reached (tried: {registries}). Check the network or proxy settings, or change the registry and retry.",
+        "installFailureNetworkHost": "{host} could not be reached. A GitHub address or a .tgz link is not fetched through the registry: this machine must reach it directly or through a proxy. If the plugin is also published to npm, enter its package name instead.",
+        "installFailureNotFound": "No such plugin was found",
+        "installFailureNoMatchingVersion": "No version matches the request",
+        "installFailureDiskFull": "The disk is full; the install stopped",
+        "installFailurePermission": "No write permission; the plugin cannot be installed",
+        "installFailureBuildBlocked": "A dependency's install scripts need your permission before the install can continue",
+        "installFailureBuildBlockedManual": "pnpm blocked install scripts; allow them under allowBuilds in pnpm-workspace.yaml and retry",
+        "installFailureIntegrity": "The downloaded package failed its integrity check",
+        "installFailureTimeout": "The install timed out",
+        "installFailurePnpmMissing": "pnpm was not found, so nothing can be installed",
+        "installFailureGeneric": "Something went wrong during the install; the details say what",
+        "terminalRunning": "Running",
+        "terminalFailed": "Failed",
+        "terminalDone": "Done",
+        "terminalCopy": "Copy",
+        "terminalCopied": "Copied",
+        "terminalNoOutput": "No output",
+        "terminalCollapseAria": "Collapse output",
+        "terminalCollapse": "Collapse",
+        "terminalExpandAria": "Expand the remaining {n} output lines",
+        "terminalExpand": "… {n} more lines",
+        "terminalExitCode": "exit code {code}",
+        "terminalSignal": "signal {signal}",
+        "terminalNoExitCode": "no exit code",
+        "installDoneNothing": "Install finished with no new dependency.",
+        "installDoneRestart": "Installed; it loads at the next start.",
+        "installDoneApproved": "Install scripts allowed for {names}",
+        "installApprovalTitle": "Install scripts need permission",
+        "installApprovalDescription": "These packages have install scripts that pnpm did not run.",
+        "installApprovalConsequence": "Once allowed, the scripts run here with your permissions, and the permission is saved in this profile.",
+        "installApprovalCaution": "Allow only packages you trust.",
+        "installApproveAndRetry": "Allow these scripts and retry",
+        "installClose": "Done",
+        "close": "Close",
+        "cancel": "Cancel",
+        "confirmUninstallTitle": "Uninstall \"{name}\"?",
+        "confirmUninstallDescription": "What it provides goes away once it is uninstalled.",
+        "confirmUninstall": "Uninstall",
+        "failedEnable": "Could not enable: {reason}",
+        "failedDisable": "Could not disable: {reason}",
+        "failedUninstall": "Could not uninstall: {reason}",
+        "failedRowEnable": "Could not enable the component: {reason}",
+        "failedRowDisable": "Could not disable the component: {reason}",
+        "reasonManagementRequired": "Plugin management needs it; it cannot be switched off or uninstalled.",
+        "reasonUnaddressable": "The profile patch cannot address this one uniquely.",
+        "reasonUnknownPlugin": "No such plugin.",
+        "reasonInvalidSpec": "Enter a valid package name or address.",
+        "reasonAmbiguousInstall": "Which package was installed cannot be told from the dependency change.",
+        "reasonNotBundle": "This package declares no bundle, so it cannot be managed as a plugin.",
+        "reasonNotRemovable": "This package is not owned by the profile, or plugin management needs it.",
+        "reasonStopProfile": "This profile runs without HMR; stop it and uninstall the package with dsh plugin.",
+        "reasonBundleInUse": "Other configuration still uses this bundle's components; switch them off first.",
+        "reasonStaleApproval": "The pending script approvals changed; install again to refresh them.",
+        "reasonIncompatibleVersion": "{plugin} is incompatible with DSH {runtime} (requires {peers}); running it may cause crashes or data loss.",
+        "reasonIncompatibleVersionUnnamed": "This plugin is incompatible with the running DSH version; running it may cause crashes or data loss.",
+        "reasonIncompatibleInstall": "Install a plugin version compatible with this DSH.",
+        "reasonIncompatibleInstalled": "Uninstall it and install a version compatible with this DSH.",
+        "reasonOperationError": "The Host reported an error."
+      },
+      "keyCount": 189,
+      "source": "packages/client/ui-plugin-manager/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-plugin-manager/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-plugin-manager/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-plugin-manager/src/client/index.ts",
+        "lines": [
+          {
+            "line": 28,
+            "text": "import { en, zh, type PluginManagerLocaleKey } from './locales.ts'"
+          },
+          {
+            "line": 62,
+            "text": "export const NS = 'pluginManager'"
+          },
+          {
+            "line": 76,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'ui-plugin-manager: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-plugin-manager",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-plugin-manager/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-plugin-manager/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json",
+        "./typert": {
+          "types": "./lib/typert.host.d.ts",
+          "default": "./lib/typert.host.js"
+        },
+        "./remote": {
+          "types": "./lib/typert.remote-client.d.ts",
+          "default": "./lib/typert.remote-client.js"
+        }
+      },
+      "keyUnion": {
+        "name": "PluginManagerLocaleKey",
+        "notes": "Named key union exported from ./client",
+        "source": "packages/client/ui-plugin-manager/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": true
+    },
+    "sidebarBrowser": {
+      "english": {
+        "type.label": "Browser",
+        "guide.title": "Browser",
+        "guide.description": "Browse web pages",
+        "shortcut.noSession": "Open a session first",
+        "address.placeholder": "Enter an HTTP(S) address",
+        "address.changed": "URL changed",
+        "back": "Back",
+        "forward": "Forward",
+        "reload": "Reload",
+        "go": "Go",
+        "external": "Open in system browser",
+        "sandbox.disable": "Disable sandbox restrictions",
+        "sandbox.enable": "Restore sandbox restrictions",
+        "sandbox.warning": "Sandbox restrictions are disabled; the page can navigate the top-level app and use downloads, modal dialogs, and input locks.",
+        "start": "Enter an HTTP(S) address to start browsing",
+        "loading": "Opening…",
+        "restore.previous": "Previously opened",
+        "restore.action": "Restore page",
+        "error.empty": "Enter an address.",
+        "error.invalid": "That address is invalid or too long.",
+        "error.protocol": "Only HTTP and HTTPS addresses are supported; use Document Preview for local files.",
+        "error.credentials": "Addresses cannot contain a username or password.",
+        "error.application-origin": "The embedded browser cannot open the DSH application itself.",
+        "load.failed": "The page could not load; reload or open it in the system browser.",
+        "load.failed.detail": "Page load failed ({code}): {description}",
+        "address.unknown": "The page navigated; this carrier cannot read its new URL."
+      },
+      "keyCount": 26,
+      "source": "packages/client/ui-sidebar-browser/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-browser/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-sidebar-browser/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-browser/src/client/index.ts",
+        "lines": [
+          {
+            "line": 19,
+            "text": "import { en, zh } from './locales.ts'"
+          },
+          {
+            "line": 44,
+            "text": "  const namespace = 'sidebarBrowser'"
+          },
+          {
+            "line": 73,
+            "text": "  ctx.effect(() => ctx.locale.register(namespace, { zh, en }), 'ui-sidebar-browser.copy')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-sidebar-browser",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-sidebar-browser/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-browser/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "SidebarBrowserKey",
+        "notes": "Named key union exported from ./client",
+        "source": "packages/client/ui-sidebar-browser/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": false,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": false
+    },
+    "shortcuts.layout": {
+      "english": {
+        "toggle": "Toggle left sidebar"
+      },
+      "keyCount": 1,
+      "source": "packages/client/ui-layout/src/client/shortcut-locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-layout/src/client/shortcut-locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-layout/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-layout/src/client/index.ts",
+        "lines": [
+          {
+            "line": 21,
+            "text": "import { en, zh } from './shortcut-locales.ts'"
+          },
+          {
+            "line": 152,
+            "text": "  ctx.effect(() => ctx.locale.register('shortcuts.layout', { zh, en }), 'layout: command labels')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-layout",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-layout/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-layout/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": null,
+        "notes": "LocaleNamespaceMap uses keyof typeof zh; no named key type re-export",
+        "source": "packages/client/ui-layout/src/client/shortcut-locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "namespace-map-in-registration-source",
+        "installedLocally": false,
+        "integrationNote": "No named key-union re-export was found. Namespace-map and transitive declaration reachability must be checked against installed declarations before adopting a type-only import."
+      },
+      "translated": true
+    },
+    "schedule.manager": {
+      "english": {
+        "panel": "Automation tasks",
+        "title": "Automation tasks",
+        "new.action": "New",
+        "list.label": "Task catalog",
+        "list.nextPrefix": "Next scheduled time: ",
+        "list.loading": "Loading tasks…",
+        "list.error": "Could not load tasks.",
+        "list.retry": "Retry",
+        "list.empty": "No tasks yet. Tasks created in your sessions appear here.",
+        "list.emptyInactive": "No inactive automation tasks",
+        "list.noMatches": "No matching tasks",
+        "search.label": "Search tasks",
+        "search.placeholder": "Search automation tasks",
+        "search.clear": "Clear search",
+        "empty.action": "New automation task",
+        "statusFilter.label": "Task status",
+        "statusFilter.all": "All",
+        "status.active": "Enabled",
+        "status.inactive": "Inactive",
+        "detail.label": "Task details",
+        "detail.close": "Close details",
+        "detail.more": "Automation task actions",
+        "detail.nextRun": "Next run",
+        "detail.tabs": "Task detail views",
+        "detail.rule": "Rules",
+        "detail.records": "Delivery records",
+        "delivery.empty": "No delivery record available",
+        "delivery.loading": "Loading delivery records…",
+        "delivery.error": "Could not load delivery records.",
+        "delivery.notFound": "This task is no longer available.",
+        "delivery.cursorError": "Records were updated.",
+        "delivery.retry": "Retry",
+        "delivery.refresh": "Refresh",
+        "delivery.loadMore": "Load more",
+        "delivery.expand": "Expand",
+        "delivery.collapse": "Collapse",
+        "delivery.pruned": "Earlier delivery records have been cleared",
+        "delivery.retention": "Retention rules",
+        "delivery.retentionBounds": "Each task keeps up to {records} delivery records from the last {days} days.",
+        "delivery.retentionExplanation": "When a new record is saved, older records outside these limits are cleared automatically. Clearing records does not stop the task.",
+        "detail.name": "Automation task name",
+        "detail.instruction": "Automation task instruction",
+        "detail.status": "Status",
+        "detail.next": "Next scheduled time",
+        "detail.frequency": "Frequency",
+        "detail.id": "Task ID",
+        "detail.session": "Linked session",
+        "detail.openSession": "Linked session: open original session",
+        "detail.openSessionTitle": "Linked session {title}: open original session",
+        "detail.sessionLoading": "Loading original session information.",
+        "detail.sessionArchived": "The original session is archived.",
+        "detail.sessionUnavailable": "The original session is unavailable.",
+        "detail.missing": "Task unavailable. It may have been deleted.",
+        "delivery.label": "Saved delivery record",
+        "frequency.once": "Once",
+        "frequency.every": "Every {value} {unit}",
+        "time.locale": "en",
+        "time.utcPrefix": "UTC",
+        "frequency.daily": "Daily at {time} ({timeZone})",
+        "frequency.dailyLocal": "Daily at {time}",
+        "frequency.weekly": "Weekly on {weekdays} at {time} ({timeZone})",
+        "frequency.weeklyLocal": "Weekly on {weekdays} at {time}",
+        "frequency.cron": "Cron {expression} ({timeZone})",
+        "frequency.cronLocal": "Cron {expression}",
+        "frequency.cronRule": "{rule} ({timeZone})",
+        "cron.list.join": ", ",
+        "cron.part.join": " ",
+        "cron.weekday.name": "{weekday}",
+        "cron.weekday.range": "{from}–{to}",
+        "cron.months": " in {months}",
+        "cron.day.every": "Every day{months}",
+        "cron.day.weekdays": "{weekdays}{months}",
+        "cron.day.monthDays": "Day {days} of every month{months}",
+        "cron.day.both": "Day {days} of every month or {weekdays}{months}",
+        "cron.day.bothStarred": "Day {days} of every month and {weekdays}{months}",
+        "cron.hours.range": "{from}–{to}",
+        "cron.hours.list": "{hours}",
+        "cron.time.everyMinute": "Every minute",
+        "cron.time.everyMinutes": "Every {step} minutes",
+        "cron.time.joinedEveryMinute": "every minute",
+        "cron.time.joinedEveryMinutes": "every {step} minutes",
+        "cron.time.everyHour": "Every hour",
+        "cron.time.joinedEveryHour": "every hour",
+        "cron.time.everyNHours": "Every {count} hours",
+        "cron.time.joinedEveryNHours": "every {count} hours",
+        "cron.time.hourlyAt": "Every hour at minute {minutes}",
+        "cron.time.joinedHourlyAt": "every hour at minute {minutes}",
+        "cron.time.hoursEveryMinute": "every minute during hours {hours}",
+        "cron.time.hoursEveryMinutes": "every {step} minutes during hours {hours}",
+        "cron.time.at": "at {times}",
+        "cron.time.hoursAt": "at minute {minutes} of hours {hours}",
+        "frequency.weekday.join": ", ",
+        "frequency.weekday.1": "Mon",
+        "frequency.weekday.2": "Tue",
+        "frequency.weekday.3": "Wed",
+        "frequency.weekday.4": "Thu",
+        "frequency.weekday.5": "Fri",
+        "frequency.weekday.6": "Sat",
+        "frequency.weekday.7": "Sun",
+        "unit.day.one": "day",
+        "unit.day.other": "days",
+        "unit.hour.one": "hour",
+        "unit.hour.other": "hours",
+        "unit.minute.one": "minute",
+        "unit.minute.other": "minutes",
+        "unit.second.one": "second",
+        "unit.second.other": "seconds",
+        "relative.now": "Due now",
+        "relative.future": "in {value} {unit}",
+        "relative.overdue": "{value} {unit} overdue",
+        "timing.date": "Date",
+        "timing.time": "Time",
+        "timing.hour": "Hour",
+        "timing.minute": "Minute",
+        "timing.second": "Second",
+        "timing.prevMonth": "Previous month",
+        "timing.nextMonth": "Next month",
+        "timing.zone": "Time zone",
+        "timing.zoneSearch": "Search by UTC offset, IANA ID, or city",
+        "timing.zoneNoResults": "No matching time zones",
+        "timing.interval": "Repeat every",
+        "timing.intervalIncrease": "Increase interval",
+        "timing.intervalDecrease": "Decrease interval",
+        "timing.unit.hour": "hours",
+        "timing.unit.minute": "minutes",
+        "timing.unit.second": "seconds",
+        "timing.intervalHint.hour": "At least 1 hour. The interval counts from task creation or the last rule change and is independent of time zones.",
+        "timing.intervalHint.minute": "At least 1 minute. The interval counts from task creation or the last rule change and is independent of time zones.",
+        "timing.intervalHint.second": "At least 60 seconds. The interval counts from task creation or the last rule change and is independent of time zones.",
+        "timing.zoneNoStored": "A one-time task stores only its target moment, not a time zone. The date and time are interpreted in the selected time zone.",
+        "timing.inactive": "Inactive tasks are read-only. Their timing cannot be edited.",
+        "timing.conflict": "This task changed while you were editing. Your draft is retained. Cancel and reopen after refresh to edit the latest rule.",
+        "timing.notFound": "This task is no longer available. Your draft is retained; cancel to close the editor.",
+        "timing.invalid": "Enter a valid date and time, or check the timing fields.",
+        "timing.invalidZone": "Enter a valid IANA time zone, for example Asia/Shanghai.",
+        "timing.notFuture": "Choose a date and time in the future.",
+        "timing.invalidInterval": "Enter an interval of at least 1 minute.",
+        "timing.invalidInterval.hour": "Enter an interval of at least 1 hour.",
+        "timing.invalidInterval.minute": "Enter an interval of at least 1 minute.",
+        "timing.invalidInterval.second": "Enter an interval of at least 60 seconds.",
+        "timing.error": "Could not confirm the timing update. Your draft is retained. Check the task before retrying.",
+        "rule.title": "Run time",
+        "rule.repeat": "Repeat",
+        "rule.weekday": "Weekday",
+        "rule.weekdayOption": "Weekday {weekday}",
+        "rule.unsaved": "Unsaved changes",
+        "rule.save": "Save changes",
+        "rule.saving": "Saving…",
+        "rule.cancel": "Cancel",
+        "rule.invalidTitle": "Enter a task name of at most 120 characters.",
+        "rule.invalidPrompt": "Enter a task instruction.",
+        "rule.once": "Once",
+        "rule.everyMinutes": "Every N minutes",
+        "rule.everyHours": "Every N hours",
+        "rule.everySeconds": "Every N seconds",
+        "rule.daily": "Every day",
+        "rule.weekdays": "Monday to Friday",
+        "rule.weekly": "Weekly",
+        "rule.cron": "Custom",
+        "rule.cronLabel": "Cron expression",
+        "rule.cronInvalid": "Enter a five-field cron expression, for example 0 9 * * 1-5.",
+        "cronForm.frequency": "Frequency",
+        "cronForm.monthly": "Monthly",
+        "cronForm.weekly": "Weekly",
+        "cronForm.daily": "Every day",
+        "cronForm.dates": "On dates",
+        "cronForm.dateOption": "Day {day}",
+        "cronForm.atMinute": "At minute",
+        "cronForm.minuteIncrease": "Increase minute",
+        "cronForm.minuteDecrease": "Decrease minute",
+        "rule.zone.system": " (system)",
+        "rule.error.conflict": "This task changed before the update was saved. The row shows the saved rule; try again.",
+        "rule.error.notFound": "This task is no longer available.",
+        "rule.error.unknown": "Could not confirm the rule update. The row shows the saved rule.",
+        "delete.action": "Delete task",
+        "delete.title": "Delete this task?",
+        "delete.description": "This stops the task from triggering and deletes it together with its saved delivery records. The original session and its messages remain; queued messages are not withdrawn.",
+        "delete.confirm": "Confirm deletion",
+        "delete.cancel": "Cancel",
+        "delete.close": "Close deletion confirmation",
+        "delete.pending": "Deleting…",
+        "toast.deleted": "Task deleted.",
+        "toast.deleteFailed": "Could not delete the task.",
+        "card.open": "Open",
+        "card.openLabel": "Open task details: {title}",
+        "card.deleted": "Deleted",
+        "tool.invoked": "Invoked {name}"
+      },
+      "keyCount": 187,
+      "source": "packages/client/ui-schedule/src/client/task-manager-locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-schedule/src/client/task-manager-locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-schedule/src/client/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-schedule/src/client/index.ts",
+        "lines": [
+          {
+            "line": 61,
+            "text": "import { en, NS, zh, type ScheduleCatalogKey } from './locales.ts'"
+          },
+          {
+            "line": 62,
+            "text": "import { en as managerEn, zh as managerZh, type TaskManagerKey } from './task-manager-locales.ts'"
+          },
+          {
+            "line": 64,
+            "text": "const MANAGER_NS = 'schedule.manager'"
+          },
+          {
+            "line": 89,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'ui-schedule: dictionaries')"
+          },
+          {
+            "line": 90,
+            "text": "  ctx.effect(() => ctx.locale.register(MANAGER_NS, { zh: managerZh, en: managerEn }), 'ui-schedule: manager dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-schedule",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-schedule/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-schedule/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json",
+        "./locale/*.json": "./locale/*.json"
+      },
+      "keyUnion": {
+        "name": "TaskManagerKey",
+        "notes": "Local named key union is imported and referenced in public LocaleNamespaceMap but not re-exported as a named type",
+        "source": "packages/client/ui-schedule/src/client/task-manager-locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "published-client-namespace-map",
+        "installedLocally": true,
+        "integrationNote": "The installed ./client declaration exposes the key set through LocaleNamespaceMap. Existing type-only import can support LocaleDictOf<\"schedule.manager\"> in a future translation batch.",
+        "installedVersion": "0.2.0-rc.2",
+        "publishedDeclarationVerified": true,
+        "declarationEvidence": "@deepseek-ai/dsh-client-ui-schedule@0.2.0-rc.2/lib/types/client/index.d.ts:31-38 imports TaskManagerKey and declares LocaleNamespaceMap[\"schedule.manager\"]"
+      },
+      "translated": false
+    },
+    "sidebarOffice": {
+      "english": {
+        "title": "Office document",
+        "loading": "Rendering document...",
+        "retry": "Retry",
+        "viewMissingFonts": "Missing fonts: {count}. Click to view.",
+        "missingFontsTitle": "Missing fonts",
+        "missingFontsDescription": "These fonts are unavailable for this preview. Text and layout may differ from the original document.",
+        "missingFontsCount": "Fonts: {count}",
+        "closeDetails": "Close font details",
+        "unavailable": "Office previews are unavailable. Enable the document preview service on the computer running DeepSeek Harness.",
+        "invalid": "This Office file cannot be previewed. It may be damaged, password protected, or have the wrong extension.",
+        "tooLarge": "The Office file or converted PDF exceeds the preview size limit. Reduce the file size or adjust the preview configuration.",
+        "failed": "Office conversion did not produce a usable PDF. Check the file and try again.",
+        "timeout": "Office conversion timed out. Try again.",
+        "busy": "Office preview is busy. Try again shortly.",
+        "changed": "The file changed while being read. Reopen the preview."
+      },
+      "keyCount": 15,
+      "source": "packages/client/ui-sidebar-documentpreview/src/client/office/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-documentpreview/src/client/office/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-sidebar-documentpreview/src/client/office/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-documentpreview/src/client/office/index.ts",
+        "lines": [
+          {
+            "line": 10,
+            "text": "import { en, zh, type OfficePreviewKey } from './locales.ts'"
+          },
+          {
+            "line": 34,
+            "text": "  ctx.effect(() => ctx.locale.register('sidebarOffice', { zh, en }))"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-sidebar-documentpreview/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-documentpreview/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "OfficePreviewKey",
+        "notes": "Local named key union is not re-exported from package ./client",
+        "source": "packages/client/ui-sidebar-documentpreview/src/client/office/locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "namespace-map-in-registration-source",
+        "installedLocally": true,
+        "integrationNote": "No named key-union re-export was found. Namespace-map and transitive declaration reachability must be checked against installed declarations before adopting a type-only import.",
+        "installedVersion": "0.2.0-rc.2"
+      },
+      "translated": false
+    },
+    "sidebarExcel": {
+      "english": {
+        "title": "Spreadsheet",
+        "language": "en",
+        "loading": "Rendering document...",
+        "invalid": "This spreadsheet could not be opened. Check its format, contents, or password protection.",
+        "tooLarge": "This workbook exceeds the preview size limit.",
+        "timeout": "Opening this workbook timed out. Try a smaller file.",
+        "encoding": "This text encoding could not be read. Save the file as UTF-8 or UTF-16 with a BOM and retry.",
+        "formulaWarning": "This workbook contains formulas. Displayed results may be missing or inaccurate.",
+        "unsupportedNotice": "This preview does not support {features} in this workbook. Open it in a system application for the full experience.",
+        "charts": "charts",
+        "images": "images",
+        "shapes": "shapes",
+        "conditionalFormatting": "conditional formatting",
+        "featureSeparator": ", ",
+        "retry": "Retry"
+      },
+      "keyCount": 15,
+      "source": "packages/client/ui-sidebar-documentpreview/src/client/excel/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-documentpreview/src/client/excel/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/client/ui-sidebar-documentpreview/src/client/excel/index.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-documentpreview/src/client/excel/index.ts",
+        "lines": [
+          {
+            "line": 6,
+            "text": "import { en, zh } from './locales.ts'"
+          },
+          {
+            "line": 15,
+            "text": "  ctx.effect(() => ctx.locale.register('sidebarExcel', { zh, en }))"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/client/ui-sidebar-documentpreview/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/client/ui-sidebar-documentpreview/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "ExcelPreviewKey",
+        "notes": "Local named key union is not re-exported from package ./client",
+        "source": "packages/client/ui-sidebar-documentpreview/src/client/excel/locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": false,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "no-direct-client-export",
+        "installedLocally": true,
+        "integrationNote": "No named key-union re-export was found. Namespace-map and transitive declaration reachability must be checked against installed declarations before adopting a type-only import.",
+        "installedVersion": "0.2.0-rc.2"
+      },
+      "translated": false
+    },
+    "agent-team": {
+      "english": {
+        "trigger": "Agent Team",
+        "loading": "Loading Team…",
+        "unavailable": "Team is unavailable",
+        "failure": "Invalid persisted Team record: {message}",
+        "empty": "No shared tasks yet. Create them through the conversation.",
+        "roster": "Members",
+        "tasks": "Shared tasks",
+        "model": "Model",
+        "open": "Open member conversation",
+        "current": "Current chat",
+        "owner": "Owner",
+        "unowned": "Unowned",
+        "blockedBy": "Blocked by",
+        "writeScopes": "Write scopes",
+        "ready": "Ready",
+        "blocked": "Blocked by dependencies",
+        "task.expand": "Show more",
+        "task.collapse": "Show less",
+        "memberStatus.running": "Running",
+        "memberStatus.inactive": "Inactive",
+        "memberStatus.provisioning": "Provisioning",
+        "memberStatus.failed": "Failed",
+        "status.pending": "Pending",
+        "status.in_progress": "In progress",
+        "status.completed": "Completed"
+      },
+      "keyCount": 25,
+      "source": "packages/experimental/client-ui-agent-team/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/experimental/client-ui-agent-team/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/experimental/client-ui-agent-team/src/client/mount.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/experimental/client-ui-agent-team/src/client/mount.ts",
+        "lines": [
+          {
+            "source": "packages/experimental/client-ui-agent-team/src/client/locales.ts",
+            "line": 4,
+            "text": "export const NS = 'agent-team'"
+          },
+          {
+            "line": 11,
+            "text": "import { en, NS, zh, type TeamKey } from './locales.ts'"
+          },
+          {
+            "line": 30,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'client-ui-agent-team: dictionaries')"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-experimental-client-ui-agent-team",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/experimental/client-ui-agent-team/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/experimental/client-ui-agent-team/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./locale/*.json": "./locale/*.json",
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "keyUnion": {
+        "name": "TeamKey",
+        "notes": "Named key union exported from ./client; experimental module",
+        "source": "packages/experimental/client-ui-agent-team/src/client/locales.ts",
+        "namedExportOnClient": true,
+        "publicNamespaceMapDeclaredInEntry": true,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "named-client-export",
+        "installedLocally": false,
+        "integrationNote": "Named union is exposed upstream. This batch uses the fixed-source local union because the package is not installed; migrate to a type-only import when dependency installation is separately authorized."
+      },
+      "translated": false
+    },
+    "voice-input": {
+      "english": {
+        "dictate": "Dictate",
+        "setupPrompt.title": "Set up voice input before recording",
+        "setupPrompt.body": "Voice input is enabled. First use requires downloading and preparing local recognition models. Open the plugin details to review disk space, memory and time estimates before starting setup.",
+        "setupPrompt.later": "Later",
+        "setupPrompt.open": "Go to setup",
+        "setupPrompt.trigger": "Open voice input setup",
+        "setupPrompt.details": "Open voice plugin settings",
+        "setupPrompt.unavailableTitle": "Speech recognition is not ready",
+        "setupPrompt.unavailableBody": "Open the voice plugin details to check recognition status, preparation progress, or errors.",
+        "setup.local": "Local models will be downloaded to the machine running DSH. No Python or compiler is required.",
+        "setup.disk": "Disk space",
+        "setup.diskValue": "Allow about {gb} GB for models, runtime, and download caches",
+        "setup.memory": "Memory",
+        "setup.memoryValue": "About {gb} GB with the model loaded; recognition may use more",
+        "setup.time": "First setup",
+        "setup.timeValue": "Allow roughly {min}–{max} minutes, depending on the network and machine",
+        "setup.estimateNote": "These are estimates; slow networks may take longer. Downloads are reused; idle models release memory by default.",
+        "step.check": "Check local resources",
+        "step.model": "Prepare recognition model",
+        "step.vad": "Prepare voice detection model",
+        "step.verify": "Verify model files",
+        "step.load": "Load {name}",
+        "stepStatus.pending": "Not started",
+        "stepStatus.running": "In progress",
+        "stepStatus.complete": "Completed",
+        "stepStatus.failed": "Failed",
+        "stepStatus.cancelled": "Cancelled",
+        "short.downloading": "Downloading",
+        "short.failed": "Setup failed",
+        "retryRecording": "Record again",
+        "preparationSteps": "Preparation steps",
+        "prepare": "Download and prepare",
+        "retryPrepare": "Retry preparation",
+        "cancelPrepare": "Cancel preparation",
+        "downloadProgress": "Download progress",
+        "downloadBytes": "Download: {completed} / {total} MB, {percent}%",
+        "downloadUnknown": "Downloaded {completed} MB",
+        "elapsed": "Waiting {seconds} seconds",
+        "preparationFailed": "Preparation failed: {message}",
+        "download.network": "Cannot download {resource}: connection to the download service failed.",
+        "download.dns": "Cannot download {resource}: the download address could not be resolved.",
+        "download.timeout": "The download of {resource} timed out.",
+        "download.certificate": "Cannot download {resource}: certificate verification failed.",
+        "download.http": "Cannot download {resource}: the download service returned HTTP {status}.",
+        "download.integrity": "The download of {resource} is incomplete or failed verification.",
+        "download.storage": "Cannot save {resource}: insufficient disk space or write permission.",
+        "download.unknown": "Could not prepare {resource}.",
+        "downloadAdvice.network": "Check that the machine running DSH can reach the download source and its model download services. Configure a proxy on that machine if needed, then retry.",
+        "downloadAdvice.dns": "Check DNS and proxy settings on the machine running DSH. Confirm that it can resolve the download source domain, then retry.",
+        "downloadAdvice.timeout": "Check the network or proxy connection on the machine running DSH, then retry later. Verified downloaded files are retained.",
+        "downloadAdvice.certificate": "Check the system clock, trusted certificates and proxy settings on the machine running DSH, then retry.",
+        "downloadAdvice.http": "Confirm that the download address is available and the proxy can reach the download service, or retry later.",
+        "downloadAdvice.integrity": "Retry the download. Other completed and verified files are retained.",
+        "downloadAdvice.storage": "Check available disk space and write permission for the model directory on the machine running DSH, then retry.",
+        "downloadAdvice.unknown": "Check the network, disk space and model directory permissions on the machine running DSH, then retry.",
+        "downloadSource": "Download source: {source}",
+        "sourceChoice": "Model download source",
+        "sourceAuto": "Automatic (recommended)",
+        "sourceHuggingFace": "Hugging Face",
+        "sourceMirror": "HF-Mirror (China mirror)",
+        "sourceAutoHelp": "Prefer the first responding source and try another if a download fails.",
+        "sourceManualHelp": "Download only from the selected source. Verified downloaded files are reused.",
+        "downloadCode": "Error code: {code}",
+        "reconnecting": "Connecting to speech recognition…",
+        "preparation.unprepared": "First use downloads the local recognition models.",
+        "preparation.checking": "Checking local resources…",
+        "preparation.loading": "Loading {name}…",
+        "preparation.waking": "Waking local speech recognition…",
+        "preparation.ready": "Local speech recognition is ready.",
+        "preparation.standby": "Local resources are prepared. Recording wakes the recognizer.",
+        "preparation.cancelled": "Preparation cancelled. Completed downloads are retained.",
+        "preparation.cancelling": "Cancelling preparation…",
+        "cloudReady": "Cloud speech recognition is ready.",
+        "discard": "Discard transcript",
+        "transcribingShort": "Transcribing…",
+        "wakingShort": "Waking…",
+        "provider": "Recognition service",
+        "language": "Recognition language",
+        "auto": "Detect automatically",
+        "zh": "Chinese",
+        "en": "English",
+        "yue": "Cantonese",
+        "ja": "Japanese",
+        "ko": "Korean",
+        "start": "Start recording",
+        "stop": "Stop and transcribe",
+        "cancel": "Cancel",
+        "insert": "Insert text",
+        "loading": "Loading recognition services…",
+        "requesting": "Allow microphone access to continue…",
+        "recording": "Recording…",
+        "interrupted": "Recording was interrupted. Please try again.",
+        "local": "Audio is recognized on the machine running DSH. If models need downloading, that machine must be able to reach the selected source and its file services. Configure a proxy on that machine if needed.",
+        "cloud": "Audio will be sent to the selected cloud service.",
+        "empty": "No speech recognized",
+        "cancelled": "Voice input cancelled.",
+        "conflict": "Your draft changed. The transcript is preserved and can be inserted at the current cursor.",
+        "failed": "Speech recognition failed: {message}",
+        "unavailable": "This browser cannot record audio. Use a browser with microphone support.",
+        "permission": "Microphone access is disabled. Allow it in browser and system settings.",
+        "tooLarge": "The recording exceeds the service limit. Try a shorter recording."
+      },
+      "keyCount": 101,
+      "source": "packages/experimental/client-ui-voice-input/src/client/locales.ts",
+      "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/experimental/client-ui-voice-input/src/client/locales.ts",
+      "englishExport": "en",
+      "registrationEvidence": {
+        "source": "packages/experimental/client-ui-voice-input/src/client/mount.ts",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/experimental/client-ui-voice-input/src/client/mount.ts",
+        "lines": [
+          {
+            "source": "packages/experimental/client-ui-voice-input/src/client/locales.ts",
+            "line": 4,
+            "text": "export const NS = 'voice-input'"
+          },
+          {
+            "line": 11,
+            "text": "import { en, NS, zh } from './locales.ts'"
+          },
+          {
+            "line": 20,
+            "text": "  ctx.effect(() => ctx.locale.register(NS, { zh, en }))"
+          }
+        ]
+      },
+      "package": "@deepseek-ai/dsh-experimental-client-ui-voice-input",
+      "packageVersion": "0.2.0-rc.2",
+      "packageSource": "packages/experimental/client-ui-voice-input/package.json",
+      "packageSourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/packages/experimental/client-ui-voice-input/package.json",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        }
+      },
+      "keyUnion": {
+        "name": "VoiceKey",
+        "notes": "no key union re-export from ./client; experimental module",
+        "source": "packages/experimental/client-ui-voice-input/src/client/locales.ts",
+        "namedExportOnClient": false,
+        "publicNamespaceMapDeclaredInEntry": false,
+        "sourceWildcardShipped": false,
+        "restriction": "The ./src/* export does not make source files available in npm when the files allowlist excludes src; use only installed declared package exports.",
+        "publicReachability": "no-direct-client-export",
+        "installedLocally": false,
+        "integrationNote": "No named key-union re-export was found. Namespace-map and transitive declaration reachability must be checked against installed declarations before adopting a type-only import."
+      },
+      "translated": false
+    }
+  },
+  "namespaceCount": 16,
+  "packageCount": 15,
+  "keyCount": 819,
+  "translatedNamespaceCount": 6,
+  "translatedKeyCount": 111,
+  "untranslatedNamespaces": [
+    "settings.account",
+    "shortcuts",
+    "pluginManager",
+    "sidebarBrowser",
+    "shortcuts.layout",
+    "schedule.manager",
+    "sidebarOffice",
+    "sidebarExcel",
+    "agent-team",
+    "voice-input"
+  ],
+  "untranslatedKeyCount": 708
+}

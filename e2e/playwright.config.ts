@@ -1,6 +1,11 @@
 import { defineConfig } from "@playwright/test";
 
+const suite = process.env.DSH_E2E_SUITE ?? "all";
+if (!["all", "core", "mock"].includes(suite)) throw new Error(`Unknown E2E suite: ${suite}`);
+
 export default defineConfig({
+  ...(suite === "mock" ? { grep: /conversation:/ } : {}),
+  ...(suite === "core" ? { grepInvert: /conversation:/ } : {}),
   testDir: ".",
   fullyParallel: false,
   workers: 1, // phases mutate shared Docker state; order is load-bearing

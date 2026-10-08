@@ -26,10 +26,13 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Install dependencies
-        run: mise run install
+        run: pnpm install --frozen-lockfile
 
       - name: Check (typecheck, lint, format-check, build, test)
         run: mise run check
+
+      - name: Verify committed build output
+        run: git diff --exit-code -- lib
 
   secret-scan:
     name: secret scanning (gitleaks)
@@ -48,27 +51,94 @@ jobs:
         run: gitleaks git . --redact --no-banner
 
   e2e:
-    name: e2e (docker dsh web + playwright)
+    name: core e2e (${{ matrix.installSource }})
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        installSource: [tgz, git]
     steps:
-      - name: Checkout
+      - name: Checkout tested commit
         uses: actions/checkout@v7
+        with:
+          # Git install must use a reachable source commit, not a synthetic merge SHA.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install mise and tools
         uses: jdx/mise-action@v4
 
       - name: Install dependencies
-        run: mise run install
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright browser (chromium)
         run: mise run playwright
 
-      - name: Run E2E (build, pack, docker dsh web, playwright)
+      - name: Select Git installation source
+        if: matrix.installSource == 'git'
+        run: echo "DSH_E2E_GIT_SPEC=https://github.com/${SOURCE_REPOSITORY}.git#${SOURCE_SHA}" >> "$GITHUB_ENV"
+        env:
+          SOURCE_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Run core installation and locale checks
         run: mise run e2e
+        env:
+          DSH_E2E_DSH_VERSION: "0.2.0-rc.2"
+          DSH_E2E_SUITE: core
+
+      - name: Upload core E2E diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-core-${{ matrix.installSource }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: e2e/.artifacts/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
+
+  mock-conversation:
+    name: mock conversation (known protocol mismatch; non-blocking)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    # Only this optional lane is non-blocking. Test assertions and exit status remain intact.
+    continue-on-error: true
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Install mise and tools
+        uses: jdx/mise-action@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser (chromium)
+        run: mise run playwright
+
+      - name: Run mock conversation
+        id: mock
+        run: mise run e2e
+        env:
+          DSH_E2E_DSH_VERSION: "0.2.0-rc.2"
+          DSH_E2E_SUITE: mock
+
+      - name: Record mock result
+        if: ${{ always() }}
+        run: |
+          echo "Mock conversation: ${MOCK_OUTCOME} (non-blocking)." >> "$GITHUB_STEP_SUMMARY"
+          echo 'Known limit: rc.2 uses Messages; the chat/completions-only mock returns 404. This lane is not evidence of a successful model turn.' >> "$GITHUB_STEP_SUMMARY"
+        env:
+          MOCK_OUTCOME: ${{ steps.mock.outcome }}
+
+      - name: Upload mock diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-mock-${{ github.run_id }}-${{ github.run_attempt }}
+          path: e2e/.artifacts/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
