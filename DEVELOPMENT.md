@@ -247,6 +247,17 @@ before removing the container.
 
 ## Watching upstream DSH releases
 
+Separate two failure classes when reviewing results: a compatibility/activation
+failure blocks loading, while dictionary drift only describes translation
+coverage. A devDependency pin is not the installed runtime version. Test the
+packed candidate against the exact Desktop runtime and update `engines.dsh`
+only for reviewed versions; never use `*` or grant a version exemption merely
+to make an upstream check green. If that runtime already owns Japanese, prefer
+native localization and test the plugin's zero-effect path rather than
+duplicating first-party dictionaries. Keep native Desktop acceptance distinct
+from mocked service tests and Web E2E. Check workflow enablement, recent runs,
+and notification delivery before assuming scheduled checks provide an alert.
+
 DSH is a developer preview that ships faster than this plugin pins it. The
 `E2E next DSH` workflow (`.github/workflows/e2e-upstream.yml`) runs twice a
 day on `main` against the registry's `next` release — the prerelease line the

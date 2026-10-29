@@ -6,6 +6,12 @@ agents modify the codebase. Keep it short and operational.
 
 ## What this project is
 
+The unpublished `0.3.2-compat.1` repair keeps the rc.2 dictionary/build baseline
+while separating it from the explicit runtime allowlist in `engines.dsh`.
+If the locale service already supplies Japanese, activation is intentionally
+inert: another provider owns its language, dictionaries, fonts, and teardown.
+See [the repair's evidence and limits](docs/desktop-compatibility.md#unreleased-032-compat1-repair).
+
 `@bailuo2153/dsh-locale-ja` is a **standard DSH client plugin package** for
 DeepSeek Harness (DSH) `0.2.0-rc.2`, targeting the shared Web renderer in the `web` and Desktop profiles. Its Host
 half (`src/index.ts`) exports an empty `apply()` only so the package can mount a

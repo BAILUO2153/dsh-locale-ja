@@ -1,12 +1,22 @@
 import type { Context as ClientContext } from "@deepseek-ai/cordis";
 import { DICTS } from "./dictionaries.ts";
 import { createFontStylesheet } from "./font.ts";
-import { extendLocaleService, isJapaneseActive, JA } from "./locale-extension.ts";
+import {
+  extendLocaleService,
+  hasJapaneseLocale,
+  isJapaneseActive,
+  JA,
+} from "./locale-extension.ts";
 
 export const inject = ["locale"];
 
 export function apply(ctx: ClientContext): void {
   const { locale } = ctx;
+
+  // DSH 0.2.2-alpha.2 supplies Japanese before providing the locale service.
+  // Respect an existing owner: duplicate dictionaries are rejected as well as
+  // duplicate language definitions. Do not override or dispose either one.
+  if (hasJapaneseLocale(locale)) return;
 
   ctx.effect(() => {
     const disposers: Array<() => void> = [];

@@ -5,9 +5,19 @@ import { readFileSync } from "node:fs";
 const read = (path: string): string => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const id = "@bailuo2153/dsh-locale-ja";
 const oldId = "@fang2hou/dsh-locale-ja";
-const manifest = JSON.parse(read("package.json")) as { name: string; version: string };
+const manifest = JSON.parse(read("package.json")) as {
+  name: string;
+  version: string;
+  engines: { dsh: string };
+  peerDependencies: Record<string, string>;
+};
 assert.equal(manifest.name, id);
-assert.equal(manifest.version, "0.3.1");
+assert.equal(manifest.version, "0.3.2-compat.1");
+assert.equal(
+  manifest.engines.dsh,
+  "0.2.0-rc.2 || 0.2.1-rc.1 || 0.2.1-rc.2 || 0.2.1-rc.3 || 0.2.1-rc.4 || 0.2.2-alpha.2",
+);
+assert.equal(manifest.peerDependencies["@deepseek-ai/dsh-client-locale"], manifest.engines.dsh);
 assert.match(read("cordis.patch.yml"), /name: "@bailuo2153\/dsh-locale-ja"/);
 assert.ok(read("lib/client.js").includes(`id: "${id}"`));
 assert.ok(read("src/client/font.ts").includes(`const PLUGIN_ID = "${id}"`));
