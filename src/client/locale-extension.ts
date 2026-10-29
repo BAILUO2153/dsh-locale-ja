@@ -6,6 +6,10 @@ export const JA = "ja";
 
 const JA_LABEL = "日本語";
 
+export function hasJapaneseLocale(locale: LocaleRuntime): boolean {
+  return locale.getLocale().locales.some(({ id }) => id.toLowerCase() === JA);
+}
+
 export function isJapaneseActive(locale: LocaleRuntime): boolean {
   return (locale.getLocale().active as string) === JA;
 }

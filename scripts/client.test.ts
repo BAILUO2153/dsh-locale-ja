@@ -380,6 +380,29 @@ plugin.apply(ctxOf(locale));
 assert(locale.getLocale().active === "ja", "boots straight into Japanese");
 for (const dispose of disposers.toReversed()) dispose();
 
+// --- an existing Japanese owner ------------------------------------------
+
+console.log("existing Japanese owner");
+for (const id of ["ja", "JA"]) {
+  locale = createLocale("ja");
+  const removeLanguage = locale.addLanguage({ id, label: "日本語", fallback: "en" });
+  const dictionary = { cancel: "Existing owner's Japanese" };
+  const removeDictionary = locale.register("common", id, dictionary);
+  const before = locale.getLocale();
+  disposers = [];
+  for (let cycle = 0; cycle < 3; cycle += 1) plugin.apply(ctxOf(locale));
+  assert(disposers.length === 0, `${id}: leaves no plugin effects to dispose`);
+  assert(locale.getLocale() === before, `${id}: does not change the provider snapshot`);
+  assert(
+    locale.registrations.length === 1 && locale.registrations[0]?.dict === dictionary,
+    `${id}: preserves the existing dictionary without registering duplicates`,
+  );
+  assert(locale.hostWrites.length === 0, `${id}: does not rewrite the Host preference`);
+  assert(dom.tags.length === 0, `${id}: leaves the existing owner's fonts alone`);
+  removeDictionary();
+  removeLanguage();
+}
+
 // --- failed setup and reload ---------------------------------------------
 
 console.log("failed setup and reload");
